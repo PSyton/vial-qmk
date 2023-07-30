@@ -1,2 +1,3 @@
-#undef MANUFACTURER
-#define MANUFACTURER "I am Jack's"
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 200
+#define LEADER_NO_TIMEOUT
