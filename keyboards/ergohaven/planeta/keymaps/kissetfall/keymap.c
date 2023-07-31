@@ -155,9 +155,9 @@ void leader_end_user(void) {
         tap_code16(LAG(KC_S));
     
     } else if (leader_sequence_one_key(KC_D)) {
-        tap_code16(LGUI(KC_D));
+        tap_code16(KC_DEL);
     } else if (leader_sequence_two_keys(KC_D, KC_D)) {
-        tap_code16(LAG(KC_D));
+        tap_code16(LSFT(KC_DEL));
 
     } else if (leader_sequence_one_key(KC_F)) {
         tap_code16(LGUI(KC_F));
