@@ -45,8 +45,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______, _______, _______, _______, _______, _______,                           _______, _______, _______, _______, _______,  _______,
          _______, KC_3,    KC_2,    KC_1,    KC_0,    KC_4,                              KC_7,    KC_6,    KC_5,    KC_9,    KC_8,     _______,
          KC_ENT,  APP_A,   APP_S,   APP_D,   LALT(KC_TAB), APP_G,                        _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______,
-         _______, _______, APP_X,   APP_C,   APP_V,   APP_B,                             _______, PREVWRD, KC_PGDN, KC_PGUP, NEXTWRD,  _______,
-                  KC_VOLD, KC_VOLU, _______, _______, _______, _______,         _______, ADJUST, _______, _______, _______, _______ 
+         _______, KC_LALT, APP_X,   APP_C,   APP_V,   APP_B,                             _______, PREVWRD, KC_PGDN, KC_PGUP, NEXTWRD,  _______,
+                  KC_VOLD, KC_VOLU, _______, _______, _______, _______,         _______, _______, ADJUST, _______, _______, _______ 
     
       ),
     
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______, _______, KC_AT,   KC_EQL,  KC_PLUS, KC_LPRN,                           KC_RPRN, _______, KC_UNDS, KC_PERC, _______, _______,
          _______, KC_BSLS, KC_DLR,  KC_MINS, KC_HASH, KC_LBRC,                           KC_RBRC, KC_QUES, KC_SCLN, KC_CIRC, KC_EXLM, _______,
          _______, _______, KC_ASTR, KC_COLN, KC_SLSH, KC_LCBR,                           KC_RCBR, KC_PIPE, KC_TILD, KC_AMPR, _______, _______,
-                  _______, _______, _______, _______, ADJUST, _______,         _______, _______, _______, _______, _______, _______ 
+                  _______, _______, _______, ADJUST,  _______, _______,         _______, _______, _______, _______, _______, _______ 
       ),
     
       [_ADJUST] = LAYOUT(
