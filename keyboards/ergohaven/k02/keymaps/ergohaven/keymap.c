@@ -6,13 +6,13 @@
 #include "game/game.h"
 #include "layers.c"
 
-enum custom_keycodes {
-    NEXTSEN = QK_KB,
-    PREDL, 
-    BRACES,
-    PARENTH,
-    GM_INV,
-};
+// enum custom_keycodes {
+//     NEXTSEN = QK_KB,
+//     PREDL, 
+//     BRACES,
+//     PARENTH,
+//     GM_INV,
+// };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_BASE] = LAYOUT( \
@@ -163,7 +163,7 @@ void matrix_scan_user(void) {
 
 
 // custom keycodes
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
     if (record->event.pressed) {
         extern uint32_t tap_timer;
         tap_timer = timer_read32();

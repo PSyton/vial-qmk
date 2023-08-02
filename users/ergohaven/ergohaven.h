@@ -33,3 +33,11 @@
 #define AL_DT RALT_T(KC_DOT)
 #define LO_TB LT(LOWER, KC_TAB)
 
+enum custom_keycodes {
+    NEXTSEN = QK_KB,
+    PREDL, 
+    BRACES,
+    PARENTH,
+    GM_INV,
+    ALT_TAB
+};
