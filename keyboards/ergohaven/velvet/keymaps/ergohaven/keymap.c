@@ -1,35 +1,6 @@
 #include QMK_KEYBOARD_H
+#include "ergohaven.h"
 
-#define _BASE 0
-#define _LOWER 1
-#define _RAISE 2
-#define _ADJUST 3
-#define _FOURTH 4
-#define _FIFTH 5
-#define _SIXTH 6
-#define _SEVENTH 7
-#define _EIGHTH 8
-#define _NINTH 9
-#define _TENTH 10
-#define _ELEVENTH 11
-#define _TWELTH 12
-#define _THIRTEENTH 13
-#define _FOURTEENTH 14
-#define _FIFTEENTH 15
-
-#define BASE      DF(_BASE)
-#define RAISE     MO(_RAISE)
-#define LOWER     MO(_LOWER)
-#define ADJUST    MO(_ADJUST)
-#define PREVWRD   LCTL(KC_LEFT)
-#define NEXTWRD   LCTL(KC_RIGHT)
-#define CT_Q  LCTL_T(KC_Q)
-#define CT_CM RCTL_T(KC_COMM)
-#define SF_Z  LSFT_T(KC_Z)
-#define SF_SS RSFT_T(KC_SLSH)
-#define AL_X  LALT_T(KC_X)
-#define AL_DT RALT_T(KC_DOT)
-#define LO_TB LT(LOWER, KC_TAB)
 
 enum custom_keycodes {
     NEXTSEN = QK_KB,
