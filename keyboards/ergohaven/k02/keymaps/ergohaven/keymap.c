@@ -6,14 +6,6 @@
 #include "game/game.h"
 #include "layers.c"
 
-// enum custom_keycodes {
-//     NEXTSEN = QK_KB,
-//     PREDL, 
-//     BRACES,
-//     PARENTH,
-//     GM_INV,
-// };
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_BASE] = LAYOUT( \
           KC_GRV,   KC_1,    KC_2,    KC_3,     KC_4,     KC_5,                         KC_6,  KC_7,     KC_8,     KC_9,   KC_0,    KC_BSPC, \
@@ -66,7 +58,7 @@ void render_layer_state(void) {
     // Print current mode
     oled_write_ln_P(PSTR("K:02\n"), false);
     /* oled_write_P(PSTR("\n"), false); */
-    oled_write_ln_P(PSTR("v2.9\n"), false);
+    oled_write_ln_P(PSTR("v3.0\n"), false);
     oled_write_P(PSTR("\n"), false);
     oled_write_ln_P(PSTR("MODE\n"), false);
     if (keymap_config.swap_lctl_lgui) {
@@ -150,104 +142,12 @@ bool oled_task_user(void) {
     return false;
 }
 
-void matrix_scan_user(void) {
-    if (isGamingMode()) {
-        if (countMainTimer() > 0) {
-            game_main();
-        }
-    }
-}
+// void matrix_scan_user(void) {
+//     if (isGamingMode()) {
+//         if (countMainTimer() > 0) {
+//             game_main();
+//         }
+//     }
+// }
 
 #endif
-
-
-
-// custom keycodes
-bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
-    if (record->event.pressed) {
-        extern uint32_t tap_timer;
-        tap_timer = timer_read32();
-    }
-    switch (keycode) {
-    case NEXTSEN:  // Next sentence macro.
-      if (record->event.pressed) {
-        SEND_STRING(". ");
-        add_oneshot_mods(MOD_BIT(KC_LSFT));  // Set one-shot mod for shift.
-      }
-      return false;
-
-    case PREDL:  // Next sentence macro.
-      if (record->event.pressed) {
-        SEND_STRING("/ ");
-        add_oneshot_mods(MOD_BIT(KC_LSFT));  // Set one-shot mod for shift.
-      }
-      return false;
-
-       case BRACES:
-            if (record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_MASK_SHIFT);
-                    if (shifted) {
-                        unregister_code(KC_LSFT);
-                        unregister_code(KC_RSFT);
-                        SEND_STRING("{}"SS_TAP(X_LEFT));
-                    }
-                    else {
-                        SEND_STRING("[]"SS_TAP(X_LEFT));
-                    }
-            }
-            break;
-
-        case PARENTH:
-            if (record->event.pressed) {
-                SEND_STRING("()");
-                tap_code(KC_LEFT);
-            }
-            break;
-        case GM_INV:
-            // Toggle gaming mode & clear OLED display
-            if (!record->event.pressed) {
-                toggleGamingMode();
-                if (isGamingMode()) {
-                    readMainTimer();
-                    initGame();
-                    startGame();
-                }
-                oled_clear();
-            }
-            break;
-        case KC_S:
-            if (record->event.pressed) {
-                if (isGamingMode()) {
-                    movePlayer(1); // 1 = isLeft
-                    return false;
-                }
-            }
-            break;
-        case KC_F:
-            if (record->event.pressed) {
-                if (isGamingMode()) {
-                    movePlayer(0); // 0 = isRight
-                    return false;
-                }
-            }
-            break;
-        case KC_SPC:
-            if (record->event.pressed) {
-                if (isGamingMode()) {
-                    firePlayerBeam();
-                    return false;
-                }
-            }
-            break;
-        case KC_ENT:
-        case KC_LGUI:
-            if (record->event.pressed) {
-                if (isGamingMode()) {
-                    return false;
-                }
-            }
-            break;
-    }
- return true;
-} 
-

@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______, _______, _______, _______, _______, _______,                           _______, _______, _______, _______, _______,  _______,
          _______, KC_3,    KC_2,    KC_1,    KC_0,    KC_4,                              KC_7,    KC_6,    KC_5,    KC_9,    KC_8,     _______,
          KC_ENT,  APP_A,   APP_S,   APP_D,   LALT(KC_TAB),  APP_G,                       _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______,
-         _______, _______, APP_X,   APP_C,   APP_V,   APP_B,                             _______, PREVWRD, KC_PGDN, KC_PGUP, NEXTWRD,  _______,
+         _______, KC_LALT, APP_X,   APP_C,   APP_V,   APP_B,                             _______, PREVWRD, KC_PGDN, KC_PGUP, NEXTWRD,  _______,
                            KC_VOLD, KC_VOLU, _______, _______, _______,         _______, ADJUST, _______, _______, _______ 
     
       ),
@@ -65,7 +65,7 @@ void render_layer_state(void) {
     // Print current mode
     oled_write_ln_P(PSTR("K:02\n"), false);
     /* oled_write_P(PSTR("\n"), false); */
-    oled_write_ln_P(PSTR("v2.9\n"), false);
+    oled_write_ln_P(PSTR("v3.0\n"), false);
     oled_write_P(PSTR("\n"), false);
     oled_write_ln_P(PSTR("MODE\n"), false);
     if (keymap_config.swap_lctl_lgui) {

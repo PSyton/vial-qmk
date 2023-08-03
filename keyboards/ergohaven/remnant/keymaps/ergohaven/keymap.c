@@ -1,13 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "ergohaven.h"
 
-enum custom_keycodes {
-    NEXTSEN = QK_KB,
-    PREDL, 
-    BRACES,
-    PARENTH
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       [_BASE] = LAYOUT(
          KC_GRV,  KC_1, KC_2, KC_3, KC_4, KC_5,                               KC_6, KC_7, KC_8,    KC_9,   KC_0,    KC_MINS,
@@ -72,46 +65,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*         } */
 /*     } */
 /* } */
-
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-    case NEXTSEN:  // Next sentence macro.
-      if (record->event.pressed) {
-        SEND_STRING(". ");
-        add_oneshot_mods(MOD_BIT(KC_LSFT));  // Set one-shot mod for shift.
-      }
-      return false;
-
-    case PREDL:  // Next sentence macro.
-      if (record->event.pressed) {
-        SEND_STRING("/ ");
-        add_oneshot_mods(MOD_BIT(KC_LSFT));  // Set one-shot mod for shift.
-      }
-      return false;
-
-       case BRACES:
-            if (record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_MASK_SHIFT);
-                    if (shifted) {
-                        unregister_code(KC_LSFT);
-                        unregister_code(KC_RSFT);
-                        SEND_STRING("{}"SS_TAP(X_LEFT));
-                    }
-                    else {
-                        SEND_STRING("[]"SS_TAP(X_LEFT));
-                    }
-            }
-            break;
-
-        case PARENTH:
-            if (record->event.pressed) {
-                SEND_STRING("()");
-                tap_code(KC_LEFT);
-            }
-            break;
-
-    default:
-      return true; // Process all other keycodes normally
-  }
-    return 0;
-}

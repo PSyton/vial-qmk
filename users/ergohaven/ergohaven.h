@@ -1,5 +1,4 @@
 #pragma once
-
 #include "quantum.h"
 
 #define _BASE 0
@@ -38,6 +37,6 @@ enum custom_keycodes {
     PREDL, 
     BRACES,
     PARENTH,
-    GM_INV,
-    ALT_TAB
+    ALT_TAB,
+    GM_INV 
 };

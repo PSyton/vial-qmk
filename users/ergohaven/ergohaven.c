@@ -1,5 +1,10 @@
 #include "ergohaven.h"
 
+#ifdef AUDIO_ENABLE
+float base_sound[][2] = SONG(TERMINAL_SOUND);
+float caps_sound[][2] = SONG(CAPS_LOCK_ON_SOUND);
+#endif
+
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;    
 
@@ -9,7 +14,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
   #ifdef WPM_ENABLE
     if (record->event.pressed) {
         extern uint32_t tap_timer;
@@ -30,8 +34,106 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_TAB);
       }
       break;
+
+    case NEXTSEN:  // Next sentence macro.
+      if (record->event.pressed) {
+        SEND_STRING(". ");
+    #ifdef AUDIO_ENABLE
+        PLAY_SONG(caps_sound);
+    #endif 
+        add_oneshot_mods(MOD_BIT(KC_LSFT));  // Set one-shot mod for shift.
+      }
+      return false;
+
+    case PREDL:  // Next sentence macro.
+      if (record->event.pressed) {
+        SEND_STRING("/ ");
+    #ifdef AUDIO_ENABLE
+        PLAY_SONG(caps_sound);
+    #endif
+        add_oneshot_mods(MOD_BIT(KC_LSFT));  // Set one-shot mod for shift.
+      }
+      return false;
+
+       case BRACES:
+            if (record->event.pressed) {
+                uint8_t shifted = get_mods() & (MOD_MASK_SHIFT);
+                    if (shifted) {
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_RSFT);
+                        SEND_STRING("{}"SS_TAP(X_LEFT));
+                    }
+                    else {
+                        SEND_STRING("[]"SS_TAP(X_LEFT));
+                    }
+            }
+            break;
+
+    case PARENTH:
+            if (record->event.pressed) {
+                SEND_STRING("()");
+                tap_code(KC_LEFT);
+            }
+          break;
+    #ifdef OLED_GAMING
+        case GM_INV:
+            // Toggle gaming mode & clear OLED display
+            if (!record->event.pressed) {
+                toggleGamingMode();
+                if (isGamingMode()) {
+                    readMainTimer();
+                    initGame();
+                    startGame();
+                }
+                oled_clear();
+            }
+            break;
+        case KC_S:
+            if (record->event.pressed) {
+                if (isGamingMode()) {
+                    movePlayer(1); // 1 = isLeft
+                    return false;
+                }
+            }
+            break;
+        case KC_F:
+            if (record->event.pressed) {
+                if (isGamingMode()) {
+                    movePlayer(0); // 0 = isRight
+                    return false;
+                }
+            }
+            break;
+        case KC_SPC:
+            if (record->event.pressed) {
+                if (isGamingMode()) {
+                    firePlayerBeam();
+                    return false;
+                }
+            }
+            break;
+        case KC_ENT:
+        case KC_LGUI:
+            if (record->event.pressed) {
+                if (isGamingMode()) {
+                    return false;
+                }
+            }
+            break;
+    #endif
+
+    case KC_CAPS:
+      if (record->event.pressed) {
+    #ifdef AUDIO_ENABLE
+        PLAY_SONG(caps_sound);
+    #endif 
+        }      
+      return true; // Let QMK send the enter press/release events
+                  
+    default:
+      return true; // Process all other keycodes normally
   }
-  return process_record_keymap(keycode, record);
+   return process_record_keymap(keycode, record);
 }
 
 void matrix_scan_user(void) { // The very important timer.
@@ -41,5 +143,31 @@ void matrix_scan_user(void) { // The very important timer.
       is_alt_tab_active = false;
     }
   }
+  #ifdef OLED_GAMING
+    if (isGamingMode()) {
+        if (countMainTimer() > 0) {
+            game_main();
+        }
+    }
+  #endif
 }
 
+__attribute__ ((weak))
+layer_state_t layer_state_set_keymap (layer_state_t state) {
+  return state;
+}
+
+layer_state_t layer_state_set_user (layer_state_t state) {
+      #if defined(AUDIO_ENABLE)
+        static bool is_base_on = false;
+    if (layer_state_cmp(state, _BASE) != is_base_on) {
+            is_base_on = layer_state_cmp(state, _BASE);
+            if (is_base_on) {
+                stop_all_notes();
+            } else {
+                PLAY_SONG(base_sound);
+            }
+        }
+    #endif
+  return layer_state_set_keymap (state);
+}

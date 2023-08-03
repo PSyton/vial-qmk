@@ -1,16 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "ergohaven.h"
 
-float base_sound[][2] = SONG(TERMINAL_SOUND);
-float caps_sound[][2] = SONG(CAPS_LOCK_ON_SOUND);
-
-enum custom_keycodes {
-    NEXTSEN = QK_KB,
-    PREDL, 
-    BRACES,
-    PARENTH,
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_BASE] = LAYOUT( \
           KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,  KC_5,                         KC_6,    KC_7,  KC_8,     KC_9,    KC_0,    KC_BSPC, \
@@ -44,77 +34,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  _______, _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______, _______                  
        ),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-    case NEXTSEN:  // Next sentence macro.
-      if (record->event.pressed) {
-        SEND_STRING(". ");
-    #ifdef AUDIO_ENABLE
-        PLAY_SONG(caps_sound);
-    #endif //AUDIO_ENABLE
-
-        add_oneshot_mods(MOD_BIT(KC_LSFT));  // Set one-shot mod for shift.
-      }
-      return false;
-
-    case PREDL:  // Next sentence macro.
-      if (record->event.pressed) {
-        SEND_STRING("/ ");
-    #ifdef AUDIO_ENABLE
-        PLAY_SONG(caps_sound);
-    #endif //AUDIO_ENABLE
-        add_oneshot_mods(MOD_BIT(KC_LSFT));  // Set one-shot mod for shift.
-      }
-      return false;
-
-       case BRACES:
-            if (record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_MASK_SHIFT);
-                    if (shifted) {
-                        unregister_code(KC_LSFT);
-                        unregister_code(KC_RSFT);
-                        SEND_STRING("{}"SS_TAP(X_LEFT));
-                    }
-                    else {
-                        SEND_STRING("[]"SS_TAP(X_LEFT));
-                    }
-            }
-            break;
-
-    case PARENTH:
-            if (record->event.pressed) {
-                SEND_STRING("()");
-                tap_code(KC_LEFT);
-            }
-          break;
-
-    case KC_CAPS:
-      if (record->event.pressed) {
-    #ifdef AUDIO_ENABLE
-        PLAY_SONG(caps_sound);
-    #endif //AUDIO_ENABLE
-      }
-      return true; // Let QMK send the enter press/release events
-                  
-    default:
-      return true; // Process all other keycodes normally
-  }
-    return 0;
-};
-
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-#if defined(AUDIO_ENABLE)
-    static bool is_base_on = false;
-if (layer_state_cmp(state, _BASE) != is_base_on) {
-        is_base_on = layer_state_cmp(state, _BASE);
-        if (is_base_on) {
-            stop_all_notes();
-        } else {
-            PLAY_SONG(base_sound);
-        }
-    }
-#endif
-    return state;
-}
