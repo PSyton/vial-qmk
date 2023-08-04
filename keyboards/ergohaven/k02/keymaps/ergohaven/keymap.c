@@ -1,9 +1,9 @@
 #include QMK_KEYBOARD_H
 #include "ergohaven.h"
-#include "oled/bongocat.c"
-/* #include "oled/luna.c" */
+// #include "oled/bongocat.c"
+ #include "oled/luna.c"
 #include "font_block.h"
-#include "game/game.h"
+// #include "game/game.h"
 #include "layers.c"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -45,8 +45,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
-    return OLED_ROTATION_180;  // bongocat
-    /* return OLED_ROTATION_270;  // luna */
+    // return OLED_ROTATION_180;  // bongocat
+    return OLED_ROTATION_270;  // luna
   }
     else {
     return OLED_ROTATION_270;  // flips the display 180 degrees if offhand
@@ -131,18 +131,18 @@ void render_layer_state(void) {
 // Used to draw on to the oled screen
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
-        /* render_layer_state(); */
-         if (!isGamingMode()) {
-             render_layer_state();
-         }
+        render_layer_state();
+         // if (!isGamingMode()) {
+         //     render_layer_state();
+         // }
     } else {
-    render_bongocat();  // bongocat
-    /* render_luna_status();  // luna */
+    // render_bongocat();  // bongocat
+    render_luna_status();  // luna
 }
     return false;
 }
 
-// void matrix_scan_user(void) {
+// void matrix_scan_keymap(void) {
 //     if (isGamingMode()) {
 //         if (countMainTimer() > 0) {
 //             game_main();

@@ -8,6 +8,7 @@ float caps_sound[][2] = SONG(CAPS_LOCK_ON_SOUND);
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;    
 
+// custom keycodes
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
@@ -136,6 +137,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
    return process_record_keymap(keycode, record);
 }
 
+
+
 void matrix_scan_user(void) { // The very important timer.
   if (is_alt_tab_active) {
     if (timer_elapsed(alt_tab_timer) > 750) {
@@ -151,6 +154,8 @@ void matrix_scan_user(void) { // The very important timer.
     }
   #endif
 }
+
+
 
 __attribute__ ((weak))
 layer_state_t layer_state_set_keymap (layer_state_t state) {
