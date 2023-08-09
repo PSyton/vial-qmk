@@ -1,5 +1,6 @@
 VIAL_ENABLE = yes
-OLED_GAMING = yes
+OLED_GAMING = no
+WPM_ENABLE = no
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
   SRC += font_block.c

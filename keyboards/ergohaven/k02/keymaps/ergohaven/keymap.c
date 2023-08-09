@@ -1,10 +1,11 @@
 #include QMK_KEYBOARD_H
 #include "ergohaven.h"
 // #include "oled/bongocat.c"
- #include "oled/luna.c"
-#include "font_block.h"
+// #include "oled/ergohaven_light.c"
+#include "oled/ergohaven_dark.c"
+// #include "font_block.h"
 // #include "game/game.h"
-#include "layers.c"
+// #include "layers.c"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_BASE] = LAYOUT( \
@@ -32,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
     
       [_ADJUST] = LAYOUT(
-        _______, _______, _______, _______, _______, GM_INV,                            _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,                           _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,                           _______, _______, _______, _______, DM_PLY1, DM_REC1,
         RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______,                           _______, KC_VOLD, KC_MUTE, KC_VOLU, DM_PLY2, DM_REC2,
         RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, CG_TOGG,                           _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, DM_RSTP,
@@ -45,11 +46,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
-    // return OLED_ROTATION_180;  // bongocat
-    return OLED_ROTATION_270;  // luna
-  }
+    return OLED_ROTATION_180;  // bongocat, ergohaven_dark/light
+    // return OLED_ROTATION_270;  // luna 
+     }
     else {
-    return OLED_ROTATION_270;  // flips the display 180 degrees if offhand
+    return OLED_ROTATION_270;  
     }
   return rotation;
 }
@@ -137,7 +138,9 @@ bool oled_task_user(void) {
          // }
     } else {
     // render_bongocat();  // bongocat
-    render_luna_status();  // luna
+    // render_luna_status();  // luna
+        // ergohaven_light_draw();
+        ergohaven_dark_draw();
 }
     return false;
 }

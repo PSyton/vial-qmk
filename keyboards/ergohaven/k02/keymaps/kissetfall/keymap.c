@@ -1,21 +1,14 @@
 #include QMK_KEYBOARD_H
-#include "oled/bongocat.c"
-/* #include "oled/luna.c" */
+// #include "oled/bongocat.c"
+// #include "oled/ergohaven_dark.c"
+#include "oled/ergohaven_light.c"
 #include "kissetfall.h"
-
-
-enum custom_keycodes {
-    NEXTSEN = QK_KB,
-    PREDL, 
-    BRACES,
-    PARENTH 
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       [_BASE] = LAYOUT(
          KC_F1,   KC_F2, KC_F3,   KC_F4,   KC_F5,   KC_F6,                               KC_F7, KC_F8,   KC_F9,   KC_F10, KC_F11,  KC_F12,
          KC_TAB,  KC_Q,  KC_W,    KC_E,    KC_R,    KC_T,                                KC_Y,  KC_U,    KC_I,    KC_O,   KC_P,    KC_GRV,
-         QK_LEAD, KC_A,  KC_S,    KC_D,    KC_F,    KC_G,                                KC_H,  KC_J,    KC_K,    KC_L,   KC_SCLN, KC_ENT,
+         KC_LALT, KC_A,  KC_S,    KC_D,    KC_F,    KC_G,                                KC_H,  KC_J,    KC_K,    KC_L,   KC_SCLN, KC_ENT,
          KC_ESC,  KC_Z,  KC_X,    KC_C,    KC_V,    KC_B,                                KC_N,  KC_M,    KC_COMM, KC_DOT, KC_QUOT, KC_MPLY,
                    LALT(KC_LSFT), KC_LSFT, KC_LCTL, LOWER, KC_SPC,              KC_BSPC, RAISE, KC_RSFT, KC_RALT,  KC_RGUI 
                                                
@@ -25,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
          _______, _______, _______, _______, _______, _______,                           _______, _______, _______, _______, _______,  _______,
          _______, KC_3,    KC_2,    KC_1,    KC_0,    KC_4,                              KC_7,    KC_6,    KC_5,    KC_9,    KC_8,     _______,
-         KC_ENT,  APP_A,   APP_S,   APP_D,   LALT(KC_TAB),  APP_G,                       _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______,
+         KC_ENT,  APP_A,   LALT(KC_TAB), APP_D, APP_F, APP_G,                       _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______,
          _______, KC_LALT, APP_X,   APP_C,   APP_V,   APP_B,                             _______, PREVWRD, KC_PGDN, KC_PGUP, NEXTWRD,  _______,
                            KC_VOLD, KC_VOLU, _______, _______, _______,         _______, ADJUST, _______, _______, _______ 
     
@@ -52,8 +45,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
-    return OLED_ROTATION_180;  // bongocat
-    /* return OLED_ROTATION_270;  // luna */
+    return OLED_ROTATION_180;  // bongocat, ergohaven dark/light
+    // return OLED_ROTATION_270;  // luna 
   }
     else {
     return OLED_ROTATION_270;  // flips the display 180 degrees if offhand
@@ -140,56 +133,10 @@ bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_layer_state();
     } else {
-    render_bongocat();  // bongocat
-    /* render_luna_status();  // luna */
+        // render_bongocat();  // bongocat
+        // ergohaven_dark_draw();
+        ergohaven_light_draw();
 }
-
     return false;
 }
-
 #endif
-
-// custom keycodes
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    if (record->event.pressed) {
-        extern uint32_t tap_timer;
-        tap_timer = timer_read32();
-    }
-    switch (keycode) {
-    case NEXTSEN:  // Next sentence macro.
-      if (record->event.pressed) {
-        SEND_STRING(". ");
-        add_oneshot_mods(MOD_BIT(KC_LSFT));  // Set one-shot mod for shift.
-      }
-      return false;
-
-    case PREDL:  // Next sentence macro.
-      if (record->event.pressed) {
-        SEND_STRING("/ ");
-        add_oneshot_mods(MOD_BIT(KC_LSFT));  // Set one-shot mod for shift.
-      }
-      return false;
-
-       case BRACES:
-            if (record->event.pressed) {
-                uint8_t shifted = get_mods() & (MOD_MASK_SHIFT);
-                    if (shifted) {
-                        unregister_code(KC_LSFT);
-                        unregister_code(KC_RSFT);
-                        SEND_STRING("{}"SS_TAP(X_LEFT));
-                    }
-                    else {
-                        SEND_STRING("[]"SS_TAP(X_LEFT));
-                    }
-            }
-            break;
-
-        case PARENTH:
-            if (record->event.pressed) {
-                SEND_STRING("()");
-                tap_code(KC_LEFT);
-            }
-            break;
-    }
- return true;
-} 
