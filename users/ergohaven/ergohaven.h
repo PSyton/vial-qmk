@@ -38,5 +38,12 @@ enum custom_keycodes {
     BRACES,
     PARENTH,
     ALT_TAB,
+    LAYER_NEXT,
+    LAYER_PREV,
     GM_INV 
 };
+
+// 1st layer on the cycle
+#define LAYER_CYCLE_START 0
+// Last layer on the cycle
+#define LAYER_CYCLE_END   15

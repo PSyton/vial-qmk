@@ -1,6 +1,11 @@
 SRC += ergohaven.c
 
 # Build Options
+
+NKRO_ENABLE = yes           # Enable N-Key Rollover
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+MOUSEKEY_ENABLE = yes
+EXTRAKEY_ENABLE = yes
 LTO_ENABLE = no
 VIA_ENABLE = yes
 TAP_DANCE_ENABLE = yes
