@@ -7,16 +7,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_TAB,  KC_Q,  KC_W,    KC_E,    KC_R,    KC_T,                                KC_Y,    KC_U,  KC_I,    KC_O,   KC_P,    KC_GRV,
          KC_LALT, KC_A,  KC_S,    KC_D,    KC_F,    KC_G,                                KC_H,    KC_J,  KC_K,    KC_L,   KC_SCLN, KC_ENT,
          KC_ESC,  KC_Z,  KC_X,    KC_C,    KC_V,    KC_B,                                KC_N,    KC_M,  KC_COMM, KC_DOT, KC_QUOT, KC_MPLY,
-               KC_VOLD,  KC_VOLU, KC_LCTL, LOWER,   KC_SPC, KC_LBRC,            KC_RBRC, KC_BSPC, RAISE, KC_RSFT, QK_REP, KC_RGUI 
+               KC_VOLD,  KC_VOLU, KC_LCTL, LOWER,   KC_SPC, AU_TOGG,            CK_TOGG, KC_BSPC, RAISE, KC_RSFT, QK_REP, KC_RGUI 
                                                
       ),
     
       [_LOWER] = LAYOUT(
     
-         _______, _______, _______, _______, _______, _______,                           _______, _______, _______, _______, _______,  _______,
+         _______, _______, _______, _______,  _______, _______,                          _______, _______, _______, _______, _______,  _______,
          _______, KC_3,    KC_2,    KC_1,    KC_0,    KC_4,                              KC_7,    KC_6,    KC_5,    KC_9,    KC_8,     _______,
-         KC_ENT,  KC_LSFT, APP_S,   KC_DEL,  ALT_TAB, LALT(KC_LSFT),                     KC_HOME, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______,
-         _______, _______, _______, APP_C,   APP_V,   APP_B,                             KC_END,  PREVWRD, KC_PGDN, KC_PGUP, NEXTWRD,  _______,
+         KC_ENT,  KC_LSFT, APP_S,   KC_DEL,  ALT_TAB, LANG,                              KC_HOME, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______,
+         _______, SLV_I,   SLV_SX,  APP_C,   SLV_SW,  SLV_H,                             KC_END,  PREVWRD, KC_PGDN, KC_PGUP, NEXTWRD,  _______,
                   KC_MPRV, KC_MNXT, _______, _______, _______, _______,         _______, _______, ADJUST, _______, _______, _______ 
     
       ),
@@ -31,9 +31,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
       [_ADJUST] = LAYOUT(
         QK_BOOT, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
-        _______, CK_RST,  CK_DOWN, CK_UP,   CK_TOGG, AU_TOGG,                            KC_CAPS, _______, KC_BRID, KC_BRIU, _______, _______,
+        _______, _______, _______, _______, DF(0),   DF(4),                              _______, _______, _______, _______, _______, _______,
+        _______, CK_RST,  CK_DOWN, CK_UP,   _______, _______,                            KC_CAPS, _______, KC_BRID, KC_BRIU, _______, _______,
         _______, _______, _______, _______, _______, _______,                            KC_PSCR, _______, _______, _______, _______, _______,
+                 _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______                            
+       ),
+      [_FOUR] = LAYOUT(
+        SLV_L,   SLV_M,   SLV_N,   SLV_O,   SLV_P,   SLV_Y,                              _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
                  _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______                            
        )
 };
