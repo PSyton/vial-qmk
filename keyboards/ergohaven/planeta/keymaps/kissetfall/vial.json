@@ -19,10 +19,10 @@
          "title": "This keycode types (, then ), and taps the left arrow to position the cursor between the ().",
          "shortName": "PARENTH"
         }, 
-        {"name": "REPEAT",
-         "title": "The Repeat Key performs the action of the last pressed key.",
-         "shortName": "REPEAT"
-        } 
+        {"name": "ALT_TAB",
+         "title": "Holds Alt and taps Tab, then waits for 750ms, if the key is tapped again, it will send another Tab; if there is no tap, Alt will turn off. This allows you to cycle through windows with only one key",
+         "shortName": "ALT_TAB"
+        }    
 
     ],
     "layouts":{
