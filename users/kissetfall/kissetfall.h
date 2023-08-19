@@ -24,8 +24,8 @@
 #define ADJUST  MO(_ADJUST)
 #define PREVWRD LCTL(KC_LEFT)
 #define NEXTWRD LCTL(KC_RIGHT)
-#define CTRLUP  LCTL(KC_LEFT)
-#define CTRLDN  LCTL(KC_RIGHT)
+#define CTRLUP  LCTL(KC_UP)
+#define CTRLDN  LCTL(KC_DOWN)
 #define LANG    LALT(KC_LSFT)
 
 #define APP_A   LSG(KC_A)
