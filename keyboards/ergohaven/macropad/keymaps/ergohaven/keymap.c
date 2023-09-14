@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "ergohaven.h"
+#include "pong.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
@@ -148,7 +149,7 @@ void render_layer_state(void) {
             oled_write_P(PSTR("FOURTEEN\n"), false);
             break;
          case _FIFTEEN:
-            oled_write_P(PSTR("SIXTEEN\n"), false);
+            oled_write_P(PSTR("FIFTEEN\n"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);

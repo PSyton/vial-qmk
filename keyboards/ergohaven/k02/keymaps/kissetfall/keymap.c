@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______, _______, _______, _______, _______, _______,                           _______, _______, _______, _______, _______,  _______,
          _______, KC_3,    KC_2,    KC_1,    KC_0,    KC_4,                              KC_7,    KC_6,    KC_5,    KC_9,    KC_8,     _______,
          KC_ENT,  KC_LSFT, APP_S,   KC_DEL,  ALT_TAB, LANG,                              KC_HOME, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______,
-         _______, SLV_N,   SLV_SX,  APP_C,   SLV_SW,  SLV_H,                             KC_END,  PREVSEL, CTRLDN,  CTRLUP,  NEXTSEL,  _______,
+         _______, SLV_N,   SLV_SX,  APP_C,   SLV_SW,  SLV_H,                             KC_END,  KC_HOME, CTRLDN,  CTRLUP,  KC_END,  _______,
                            KC_MPRV, KC_MNXT, _______, _______, _______,         _______, ADJUST, _______,  KC_PGDN, KC_PGUP 
     
       ),
