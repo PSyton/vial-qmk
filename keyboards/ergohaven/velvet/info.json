@@ -1,7 +1,7 @@
 {
-    "manufacturer": "ergohaven",
-    "keyboard_name": "velvet",
-    "maintainer": "ergohaven",
+    "manufacturer": "Ergohaven",
+    "keyboard_name": "Velvet",
+    "maintainer": "Ergohaven",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {

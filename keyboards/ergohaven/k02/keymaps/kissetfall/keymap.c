@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 // #include "oled/bongocat.c"
-// #include "oled/ergohaven_dark.c"
-#include "oled/ergohaven_light.c"
+#include "oled/ergohaven_dark.c"
+// #include "oled/ergohaven_light.c"
 #include "kissetfall.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -141,8 +141,8 @@ bool oled_task_user(void) {
         render_layer_state();
     } else {
         // render_bongocat();  // bongocat
-        // ergohaven_dark_draw();
-        ergohaven_light_draw();
+        ergohaven_dark_draw();
+        // ergohaven_light_draw();
 }
     return false;
 }
