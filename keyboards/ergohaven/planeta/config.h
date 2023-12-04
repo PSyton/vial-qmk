@@ -37,24 +37,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_INIT_DELAY
 #define AUDIO_CLICKY
 #define CG_SWAP_SONG SONG(AG_SWAP_SOUND)
-
-// #ifdef OLED_ENABLE
-// #    define OLED_DISPLAY_128X64
-// #define I2C1_SCL_PIN        GP11
-// #define I2C1_SDA_PIN        GP10
-// #define OLED_BRIGHTNESS 128
-// #define I2C_DRIVER I2CD1
-// #endif
-
-#define SPI_DRIVER SPID1
-#define SPI_SCK_PIN GP11
-#define SPI_MOSI_PIN GP10
-
-// #define SPI_DRIVER SPID0
-// #define SPI_SCK_PIN GP18
-// #define SPI_MOSI_PIN GP19
-// #define SPI_MISO_PIN GP20
-
-#define LCD_CS_PIN GP18
-#define LCD_DC_PIN GP16
-#define LCD_RST_PIN GP17
