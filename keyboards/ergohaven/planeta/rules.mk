@@ -4,7 +4,7 @@ BOOTLOADER = rp2040
 ALLOW_WARNINGS = yes
 PICO_INTRINSICS_ENABLED = no
 
-# Build Options
+DEFAULT_FOLDER = ergohaven/planeta/rev2
+
 AUDIO_ENABLE = yes
 AUDIO_DRIVER = pwm_hardware
-

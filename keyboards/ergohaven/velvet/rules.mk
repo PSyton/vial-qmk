@@ -4,6 +4,7 @@ BOOTLOADER = rp2040
 ALLOW_WARNINGS = yes
 PICO_INTRINSICS_ENABLED = no
 
-# Build Options
+DEFAULT_FOLDER = ergohaven/velvet/rev2
+
 SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = vendor

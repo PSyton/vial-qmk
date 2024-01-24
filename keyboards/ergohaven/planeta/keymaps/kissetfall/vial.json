@@ -1,5 +1,5 @@
 {
-    "name": "Planeta",
+    "name": "Planeta v1",
     "lighting": "none",
     "matrix":{ "rows":5, "cols":12 },
     "customKeycodes": [

@@ -1,0 +1,48 @@
+{
+    "manufacturer": "Maxim",
+    "keyboard_name": "macropadstm32",
+    "maintainer": "Maxim",
+    "development_board": "blackpill_f411",    
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x1337",
+        "device_version": "1.0.0"
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "A1", "pin_b": "A2" },
+        ]
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "rows": ["B12", "B13", "B14", "B15"],
+        "cols": ["B0", "B1", "B3"]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "label": "7", "matrix": [0, 0], "x": 0, "y": 0 },
+                { "label": "8", "matrix": [0, 1], "x": 1, "y": 0 },
+                { "label": "9", "matrix": [0, 2], "x": 2, "y": 0 },
+                { "label": "4", "matrix": [1, 0], "x": 0, "y": 1 },
+                { "label": "5", "matrix": [1, 1], "x": 1, "y": 1 },
+                { "label": "6", "matrix": [1, 2], "x": 2, "y": 1 },
+                { "label": "1", "matrix": [2, 0], "x": 0, "y": 2 },
+                { "label": "2", "matrix": [2, 1], "x": 1, "y": 2 },
+                { "label": "3", "matrix": [2, 2], "x": 2, "y": 2 },
+                { "label": "0", "matrix": [3, 0], "x": 0, "y": 3 },
+                { "label": "LP", "matrix": [3, 1], "x": 1, "y": 3 },
+                { "label": "LN", "matrix": [3, 2], "x": 2, "y": 3 },
+            ]
+        }
+    }
+}

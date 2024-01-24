@@ -2,7 +2,6 @@
 #include "display.h"
 #include "raw_hid.h"
 #include "lvgl_helpers.h"
-#include "lang_ru_en.h"
 
 uint16_t home_screen_timer = 0;
 
@@ -30,16 +29,15 @@ static lv_obj_t *label_volume_arc;
 static lv_obj_t *label_media_artist;
 static lv_obj_t *label_media_title;
 
+enum layout { _EN = 0, _RU };
 void set_layout_label(uint8_t layout) {
     switch (layout) {
-        case LANG_EN:
+        case _EN:
             lv_label_set_text(label_layout, "EN");
-            lang_sync_external(LANG_EN);
             break;
 
-        case LANG_RU:
+        case _RU:
             lv_label_set_text(label_layout, "RU");
-            lang_sync_external(LANG_RU);
             break;
     }
 }
@@ -181,16 +179,16 @@ void display_process_raw_hid_data(uint8_t *data, uint8_t length) {
 
 void display_process_layer_state(uint8_t layer) {
     switch (layer) {
-        case _DEF:
+        case _ZERO:
             lv_label_set_text(label_layer, "BASE");
             break;
-        case _NAV:
+        case _ONE:
             lv_label_set_text(label_layer, "NAV");
             break;
-        case _SYM:
+        case _TWO:
             lv_label_set_text(label_layer, "SYMBOL");
             break;
-        case _ADJ:
+        case _THREE:
             lv_label_set_text(label_layer, "ADJ");
             break;
         case _FOURTH:
