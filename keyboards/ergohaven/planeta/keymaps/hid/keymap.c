@@ -45,13 +45,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 /* Active Layer processing */
-layer_state_t layer_state_set_keymap(layer_state_t state) {
-    if (is_display_enabled()) {
-        display_process_layer_state(get_highest_layer(state));
-    }
+// layer_state_t layer_state_set_keymap(layer_state_t state) {
+//     if (is_display_enabled()) {
+//         display_process_layer_state(get_highest_layer(state));
+//     }
 
-    return state;
-}
+//     return state;
+// }
 
 /* Raw HID processing*/
 void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
@@ -113,6 +113,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(2, layer_state_cmp(state, _LOWER));
     rgblight_set_layer_state(3, layer_state_cmp(state, _ADJUST));
 
+    if (is_display_enabled()) {
+        display_process_layer_state(get_highest_layer(state));
+    }
     //   #if defined(AUDIO_ENABLE)
     //     static bool is_base_on = false;
     // if (layer_state_cmp(state, _BASE) != is_base_on) {

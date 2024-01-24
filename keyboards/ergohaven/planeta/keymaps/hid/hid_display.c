@@ -179,16 +179,16 @@ void display_process_raw_hid_data(uint8_t *data, uint8_t length) {
 
 void display_process_layer_state(uint8_t layer) {
     switch (layer) {
-        case _ZERO:
+        case _DEF:
             lv_label_set_text(label_layer, "BASE");
             break;
-        case _ONE:
+        case _NAV:
             lv_label_set_text(label_layer, "NAV");
             break;
-        case _TWO:
+        case _SYM:
             lv_label_set_text(label_layer, "SYMBOL");
             break;
-        case _THREE:
+        case _ADJ:
             lv_label_set_text(label_layer, "ADJ");
             break;
         case _FOURTH:

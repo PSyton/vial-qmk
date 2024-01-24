@@ -1,10 +1,10 @@
 #include "quantum.h"
 
 typedef enum {
-    _ZERO = 0,
-    _ONE,
-    _TWO,
-    _THREE,
+    _DEF = 0,
+    _NAV,
+    _SYM,
+    _ADJ,
     _FOURTH,
     _FIFTH,
     _SIXTH,
