@@ -1,4 +1,4 @@
-SRC += ergohaven.c
+SRC += ergohaven.c lang_ru_en.c
 
 # Build Options
 

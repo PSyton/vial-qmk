@@ -1,4 +1,5 @@
 #include "ergohaven.h"
+#include "lang_ru_en.h"
 
 #ifdef AUDIO_ENABLE
 float base_sound[][2] = SONG(TERMINAL_SOUND);
@@ -6,7 +7,7 @@ float caps_sound[][2] = SONG(CAPS_LOCK_ON_SOUND);
 #endif
 
 bool is_alt_tab_active = false;
-uint16_t alt_tab_timer = 0;    
+uint16_t alt_tab_timer = 0;
 
 
 
@@ -43,7 +44,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(". ");
     #ifdef AUDIO_ENABLE
         PLAY_SONG(caps_sound);
-    #endif 
+    #endif
         add_oneshot_mods(MOD_BIT(KC_LSFT));  // Set one-shot mod for shift.
       }
       return false;
@@ -83,13 +84,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
     #ifdef AUDIO_ENABLE
         PLAY_SONG(caps_sound);
-    #endif 
-        }      
+    #endif
+        }
       return true; // Let QMK send the enter press/release events
-                  
+
     case LAYER_NEXT:
       // Our logic will happen on presses, nothing is done on releases
-      if (!record->event.pressed) { 
+      if (!record->event.pressed) {
         // We've already handled the keycode (doing nothing), let QMK know so no further code is run unnecessarily
         return false;
       }
@@ -110,7 +111,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case LAYER_PREV:
       // Our logic will happen on presses, nothing is done on releases
-      if (!record->event.pressed) { 
+      if (!record->event.pressed) {
         // We've already handled the keycode (doing nothing), let QMK know so no further code is run unnecessarily
         return false;
       }
@@ -129,7 +130,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       layer_move(prev_layer);
       return false;
     default:
-      return true; // Process all other keycodes normally
+      return process_record_lang(keycode, record);
   }
    return process_record_keymap(keycode, record);
 }
