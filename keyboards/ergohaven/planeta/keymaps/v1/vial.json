@@ -10,7 +10,7 @@
         {"name": "PREDL",
          "title": "Поставить точку и начать новое предложение с заглавной буквы (Русская раскладка)",
          "shortName": "PREDL"
-        }, 
+        },
         {"name": "BRACES",
          "title": "This keycode types [, then ], and taps the left arrow to position the cursor between the []. Or if shift is held, it does the same but with curly braces {}.",
          "shortName": "BRACES"
@@ -18,7 +18,7 @@
         {"name": "PARENTH",
          "title": "This keycode types (, then ), and taps the left arrow to position the cursor between the ().",
          "shortName": "PARENTH"
-        }, 
+        },
         {"name": "ALT_TAB",
          "title": "Holds Alt and taps Tab, then waits for 750ms, if the key is tapped again, it will send another Tab; if there is no tap, Alt will turn off. This allows you to cycle through windows with only one key",
          "shortName": "ALT_TAB"
@@ -30,6 +30,130 @@
         {"name": "LPREV",
          "title": "Switch to the previous layer",
          "shortName": "LPREV"
+        },
+        {"name": "",
+        "title": "Not using",
+        "shortName": ""
+        },
+
+        {"name": "LG_TOGGLE",
+        "title": "Toggle language",
+        "shortName": "RuEn\nToggle"
+        },
+        {"name": "LG_SYNC",
+        "title": "Sync language",
+        "shortName": "RuEn\nSync"
+        },
+        {"name": "LG_SET_EN",
+        "title": "Set English language",
+        "shortName": "RuEn\nEn"
+        },
+        {"name": "LG_SET_RU",
+        "title": "Toggle Russian language",
+        "shortName": "RuEn\nRu"
+        },
+
+        {"name": "LG_SET_GUI_SPC",
+        "title": "Set toggle languge to Win+Space",
+        "shortName": "RuEn\nWinSpc"
+        },
+        {"name": "LG_SET_SFT_CTL",
+        "title": "Set toggle languge to Shift+Control",
+        "shortName": "RuEn\nSftCtl"
+        },
+        {"name": "LG_SET_SFT_ALT",
+        "title": "Set toggle languge to Shift+Alt",
+        "shortName": "RuEn\nSftAlt"
+        },
+
+        {"name": "LG_DOT",
+        "title": "Send .",
+        "shortName": "RuEn\n."
+        },
+        {"name": "LG_COMMA",
+        "title": "Send ,",
+        "shortName": "RuEn\n,"
+        },
+        {"name": "LG_SCLN",
+        "title": "Send ;",
+        "shortName": "RuEn\n;"
+        },
+        {"name": "LG_COLON",
+        "title": "Send :",
+        "shortName": "RuEn\n:"
+        },
+        {"name": "LG_DQUO",
+        "title": "Send \"",
+        "shortName": "RuEn\n\""
+        },
+        {"name": "LG_QUES",
+        "title": "Send ?",
+        "shortName": "RuEn\n?"
+        },
+        {"name": "LG_SLASH",
+        "title": "Send /",
+        "shortName": "RuEn\n/"
+        },
+
+        {"name": "LG_LBR",
+        "title": "Send [",
+        "shortName": "RuEn\n["
+        },
+        {"name": "LG_RBR",
+        "title": "Send ]",
+        "shortName": "RuEn\n]"
+        },
+        {"name": "LG_LCBR",
+        "title": "Send {",
+        "shortName": "RuEn\n{"
+        },
+        {"name": "LG_RCBR",
+        "title": "Send }",
+        "shortName": "RuEn\n}"
+        },
+        {"name": "LG_LT",
+        "title": "Send <",
+        "shortName": "RuEn\n<"
+        },
+        {"name": "LG_GT",
+        "title": "Send >",
+        "shortName": "RuEn\n>"
+        },
+        {"name": "LG_GRAVE",
+        "title": "Send `",
+        "shortName": "RuEn\n`"
+        },
+        {"name": "LG_TILD",
+        "title": "Send ~",
+        "shortName": "RuEn\n~"
+        },
+        {"name": "LG_AT",
+        "title": "Send @",
+        "shortName": "RuEn\n@"
+        },
+        {"name": "LG_HASH",
+        "title": "Send #",
+        "shortName": "RuEn\n#"
+        },
+        {"name": "LG_DLR",
+        "title": "Send $",
+        "shortName": "RuEn\n$"
+        },
+        {"name": "LG_CIRC",
+        "title": "Send ^",
+        "shortName": "RuEn\n^"
+        },
+        {"name": "LG_AMPR",
+        "title": "Send &",
+        "shortName": "RuEn\n&"
+        },
+        {"name": "LG_PIPE",
+        "title": "Send |",
+        "shortName": "RuEn\n|"
+        },
+        {"name": "LG_QUOTE",
+        "title": "Send '",
+        "shortName": "RuEn\n'"
         }
       ],
     "layouts":{
