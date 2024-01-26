@@ -97,7 +97,7 @@ static void render_logo(void) {
 }
 
 void render_layer_state(void) {
-    oled_write_ln_P(PSTR("fw:v3.0\n"), false);
+    oled_write_ln_P(PSTR("fw:v3.1\n"), false);
     // oled_write_P(PSTR("\n"), false);
     oled_write_ln_P(PSTR("lvl:"), false);
     // oled_write_P(PSTR("\n"), false);

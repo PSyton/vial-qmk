@@ -73,17 +73,17 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(2, layer_state_cmp(state, _LOWER));
     rgblight_set_layer_state(3, layer_state_cmp(state, _ADJUST));
 
-      #if defined(AUDIO_ENABLE)
-        static bool is_base_on = false;
-    if (layer_state_cmp(state, _BASE) != is_base_on) {
-            is_base_on = layer_state_cmp(state, _BASE);
-            if (is_base_on) {
-                stop_all_notes();
-            } else {
-                PLAY_SONG(base_sound);
-            }
-        }
-    #endif
+    //   #if defined(AUDIO_ENABLE)
+    //     static bool is_base_on = false;
+    // if (layer_state_cmp(state, _BASE) != is_base_on) {
+    //         is_base_on = layer_state_cmp(state, _BASE);
+    //         if (is_base_on) {
+    //             stop_all_notes();
+    //         } else {
+    //             PLAY_SONG(base_sound);
+    //         }
+    //     }
+    // #endif
     return state;
 
 }
