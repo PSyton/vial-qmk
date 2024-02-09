@@ -40,4 +40,12 @@ enum lang_ru_en_custom_keycodes {
     LG_END,
 };
 
+enum { LANG_EN = 0, LANG_RU };
+
+enum { TG_GUI_SPC = 0, TG_SFT_CTL, TG_SFT_ALT };
+
 bool process_record_lang(uint16_t keycode, keyrecord_t *record);
+
+void lang_sync_external(uint8_t lang);
+
+uint8_t get_cur_lang();

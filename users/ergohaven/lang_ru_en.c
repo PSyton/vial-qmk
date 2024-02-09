@@ -1,12 +1,8 @@
 #include "lang_ru_en.h"
 
-enum { LANG_EN, LANG_RU };
+static uint8_t cur_lang = LANG_EN;
 
-uint8_t cur_lang = LANG_EN;
-
-enum { TG_GUI_SPC, TG_SFT_CTL, TG_SFT_ALT };
-
-uint8_t tg_mode = TG_GUI_SPC;
+static uint8_t tg_mode = TG_SFT_ALT;
 
 void set_lang(uint8_t lang) {
     if (cur_lang != lang) {
@@ -37,6 +33,17 @@ void lang_sync(void) {
         cur_lang = LANG_RU;
     else
         cur_lang = LANG_EN;
+}
+
+void lang_sync_external(uint8_t lang) {
+    if (lang == LANG_EN)
+        cur_lang = LANG_EN;
+    else
+        cur_lang = LANG_RU;
+}
+
+uint8_t get_cur_lang() {
+    return cur_lang;
 }
 
 typedef struct {
