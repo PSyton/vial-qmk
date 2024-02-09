@@ -42,7 +42,7 @@ void lang_sync_external(uint8_t lang) {
         cur_lang = LANG_RU;
 }
 
-uint8_t get_cur_lang() {
+uint8_t get_cur_lang(void) {
     return cur_lang;
 }
 

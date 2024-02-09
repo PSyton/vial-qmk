@@ -48,4 +48,4 @@ bool process_record_lang(uint16_t keycode, keyrecord_t *record);
 
 void lang_sync_external(uint8_t lang);
 
-uint8_t get_cur_lang();
+uint8_t get_cur_lang(void);
