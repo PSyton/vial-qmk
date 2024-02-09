@@ -2,6 +2,7 @@
 #include "display.h"
 #include "raw_hid.h"
 #include "lvgl_helpers.h"
+#include "lang_ru_en.h"
 
 uint16_t home_screen_timer = 0;
 
@@ -29,15 +30,16 @@ static lv_obj_t *label_volume_arc;
 static lv_obj_t *label_media_artist;
 static lv_obj_t *label_media_title;
 
-enum layout { _EN = 0, _RU };
 void set_layout_label(uint8_t layout) {
     switch (layout) {
-        case _EN:
+        case LANG_EN:
             lv_label_set_text(label_layout, "EN");
+            lang_sync_external(LANG_EN);
             break;
 
-        case _RU:
+        case LANG_RU:
             lv_label_set_text(label_layout, "RU");
+            lang_sync_external(LANG_RU);
             break;
     }
 }
