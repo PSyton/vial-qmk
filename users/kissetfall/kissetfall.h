@@ -27,6 +27,8 @@
 #define CTRLUP  LCTL(KC_UP)
 #define CTRLDN  LCTL(KC_DOWN)
 #define LANG    LALT(KC_LSFT)
+#define LANG1   LSG(KC_1)
+#define LANG2   LSG(KC_2)
 
 #define APP_A   LSG(KC_A)
 #define APP_S   LSG(KC_S)
@@ -37,17 +39,6 @@
 #define APP_C   LSG(KC_C)
 #define APP_V   LSG(KC_V)
 #define APP_B   LSG(KC_B)
-
-#define SLV_H   KC_H
-#define SLV_I   KC_I
-#define SLV_L   KC_L
-#define SLV_M   KC_M
-#define SLV_N   KC_N
-#define SLV_O   KC_O
-#define SLV_P   KC_P
-#define SLV_Y   KC_Y
-#define SLV_SX  LSFT(KC_X)
-#define SLV_SW  LSFT(KC_W)
 
 enum custom_keycodes {
     NEXTSEN = QK_KB,
