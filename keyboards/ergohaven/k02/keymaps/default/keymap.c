@@ -90,7 +90,7 @@ void render_layer_state(void) {
     // Print current mode
     oled_write_ln_P(PSTR("K:02\n"), false);
     oled_write_P(PSTR("\n"), false);
-    oled_write_ln_P(PSTR("v2.9\n"), false);
+    oled_write_ln_P(PSTR("v3.2\n"), false);
     oled_write_P(PSTR("\n\n"), false);
     oled_write_ln_P(PSTR("MODE\n"), false);
     oled_write_ln_P(PSTR(""), false);
