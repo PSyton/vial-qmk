@@ -1,0 +1,17 @@
+#pragma once
+
+#define VIAL_KEYBOARD_UID {0x74, 0x2A, 0xFA, 0x6B, 0xEB, 0x6E, 0x5B, 0x17}
+#define VIAL_UNLOCK_COMBO_ROWS { 0, 0 }
+#define VIAL_UNLOCK_COMBO_COLS { 0, 1 }
+
+#define BOOTMAGIC_LITE_ROW          0
+#define BOOTMAGIC_LITE_COLUMN       0
+#define BOOTMAGIC_LITE_ROW_RIGHT    5
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 5
+
+/* Serial settings */
+#define SERIAL_USART_FULL_DUPLEX
+#define SERIAL_USART_TX_PIN GP0
+#define SERIAL_USART_RX_PIN GP1
+#define SPLIT_HAND_PIN      GP24
+#define SPLIT_WATCHDOG_ENABLE

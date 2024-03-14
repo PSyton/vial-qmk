@@ -51,11 +51,6 @@
 
 #define USB_GETSTATUS_REMOTE_WAKEUP_ENABLED (2U)
 
-#ifdef WAIT_FOR_USB
-// TODO: Remove backwards compatibility with old define
-#    define USB_WAIT_FOR_ENUMERATION
-#endif
-
 /* -------------------------
  *   TMK host driver defs
  * -------------------------
@@ -159,7 +154,7 @@ void protocol_pre_init(void) {
 
     /* Wait until USB is active */
     while (true) {
-#if defined(USB_WAIT_FOR_ENUMERATION)
+#if defined(WAIT_FOR_USB)
         if (USB_DRIVER.state == USB_ACTIVE) {
             driver = &chibios_driver;
             break;
@@ -195,17 +190,9 @@ void protocol_pre_task(void) {
             /* Do this in the suspended state */
             suspend_power_down(); // on AVR this deep sleeps for 15ms
             /* Remote wakeup */
-            if (suspend_wakeup_condition() && (USB_DRIVER.status & USB_GETSTATUS_REMOTE_WAKEUP_ENABLED)) {
+            if ((USB_DRIVER.status & USB_GETSTATUS_REMOTE_WAKEUP_ENABLED) && suspend_wakeup_condition()) {
                 usbWakeupHost(&USB_DRIVER);
-#    if USB_SUSPEND_WAKEUP_DELAY > 0
-                // Some hubs, kvm switches, and monitors do
-                // weird things, with USB device state bouncing
-                // around wildly on wakeup, yielding race
-                // conditions that can corrupt the keyboard state.
-                //
-                // Pause for a while to let things settle...
-                wait_ms(USB_SUSPEND_WAKEUP_DELAY);
-#    endif
+                restart_usb_driver(&USB_DRIVER);
             }
         }
         /* Woken up */
@@ -228,7 +215,6 @@ void protocol_post_task(void) {
 #ifdef VIRTSER_ENABLE
     virtser_task();
 #endif
-    usb_idle_task();
 #ifdef RAW_ENABLE
     raw_hid_task();
 #endif
