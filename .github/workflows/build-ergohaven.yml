@@ -1,0 +1,45 @@
+name: Build Ergohaven
+
+on:
+  workflow_call:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+
+  build-ergohaven:
+    name: Build Ergohaven keymaps
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+
+    steps:
+    - name: (actions) Checkout Vial repo
+      uses: actions/checkout@v3
+      with:
+        persist-credentials: false
+        submodules: recursive
+
+    - name: Build
+      id: build
+      run: |
+        git config --global --add safe.directory $(pwd)
+        qmk compile -kb ergohaven/k03 -km no-enc
+        qmk compile -kb ergohaven/k03 -km enc-left
+        qmk compile -kb ergohaven/k03 -km enc-right
+        qmk compile -kb ergohaven/k03 -km enc-left-right
+        qmk compile -kb ergohaven/velvet/rev1 -km v1
+        qmk compile -kb ergohaven/velvet -km v2
+        qmk compile -kb ergohaven/hpd -km v1
+        qmk compile -kb ergohaven/k02 -km v1
+        qmk compile -kb ergohaven/remnant -km v1
+        qmk compile -kb ergohaven/planeta/rev1 -km v1
+        qmk compile -kb ergohaven/planeta -km v2
+        qmk compile -kb ergohaven/planeta -km hid
+        # qmk compile -kb ergohaven/macropad -km v1
+
+    - uses: actions/upload-artifact@v4
+      name: Upload
+      id: upload
+      with:
+        path: .build/*.uf2
+        name: ergohaven_fw
