@@ -1,61 +1,65 @@
 #include QMK_KEYBOARD_H
-#include "oled/ergohaven_dark.c"
 #include "ergohaven.h"
+#include "oled/ergohaven_dark.c"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-      [_BASE] = LAYOUT(
-         KC_F1,   KC_F2, KC_F3,   KC_F4,   KC_F5,   KC_F6,                                                  KC_F7, KC_F8,   KC_F9,   KC_F10, KC_F11,  KC_F12,
-         KC_TAB,  KC_Q,  KC_W,    KC_E,    KC_R,    KC_T,                                                   KC_Y,  KC_U,    KC_I,    KC_O,   KC_P,    KC_GRV,
-         KC_LALT, KC_A,  KC_S,    KC_D,    KC_F,    KC_G,                                                   KC_H,  KC_J,    KC_K,    KC_L,   KC_SCLN, KC_ENT,
-         KC_ESC,  KC_Z,  KC_X,    KC_C,    KC_V,    KC_B,                                                   KC_N,  KC_M,    KC_COMM, KC_DOT, KC_QUOT, KC_MPLY,
-                         KC_VOLD, KC_VOLU, KC_LCTL, LOWER, KC_SPC, PREVWRD,               NEXTWRD, KC_BSPC, RAISE, KC_RSFT, KC_PGDN, KC_PGUP 
-                                               
-      ),
-    
-      [_LOWER] = LAYOUT(
-    
-         _______, _______, _______, _______, _______, _______,                                              _______, _______, _______, _______, _______,  _______,
-         _______, KC_3,    KC_2,    KC_1,    KC_0,    KC_4,                                                 KC_7,    KC_6,    KC_5,    KC_9,    KC_8,     _______,
-         KC_ENT,  APP_A,   ALT_TAB, KC_DEL,  KC_LSFT, LANG,                                                 _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______,
-         _______, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, APP_B,                                                _______, KC_HOME, CTRLDN,  CTRLUP,  KC_END,   _______,
-                           KC_MPRV, KC_MNXT, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______ 
-    
-      ),
-    
-         [_RAISE] = LAYOUT(
-         _______, _______, _______, KC_AT,   _______, _______,                                              _______, _______, KC_CIRC, _______, _______, _______,
-         _______, _______, KC_TILD, KC_EQL,  KC_PLUS, _______,                                              _______, KC_LPRN, KC_UNDS, KC_RPRN, _______, _______,
-         _______, KC_BSLS, KC_DLR,  KC_MINS, KC_HASH, KC_EXLM,                                              KC_QUES, KC_LBRC, KC_PERC, KC_RBRC, KC_AMPR, _______,
-         _______, _______, KC_ASTR, KC_COLN, KC_SLSH, _______,                                              _______, KC_LCBR, KC_PIPE, KC_RCBR, _______, _______,
-                           _______, _______, _______, _______,  _______, _______,         _______, _______, _______, _______, _______, _______ 
-      )
-  
+        [_BASE] = LAYOUT( 
+          KC_ESC,  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_BSPC,  
+          KC_TAB,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                                          KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_RGUI,  
+          KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,                                          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_QUOT,  KC_RSFT,  
+                                             KC_LCTL, LOWER,   KC_SPC, KC_MUTE,    KC_HOME, KC_ENT,  RAISE,   KC_RALT 
+        ),
+
+        [_LOWER] = LAYOUT( 
+         _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     _______,
+         _______, KC_HOME, KC_INS,  KC_DEL,  KC_END,  LANG,                                          _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______,
+         _______, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, KC_PSCR,                                       KC_CAPS, PREVWRD, KC_PGDN, KC_PGUP, NEXTWRD,  _______,
+                                             _______, _______, _______, _______,   _______, _______, ADJUST,  _______ 
+        ),
+
+        [_RAISE] = LAYOUT( 
+         _______, KC_AT,   KC_LT,   KC_EQL,  KC_GT,   KC_GRV,                                        KC_CIRC, KC_LBRC, KC_UNDS, KC_RBRC, _______,  _______,
+         _______, KC_BSLS, KC_LPRN, KC_MINS, KC_RPRN, KC_PLUS,                                       KC_PERC, KC_LCBR, KC_SCLN, KC_RCBR, KC_EXLM,  _______,
+         _______, KC_HASH, KC_ASTR, KC_COLN, KC_SLSH, _______,                                       _______, KC_PIPE, KC_TILD, KC_AMPR, KC_DLR,   _______,
+                                             _______, ADJUST,  _______, _______,   _______, _______, _______, _______ 
+        ),
+
+      [_ADJUST] = LAYOUT(
+
+        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                                          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,
+        _______, _______, _______, _______, _______, _______,                                        _______, KC_VOLD, KC_MUTE, _______, KC_VOLU,  _______,
+        _______, DM_REC1, DM_RSTP, DM_PLY1, _______, CG_TOGG,                                        _______, KC_MPRV, KC_MPLY, _______, KC_MNXT,  _______,
+                                            _______, _______,  _______, _______,   _______, _______, _______, _______
+
+       ),
 };
 
-// #ifdef ENCODER_MAP_ENABLE
-// const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-//   [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(PREVWRD, NEXTWRD)},
-//   [1] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(CTRLDN,   CTRLUP)},
-//   [2] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)},
-// };
-// #endif
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+  [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+  [1] = { ENCODER_CCW_CW(KC_PGDN, KC_PGUP), ENCODER_CCW_CW(KC_PGDN, KC_PGUP)},
+  [2] = { ENCODER_CCW_CW(KC_WH_D, KC_WH_U), ENCODER_CCW_CW(KC_WH_D, KC_WH_U)},
+  [3] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+};
+#endif
 
 #ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
-    return OLED_ROTATION_270;
+    return OLED_ROTATION_270;  // bongocat, ergohaven_dark/light
+    // return OLED_ROTATION_270;  // luna
      }
     else {
-    return OLED_ROTATION_270;  
+    return OLED_ROTATION_270;
     }
   return rotation;
 }
 
 void render_layer_state(void) {
     // Print current mode
-    oled_write_ln_P(PSTR("K:03\n"), false);
-    /* oled_write_P(PSTR("\n"), false); */
+    //oled_write_ln_P(PSTR("\n"), false);
+    oled_write_P(PSTR("\n"), false);
     oled_write_ln_P(PSTR("v3.2\n"), false);
     oled_write_P(PSTR("\n"), false);
     oled_write_ln_P(PSTR("MODE\n"), false);
@@ -120,7 +124,8 @@ void render_layer_state(void) {
         default:
             oled_write_ln_P(PSTR("Undef"), false);
     }
-    oled_write_P(PSTR("\n"), false);
+    // oled_write_P(PSTR("\n"), false);
+    oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
 }
@@ -154,10 +159,10 @@ const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 
 // Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    my_base_layer,    
-    my_layer1_layer,    
-    my_layer2_layer,    
-    my_layer3_layer     
+    my_base_layer,
+    my_layer1_layer,
+    my_layer2_layer,
+    my_layer3_layer
 );
 
 

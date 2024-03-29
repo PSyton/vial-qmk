@@ -1,12 +1,12 @@
 #pragma once
 
-/* SPI config for display/touchpad */
+// SPI config for display
 #define SPI_DRIVER SPID1
 #define SPI_SCK_PIN GP10
 #define SPI_MOSI_PIN GP11
 #define SPI_MISO_PIN GP29
 
-/* LCD config */
+// LCD config
 #define LCD_DC_PIN GP16
 #define LCD_CS_PIN GP13
 #define LCD_RST_PIN GP17
