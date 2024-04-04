@@ -7,37 +7,8 @@
         "rows": 8,
         "cols": 6
     },
-    "customKeycodes": [
-        {"name": "NEXTSEN",
-         "title": "Add a dot then capitalize the first letter of a new sentence (US layout)",
-         "shortName": "NEXTSEN"
-        },
-        {"name": "PREDL",
-         "title": "Поставить точку и начать новое предложение с заглавной буквы (Русская раскладка)",
-         "shortName": "PREDL"
-        },
-        {"name": "BRACES",
-         "title": "This keycode types [, then ], and taps the left arrow to position the cursor between the []. Or if shift is held, it does the same but with curly braces {}.",
-         "shortName": "BRACES"
-        },
-        {"name": "PARENTH",
-         "title": "This keycode types (, then ), and taps the left arrow to position the cursor between the ().",
-         "shortName": "PARENTH"
-        },
-        {"name": "ALT_TAB",
-         "title": "Holds Alt and taps Tab, then waits for 750ms, if the key is tapped again, it will send another Tab; if there is no tap, Alt will turn off. This allows you to cycle through windows with only one key",
-         "shortName": "ALT_TAB"
-        },
-        {"name": "LNEXT",
-         "title": "Switch to the next layer",
-         "shortName": "LNEXT"
-        },
-        {"name": "LPREV",
-         "title": "Switch to the previous layer",
-         "shortName": "LPREV"
-        }
-    ],
- "layouts": {
+#include "users/ergohaven/vial_keycodes.json"
+  "layouts": {
     "keymap": [
       [
         {
@@ -101,9 +72,9 @@
       [
         {
           "y": -0.95,
-          "x": 10.25
+          "x": 6.5
         },
-        "1,1\n\n\n\n\n\n\n\n\ne"
+        "0,1\n\n\n\n\n\n\n\n\ne"
       ],
       [
         {
@@ -169,9 +140,9 @@
       [
         {
           "y": -0.9500000000000002,
-          "x": 10.25
+          "x": 6.5
         },
-        "7,0"
+        "3,0"
       ],
       [
         {
@@ -239,16 +210,16 @@
       [
         {
           "y": -0.9500000000000002,
-          "x": 10.25
+          "x": 6.5
         },
-        "1,0\n\n\n\n\n\n\n\n\ne"
+        "0,0\n\n\n\n\n\n\n\n\ne"
       ],
       [
         {
           "y": -0.75,
-          "x": 6
+          "x": 10.5
         },
-        "3,0"
+        "7,0"
       ],
       [
         {

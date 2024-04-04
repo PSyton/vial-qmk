@@ -7,160 +7,7 @@
         "rows": 10,
         "cols": 6
     },
-    "customKeycodes": [
-        {"name": "NEXTSEN",
-         "title": "Add a dot then capitalize the first letter of a new sentence (US layout)",
-         "shortName": "NEXTSEN"
-        },
-        {"name": "PREDL",
-         "title": "Поставить точку и начать новое предложение с заглавной буквы (Русская раскладка)",
-         "shortName": "PREDL"
-        },
-        {"name": "BRACES",
-         "title": "This keycode types [, then ], and taps the left arrow to position the cursor between the []. Or if shift is held, it does the same but with curly braces {}.",
-         "shortName": "BRACES"
-        },
-        {"name": "PARENTH",
-         "title": "This keycode types (, then ), and taps the left arrow to position the cursor between the ().",
-         "shortName": "PARENTH"
-        },
-        {"name": "ALT_TAB",
-         "title": "Holds Alt and taps Tab, then waits for 750ms, if the key is tapped again, it will send another Tab; if there is no tap, Alt will turn off. This allows you to cycle through windows with only one key",
-         "shortName": "ALT_TAB"
-        },
-        {"name": "LNEXT",
-         "title": "Switch to the next layer",
-         "shortName": "LNEXT"
-        },
-        {"name": "LPREV",
-         "title": "Switch to the previous layer",
-         "shortName": "LPREV"
-        },
-        {"name": "",
-        "title": "Not using",
-        "shortName": ""
-        },
-
-        {"name": "LG_TOGGLE",
-        "title": "Toggle language",
-        "shortName": "RuEn\nToggle"
-        },
-        {"name": "LG_SYNC",
-        "title": "Sync language",
-        "shortName": "RuEn\nSync"
-        },
-        {"name": "LG_SET_EN",
-        "title": "Set English language",
-        "shortName": "RuEn\nEn"
-        },
-        {"name": "LG_SET_RU",
-        "title": "Toggle Russian language",
-        "shortName": "RuEn\nRu"
-        },
-
-        {"name": "LG_SET_M30",
-        "title": "Set toggle languge to Macro 30",
-        "shortName": "RuEn\nM30"
-        },
-        {"name": "LG_SET_M31",
-        "title": "Set toggle languge to Macro 31",
-        "shortName": "RuEn\nM31"
-        },
-        {"name": "LG_SET_SFT_ALT",
-        "title": "Set toggle languge to Shift+Alt",
-        "shortName": "RuEn\nSftAlt"
-        },
-
-        {"name": "LG_DOT",
-        "title": "Send .",
-        "shortName": "RuEn\n."
-        },
-        {"name": "LG_COMMA",
-        "title": "Send ,",
-        "shortName": "RuEn\n,"
-        },
-        {"name": "LG_SCLN",
-        "title": "Send ;",
-        "shortName": "RuEn\n;"
-        },
-        {"name": "LG_COLON",
-        "title": "Send :",
-        "shortName": "RuEn\n:"
-        },
-        {"name": "LG_DQUO",
-        "title": "Send \"",
-        "shortName": "RuEn\n\""
-        },
-        {"name": "LG_QUES",
-        "title": "Send ?",
-        "shortName": "RuEn\n?"
-        },
-        {"name": "LG_SLASH",
-        "title": "Send /",
-        "shortName": "RuEn\n/"
-        },
-
-        {"name": "LG_LBR",
-        "title": "Send [",
-        "shortName": "RuEn\n["
-        },
-        {"name": "LG_RBR",
-        "title": "Send ]",
-        "shortName": "RuEn\n]"
-        },
-        {"name": "LG_LCBR",
-        "title": "Send {",
-        "shortName": "RuEn\n{"
-        },
-        {"name": "LG_RCBR",
-        "title": "Send }",
-        "shortName": "RuEn\n}"
-        },
-        {"name": "LG_LT",
-        "title": "Send <",
-        "shortName": "RuEn\n<"
-        },
-        {"name": "LG_GT",
-        "title": "Send >",
-        "shortName": "RuEn\n>"
-        },
-        {"name": "LG_GRAVE",
-        "title": "Send `",
-        "shortName": "RuEn\n`"
-        },
-        {"name": "LG_TILD",
-        "title": "Send ~",
-        "shortName": "RuEn\n~"
-        },
-        {"name": "LG_AT",
-        "title": "Send @",
-        "shortName": "RuEn\n@"
-        },
-        {"name": "LG_HASH",
-        "title": "Send #",
-        "shortName": "RuEn\n#"
-        },
-        {"name": "LG_DLR",
-        "title": "Send $",
-        "shortName": "RuEn\n$"
-        },
-        {"name": "LG_CIRC",
-        "title": "Send ^",
-        "shortName": "RuEn\n^"
-        },
-        {"name": "LG_AMPR",
-        "title": "Send &",
-        "shortName": "RuEn\n&"
-        },
-        {"name": "LG_PIPE",
-        "title": "Send |",
-        "shortName": "RuEn\n|"
-        },
-        {"name": "LG_QUOTE",
-        "title": "Send '",
-        "shortName": "RuEn\n'"
-        }
-    ],
+#include "users/ergohaven/vial_keycodes.json"
   "layouts": {
     "keymap": [
       [
@@ -287,9 +134,9 @@
       [
         {
           "y": -0.95,
-          "x": 6.25
+          "x": 10.25
         },
-        "0,1\n\n\n\n\n\n\n\n\ne"
+        "1,1\n\n\n\n\n\n\n\n\ne"
       ],
       [
         {
@@ -355,9 +202,9 @@
       [
         {
           "y": -0.9500000000000002,
-          "x": 6.25
+          "x": 10.25
         },
-        "4,0"
+        "9,0"
       ],
       [
         {
@@ -425,16 +272,16 @@
       [
         {
           "y": -0.9500000000000002,
-          "x": 6.25
+          "x": 10.25
         },
-        "0,0\n\n\n\n\n\n\n\n\ne"
+        "1,0\n\n\n\n\n\n\n\n\ne"
       ],
       [
         {
           "y": -0.75,
-          "x": 10.5
+          "x": 6
         },
-        "9,0"
+        "4,0"
       ],
       [
         {

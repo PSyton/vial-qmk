@@ -1,30 +1,8 @@
 {
-    "name": "Planeta v1",
-    "lighting": "none",
+    "name": "Planeta v2 (HID)",
+    "lighting": "qmk_rgblight",
     "matrix":{ "rows":5, "cols":12 },
-    "customKeycodes": [
-        {"name": "NEXTSEN",
-         "title": "Add a dot then capitalize the first letter of a new sentence (US layout)",
-         "shortName": "NEXTSEN"
-        },
-        {"name": "PREDL",
-         "title": "Поставить точку и начать новое предложение с заглавной буквы (Русская раскладка)",
-         "shortName": "PREDL"
-        }, 
-        {"name": "BRACES",
-         "title": "This keycode types [, then ], and taps the left arrow to position the cursor between the []. Or if shift is held, it does the same but with curly braces {}.",
-         "shortName": "BRACES"
-        },
-        {"name": "PARENTH",
-         "title": "This keycode types (, then ), and taps the left arrow to position the cursor between the ().",
-         "shortName": "PARENTH"
-        }, 
-        {"name": "ALT_TAB",
-         "title": "Holds Alt and taps Tab, then waits for 750ms, if the key is tapped again, it will send another Tab; if there is no tap, Alt will turn off. This allows you to cycle through windows with only one key",
-         "shortName": "ALT_TAB"
-        }    
-
-    ],
+#include "users/ergohaven/vial_keycodes.json"
     "layouts":{
         "keymap":[
             [{"c":"#aaaaaa","x":3},"0,3",{"x":7.25},"0,8"],
