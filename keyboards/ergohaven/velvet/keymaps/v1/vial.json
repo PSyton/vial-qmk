@@ -2,7 +2,7 @@
   "name": "Velvet v1",
   "lighting": "none",
     "matrix":{ "rows":8, "cols":5 },
-#include "users/ergohaven/vial_keycodes.json"
+#include "users/ergohaven/vial_custom_keycodes.json"
     "layouts":{
         "keymap":[
             [{"c":"#aaaaaa","x":3},"0,3",{"x":10.05},"5,3"],

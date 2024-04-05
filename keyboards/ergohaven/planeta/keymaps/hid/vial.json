@@ -2,7 +2,7 @@
     "name": "Planeta v2 (HID)",
     "lighting": "qmk_rgblight",
     "matrix":{ "rows":5, "cols":12 },
-#include "users/ergohaven/vial_keycodes.json"
+#include "users/ergohaven/vial_custom_keycodes.json"
     "layouts":{
         "keymap":[
             [{"c":"#aaaaaa","x":3},"0,3",{"x":7.25},"0,8"],
