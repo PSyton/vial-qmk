@@ -1,6 +1,7 @@
 {
     "name": "Planeta v2",
     "lighting": "qmk_rgblight",
+    "matrix":{ "rows":5, "cols":12 },
 #include "users/ergohaven/vial_custom_keycodes.json"
     "layouts":{
         "keymap":[
