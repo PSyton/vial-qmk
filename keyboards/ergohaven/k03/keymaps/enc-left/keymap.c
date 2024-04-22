@@ -63,7 +63,7 @@ void render_layer_state(void) {
     // Print current mode
     oled_write_ln_P(PSTR("K:03\n"), false);
     /* oled_write_P(PSTR("\n"), false); */
-    oled_write_ln_P(PSTR("v3.2\n"), false);
+    oled_write_ln_P(PSTR("v3.3\n"), false);
     oled_write_P(PSTR("\n"), false);
     oled_write_ln_P(PSTR("MODE\n"), false);
     if (keymap_config.swap_lctl_lgui) {

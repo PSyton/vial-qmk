@@ -32,14 +32,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
 };
 
-// #ifdef ENCODER_MAP_ENABLE
-// const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-//   [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(PREVWRD, NEXTWRD)},
-//   [1] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(CTRLDN,   CTRLUP)},
-//   [2] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)},
-// };
-// #endif
-
 #ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -56,7 +48,7 @@ void render_layer_state(void) {
     // Print current mode
     oled_write_ln_P(PSTR("K:03\n"), false);
     /* oled_write_P(PSTR("\n"), false); */
-    oled_write_ln_P(PSTR("v3.2\n"), false);
+    oled_write_ln_P(PSTR("v3.3\n"), false);
     oled_write_P(PSTR("\n"), false);
     oled_write_ln_P(PSTR("MODE\n"), false);
     if (keymap_config.swap_lctl_lgui) {
