@@ -24,10 +24,7 @@ jobs:
       run: |
         git config --global --add safe.directory $(pwd)
         qmk compile -kb ergohaven/k03 -km v1
-        qmk compile -kb ergohaven/imperial44 -km no-enc
-        qmk compile -kb ergohaven/imperial44 -km enc-left
-        qmk compile -kb ergohaven/imperial44 -km enc-right
-        qmk compile -kb ergohaven/imperial44 -km enc-left-right
+        qmk compile -kb ergohaven/imperial44 -km v1
         qmk compile -kb ergohaven/velvet/rev1 -km v1
         qmk compile -kb ergohaven/velvet -km v2
         qmk compile -kb ergohaven/hpd -km v1
