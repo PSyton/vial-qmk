@@ -25,66 +25,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______, _______, KC_ASTR, KC_COLN, KC_SLSH, _______,                          _______, KC_PIPE, KC_TILD, KC_AMPR, _______,  _______,
                   _______, _______, _______, ADJUST,  _______,  _______,        _______, _______, _______, _______, _______, _______ \
         ),
-    
+
       [_ADJUST] = LAYOUT(
         QK_BOOT, _______, _______, _______, _______, _______,                           CG_TOGG, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,                           _______, _______, _______, _______, DM_PLY1, DM_REC1,
         _______, CK_RST,  CK_DOWN, CK_UP,   CK_TOGG, AU_TOGG,                           _______, KC_VOLD, KC_MUTE, KC_VOLU, DM_PLY2, DM_REC2,
         _______, _______, _______, _______, _______, _______,                           _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, DM_RSTP,
-                 _______, _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______, _______                  
+                 _______, _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______, _______
        ),
 };
-
-#ifdef RGBLIGHT_ENABLE
-const rgblight_segment_t PROGMEM my_base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 2, HSV_WHITE}
-);
-const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 2, HSV_CYAN}
-);
-const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 2, HSV_RED}
-);
-const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 2, HSV_GOLDENROD}
-);
-
-// Now define the array of layers. Later layers take precedence
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    my_base_layer,    
-    my_layer1_layer,    
-    my_layer2_layer,    
-    my_layer3_layer     
-);
-
-
-void keyboard_post_init_user(void) {
-    // Enable the LED layers
-    rgblight_layers = my_rgb_layers;
-}
-
-layer_state_t default_layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(0, layer_state_cmp(state, _BASE));
-    return state;
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(1, layer_state_cmp(state, _RAISE));
-    rgblight_set_layer_state(2, layer_state_cmp(state, _LOWER));
-    rgblight_set_layer_state(3, layer_state_cmp(state, _ADJUST));
-
-    //   #if defined(AUDIO_ENABLE)
-    //     static bool is_base_on = false;
-    // if (layer_state_cmp(state, _BASE) != is_base_on) {
-    //         is_base_on = layer_state_cmp(state, _BASE);
-    //         if (is_base_on) {
-    //             stop_all_notes();
-    //         } else {
-    //             PLAY_SONG(base_sound);
-    //         }
-    //     }
-    // #endif
-    return state;
-
-}
-#endif

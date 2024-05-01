@@ -26,10 +26,8 @@ void housekeeping_task_kb(void) {
     housekeeping_task_user();
 }
 
-void keyboard_post_init_kb(void) {
+void keyboard_post_init_user(void) {
     display_enabled = false;
     display_enabled = display_init_kb();
-
-    keyboard_post_init_user();
     writePinHigh(GP18);
 }
