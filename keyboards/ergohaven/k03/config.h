@@ -1,9 +1,5 @@
 #pragma once
 
-#define VIAL_KEYBOARD_UID {0xF1, 0xB3, 0x4C, 0x68, 0x6C, 0x25, 0xF1, 0x53}
-#define VIAL_UNLOCK_COMBO_ROWS { 0, 0 }
-#define VIAL_UNLOCK_COMBO_COLS { 5, 4 }
-
 #define BOOTMAGIC_LITE_ROW          0
 #define BOOTMAGIC_LITE_COLUMN       5
 #define BOOTMAGIC_LITE_ROW_RIGHT    5
