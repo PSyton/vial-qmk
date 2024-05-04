@@ -8,5 +8,3 @@ DEFAULT_FOLDER = ergohaven/planeta/rev2
 
 AUDIO_ENABLE = yes
 AUDIO_DRIVER = pwm_hardware
-
-SRC += keyboards/ergohaven/ergohaven_rgb.c keyboards/ergohaven/ergohaven.c keyboards/ergohaven/lang_ru_en.c

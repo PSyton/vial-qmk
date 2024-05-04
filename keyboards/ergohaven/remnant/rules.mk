@@ -13,5 +13,3 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = ws2812
 VIALRGB_ENABLE = yes
 SERIAL_DRIVER = vendor
-
-SRC += keyboards/ergohaven/ergohaven_rgb.c keyboards/ergohaven/ergohaven.c keyboards/ergohaven/lang_ru_en.c

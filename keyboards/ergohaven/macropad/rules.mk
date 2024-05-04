@@ -8,5 +8,3 @@ BOOTLOADER = rp2040
 ENCODER_ENABLE = yes
 OLED_ENABLE = yes
 OLED_DRIVER = ssd1306
-
-SRC += keyboards/ergohaven/ergohaven_rgb.c keyboards/ergohaven/ergohaven.c keyboards/ergohaven/lang_ru_en.c
