@@ -2,6 +2,7 @@
 #include "ergohaven.h"
 #include "hid_display.h"
 #include "raw_hid.h"
+#include "rev2.h"
 
 // #ifdef AUDIO_ENABLE
 // float base_sound[][2] = SONG(TERMINAL_SOUND);
