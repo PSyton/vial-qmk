@@ -7,7 +7,7 @@
         "rows": 8,
         "cols": 6
     },
-#include "users/ergohaven/vial_custom_keycodes.json"
+#include "keyboards/ergohaven/vial_custom_keycodes.json"
  "layouts": {
     "labels": [
       "No left encoder",
