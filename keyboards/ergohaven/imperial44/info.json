@@ -4,14 +4,6 @@
     "maintainer": "Ergohaven",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
-    "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true
-    },
     "matrix_pins": {
         "cols": ["GP9", "GP10", "GP11", "GP12", "GP13", "GP14"],
         "rows": ["GP5", "GP6", "GP7", "GP8"]
@@ -89,7 +81,7 @@
                 {"matrix": [7, 0], "x": 8.25, "y": 3.8, "label": "]"},
                 {"matrix": [7, 1], "x": 9.25, "y": 3.4, "label": "Enter"},
                 {"matrix": [7, 2], "x": 10.25, "y": 3.25, "label": "Raise"},
-                {"matrix": [7, 3], "x": 11.25, "y": 3, "label": "Alt"},
+                {"matrix": [7, 3], "x": 11.25, "y": 3, "label": "Alt"}
             ]
         }
     }
