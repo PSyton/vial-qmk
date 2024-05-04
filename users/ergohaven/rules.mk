@@ -1,5 +1,3 @@
-SRC += ergohaven.c lang_ru_en.c
-
 # Build Options
 
 NKRO_ENABLE = yes

@@ -8,3 +8,5 @@ BOOTLOADER = rp2040
 SLEEP_LED_ENABLE = no
 SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = vendor
+
+SRC += keyboards/ergohaven/ergohaven_rgb.c keyboards/ergohaven/ergohaven.c keyboards/ergohaven/lang_ru_en.c
