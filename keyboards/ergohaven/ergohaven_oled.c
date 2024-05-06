@@ -15,8 +15,11 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void render_layer_state(void) {
     // Print current mode
-    oled_write_ln_P(PSTR(PRODUCT), false);
-    /* oled_write_P(PSTR("\n"), false); */
+    if (strlen(PRODUCT) <= 5)
+        oled_write_ln_P(PSTR(PRODUCT), false);
+    else // Imperial44 is too long name
+        oled_write_ln_P(PSTR("\n"), false);
+
     oled_write_ln_P(PSTR("v3.3\n"), false);
     oled_write_P(PSTR("\n"), false);
     oled_write_ln_P(PSTR("MODE\n"), false);
