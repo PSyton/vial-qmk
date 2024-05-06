@@ -1,5 +1,4 @@
 VIAL_ENABLE = yes
-USER_NAME := ergohaven
 
 # ENCODER_ENABLE = yes
 # ENCODER_MAP_ENABLE = yes
