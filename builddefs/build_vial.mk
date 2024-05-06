@@ -32,7 +32,7 @@ endif
 # Generate Vial layout definition header from JSON
 $(QUANTUM_DIR)/vial.c: $(INTERMEDIATE_OUTPUT)/src/vial_generated_keyboard_definition.h
 
-ifeq ($(strip $(USER_NAME)), ergohaven)
+ifneq (,$(findstring ergohaven,$(KEYBOARD)))
 $(INTERMEDIATE_OUTPUT)/src/vial_generated_keyboard_definition.h: $(INTERMEDIATE_OUTPUT)/src/vial.json
 	python3 util/vial_generate_definition.py $(INTERMEDIATE_OUTPUT)/src/vial.json $(INTERMEDIATE_OUTPUT)/src/vial_generated_keyboard_definition.h
 $(INTERMEDIATE_OUTPUT)/src/vial.json: $(KEYMAP_PATH)/vial.json
