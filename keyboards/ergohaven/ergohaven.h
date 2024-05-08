@@ -48,7 +48,7 @@
 
 enum custom_keycodes {
     NEXTSEN = QK_KB,
-    PREDL, 
+    PREDL,
     BRACES,
     PARENTH,
     ALT_TAB,
@@ -60,3 +60,5 @@ enum custom_keycodes {
 #define LAYER_CYCLE_START 0
 // Last layer on the cycle
 #define LAYER_CYCLE_END   15
+
+const char* layer_name(int layer);

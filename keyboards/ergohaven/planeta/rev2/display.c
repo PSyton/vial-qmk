@@ -3,25 +3,7 @@
 #include "lvgl_helpers.h"
 #include "lang_ru_en.h"
 #include "hid.h"
-
-typedef enum {
-    _DEF = 0,
-    _NAV,
-    _SYM,
-    _ADJ,
-    _FOURTH,
-    _FIFTH,
-    _SIXTH,
-    _SEVENTH,
-    _EIGHTH,
-    _NINTH,
-    _TENTH,
-    _ELEVENTH,
-    _TWELTH,
-    _THIRTEENTH,
-    _FOURTEENTH,
-    _FIFTEENTH,
-} layer_number;
+#include "ergohaven.h"
 
 static uint16_t home_screen_timer = 0;
 
@@ -232,56 +214,7 @@ void display_process_hid_data(struct hid_data_t hid_data) {
 }
 
 void display_process_layer_state(uint8_t layer) {
-    switch (layer) {
-        case _DEF:
-            lv_label_set_text(label_layer, "BASE");
-            break;
-        case _NAV:
-            lv_label_set_text(label_layer, "NAV");
-            break;
-        case _SYM:
-            lv_label_set_text(label_layer, "SYMBOL");
-            break;
-        case _ADJ:
-            lv_label_set_text(label_layer, "ADJ");
-            break;
-        case _FOURTH:
-            lv_label_set_text(label_layer, "4");
-            break;
-        case _FIFTH:
-            lv_label_set_text(label_layer, "5");
-            break;
-        case _SIXTH:
-            lv_label_set_text(label_layer, "6");
-            break;
-        case _SEVENTH:
-            lv_label_set_text(label_layer, "7");
-            break;
-        case _EIGHTH:
-            lv_label_set_text(label_layer, "8");
-            break;
-        case _NINTH:
-            lv_label_set_text(label_layer, "9");
-            break;
-        case _TENTH:
-            lv_label_set_text(label_layer, "10");
-            break;
-        case _ELEVENTH:
-            lv_label_set_text(label_layer, "11");
-            break;
-        case _TWELTH:
-            lv_label_set_text(label_layer, "12");
-            break;
-        case _THIRTEENTH:
-            lv_label_set_text(label_layer, "13");
-            break;
-        case _FOURTEENTH:
-            lv_label_set_text(label_layer, "14");
-            break;
-        case _FIFTEENTH:
-            lv_label_set_text(label_layer, "15");
-            break;
-    }
+    lv_label_set_text(label_layer, layer_name(layer));
 }
 
 void display_housekeeping_task(void) {

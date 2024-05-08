@@ -197,3 +197,28 @@ void matrix_scan_user(void) { // The very important timer.
 //     }
 }
 
+static const char* PROGMEM LAYER_NAME[] =   {
+    "Base ",
+    "Raise",
+    "Lower",
+    "Adjst",
+    "Four ",
+    "Five ",
+    "Six  ",
+    "Seven",
+    "Eight",
+    "Nine ",
+    "Ten  ",
+    "Elevn",
+    "Twlve",
+    "Thrtn",
+    "Frtn ",
+    "Fiftn",
+};
+
+const char* layer_name(int layer) {
+    if (layer >= 0 && layer <= 15)
+        return LAYER_NAME[layer];
+    else
+        return "Undef";
+}
