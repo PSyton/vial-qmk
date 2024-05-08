@@ -2,11 +2,7 @@
 #include "qp.h"
 #include "lvgl_helpers.h"
 #include "lang_ru_en.h"
-
-#define MODS_SHIFT ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT)
-#define MODS_CTRL ((get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL)
-#define MODS_ALT ((get_mods() | get_oneshot_mods()) & MOD_MASK_ALT)
-#define MODS_GUI ((get_mods() | get_oneshot_mods()) & MOD_MASK_GUI)
+#include "hid.h"
 
 typedef enum {
     _DEF = 0,
@@ -26,14 +22,6 @@ typedef enum {
     _FOURTEENTH,
     _FIFTEENTH,
 } layer_number;
-
-typedef enum {
-    _TIME = 0xAA, // random value that does not conflict with VIA, must match companion app
-    _VOLUME,
-    _LAYOUT,
-    _MEDIA_ARTIST,
-    _MEDIA_TITLE,
-} hid_data_type;
 
 static uint16_t home_screen_timer = 0;
 
@@ -189,7 +177,7 @@ bool display_init_kb(void) {
 
     dprint("display_init_kb - initialised\n");
 
-    lv_disp_t  *lv_display = lv_disp_get_default();
+    lv_disp_t * lv_display = lv_disp_get_default();
     lv_theme_t *lv_theme   = lv_theme_default_init(lv_display, lv_palette_main(LV_PALETTE_TEAL), lv_palette_main(LV_PALETTE_BLUE), true, LV_FONT_DEFAULT);
     lv_disp_set_theme(lv_display, lv_theme);
     init_styles();
@@ -206,20 +194,12 @@ void set_layout_label(uint8_t layout) {
     switch (layout) {
         case LANG_EN:
             lv_label_set_text(label_layout, "EN");
-            lang_sync_external(LANG_EN);
             break;
 
         case LANG_RU:
             lv_label_set_text(label_layout, "RU");
-            lang_sync_external(LANG_RU);
             break;
     }
-}
-
-void read_string(uint8_t *data, char *string_data) {
-    uint8_t data_length = data[1];
-    memcpy(string_data, data + 2, data_length);
-    string_data[data_length] = '\0';
 }
 
 void start_home_screen_timer(void) {
@@ -227,45 +207,27 @@ void start_home_screen_timer(void) {
     home_screen_timer = timer_read();
 }
 
-void display_process_raw_hid_data(uint8_t *data, uint8_t length) {
-    uint8_t data_type = data[0];
-    char    string_data[length - 2];
-    dprintf("display_process_raw_hid_data - received data_type %u \n", data_type);
-    switch (data_type) {
-        case _TIME:
-            dprintf("time %02d:%02d\n", data[1], data[2]);
-            lv_label_set_text_fmt(label_time, "%02d:%02d", data[1], data[2]);
-            break;
-
-        case _VOLUME:
-            dprintf("volume %d\n", data[1]);
-            lv_label_set_text_fmt(label_volume_home, "Vol: %02d%%", data[1]);
-            lv_label_set_text_fmt(label_volume_arc, "%02d", data[1]);
-            lv_arc_set_value(arc_volume, data[1]);
-            lv_scr_load(screen_volume);
-            start_home_screen_timer();
-            break;
-
-        case _LAYOUT:
-            dprintf("layout %d\n", data[1]);
-            set_layout_label(data[1]);
-            break;
-
-        case _MEDIA_ARTIST:
-            read_string(data, string_data);
-            dprintf("media artist %s\n", string_data);
-            lv_label_set_text(label_media_artist, string_data);
-            lv_scr_load(screen_media);
-            start_home_screen_timer();
-            break;
-
-        case _MEDIA_TITLE:
-            read_string(data, string_data);
-            dprintf("media title %s\n", string_data);
-            lv_label_set_text(label_media_title, string_data);
-            lv_scr_load(screen_media);
-            start_home_screen_timer();
-            break;
+void display_process_hid_data(struct hid_data_t hid_data) {
+    dprintf("display_process_hid_data");
+    if (hid_data.time_changed) {
+        lv_label_set_text_fmt(label_time, "%02d:%02d", hid_data.hours, hid_data.minutes);
+    }
+    if (hid_data.volume_changed) {
+        lv_label_set_text_fmt(label_volume_home, "Vol: %02d%%", hid_data.volume);
+        lv_label_set_text_fmt(label_volume_arc, "%02d", hid_data.volume);
+        lv_arc_set_value(arc_volume, hid_data.volume);
+        lv_scr_load(screen_volume);
+        start_home_screen_timer();
+    }
+    if (hid_data.media_artist_changed) {
+        lv_label_set_text(label_media_artist, hid_data.media_artist);
+        lv_scr_load(screen_media);
+        start_home_screen_timer();
+    }
+    if (hid_data.media_title_changed) {
+        lv_label_set_text(label_media_title, hid_data.media_title);
+        lv_scr_load(screen_media);
+        start_home_screen_timer();
     }
 }
 
@@ -328,62 +290,15 @@ void display_housekeeping_task(void) {
         lv_scr_load(screen_home);
     }
 
-    toggle_state(label_shift, LV_STATE_PRESSED, MODS_SHIFT);
-    toggle_state(label_ctrl, LV_STATE_PRESSED, MODS_CTRL);
-    toggle_state(label_alt, LV_STATE_PRESSED, MODS_ALT);
-    toggle_state(label_gui, LV_STATE_PRESSED, MODS_GUI);
+    toggle_state(label_shift, LV_STATE_PRESSED, (get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT);
+    toggle_state(label_ctrl, LV_STATE_PRESSED, (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL);
+    toggle_state(label_alt, LV_STATE_PRESSED, (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT);
+    toggle_state(label_gui, LV_STATE_PRESSED, (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI);
+    display_process_hid_data(get_hid_data());
+    set_layout_label(get_cur_lang());
+    reset_hid_changed();
 }
 
 void display_process_caps(bool active) {
     toggle_state(label_caps, LV_STATE_PRESSED, active);
-}
-
-/* Active Layer processing */
-// layer_state_t layer_state_set_keymap(layer_state_t state) {
-//     if (is_display_enabled()) {
-//         display_process_layer_state(get_highest_layer(state));
-//     }
-
-//     return state;
-// }
-
-/* Raw HID processing*/
-void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
-    dprintf("raw_hid_receive - received %u bytes \n", length);
-
-    // if (is_display_enabled()) {
-        display_process_raw_hid_data(data, length);
-    // } else if (is_keyboard_master() && !is_display_side()) {
-        // dprint("RPC_ID_USER_HID_SYNC \n");
-        // transaction_rpc_send(RPC_ID_USER_HID_SYNC, length, data);
-    // }
-}
-
-void hid_sync(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
-    if (is_display_enabled()) {
-        display_process_raw_hid_data((uint8_t *)initiator2target_buffer, initiator2target_buffer_size);
-    }
-}
-
-// void keyboard_post_init_user() {
-    // sync received hid data
-    // transaction_register_rpc(RPC_ID_USER_HID_SYNC, hid_sync);
-// }
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    if (is_display_enabled()) {
-        display_process_layer_state(get_highest_layer(state));
-    }
-    //   #if defined(AUDIO_ENABLE)
-    //     static bool is_base_on = false;
-    // if (layer_state_cmp(state, _BASE) != is_base_on) {
-    //         is_base_on = layer_state_cmp(state, _BASE);
-    //         if (is_base_on) {
-    //             stop_all_notes();
-    //         } else {
-    //             PLAY_SONG(base_sound);
-    //         }
-    //     }
-    // #endif
-    return state;
 }
