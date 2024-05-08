@@ -11,6 +11,7 @@ extern lv_style_t style_container;
 extern lv_style_t style_button;
 extern lv_style_t style_button_active;
 
+bool is_display_enabled(void);
 bool display_init_kb(void);
 bool display_init_user(void);
 void display_housekeeping_task(void);

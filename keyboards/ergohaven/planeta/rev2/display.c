@@ -18,6 +18,13 @@ static lv_obj_t *label_alt;
 static lv_obj_t *label_gui;
 static lv_obj_t *label_caps;
 
+static bool display_enabled;
+
+/* public function to be used in keymaps */
+bool is_display_enabled(void) {
+    return display_enabled;
+}
+
 void init_styles(void) {
     lv_style_init(&style_screen);
     lv_style_set_bg_color(&style_screen, lv_color_black());
@@ -78,6 +85,7 @@ void init_screen_home(void) {
 }
 
 bool display_init_kb(void) {
+    display_enabled = false;
     dprint("display_init_kb - start\n");
 
     setPinOutput(GP18);
@@ -86,7 +94,7 @@ bool display_init_kb(void) {
     painter_device_t display = qp_st7789_make_spi_device(240, 300, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 16, 3);
     qp_set_viewport_offsets(display, 0, 20);
 
-    if (!qp_init(display, QP_ROTATION_180) || !qp_power(display, true) || !qp_lvgl_attach(display)) return false;
+    if (!qp_init(display, QP_ROTATION_180) || !qp_power(display, true) || !qp_lvgl_attach(display)) return display_enabled;
 
     dprint("display_init_kb - initialised\n");
 
@@ -95,13 +103,13 @@ bool display_init_kb(void) {
     lv_disp_set_theme(lv_display, lv_theme);
     init_styles();
 
-    bool res = display_init_user();
-    if (res) {
+    display_enabled = display_init_user();
+    if (display_enabled) {
         dprint("display_init_kb - adding default home screen\n");
         init_screen_home();
     }
-
-    return true;
+    display_enabled = true;
+    return display_enabled;
 }
 
 __attribute__((weak)) bool display_init_user(void) {
