@@ -61,10 +61,10 @@ void init_screen_home_custom(void) {
     use_flex_column(screen_home);
 
     label_volume_home = lv_label_create(screen_home);
-    lv_label_set_text(label_volume_home, "Vol: N/A");
+    lv_label_set_text(label_volume_home, "Ergohaven");
 
     label_time = lv_label_create(screen_home);
-    lv_label_set_text(label_time, "hh:mm");
+    lv_label_set_text(label_time, "Planeta");
     lv_obj_set_style_text_font(label_time, &lv_font_montserrat_48, LV_PART_MAIN);
 
     lv_obj_t *mods = lv_obj_create(screen_home);
@@ -87,7 +87,6 @@ void init_screen_home_custom(void) {
     label_layout = lv_label_create(bottom_row);
     lv_label_set_text(label_layout, "");
     lv_obj_align(label_layout, LV_ALIGN_RIGHT_MID, -20, 0);
-    set_layout_label(0);
 
     label_caps = create_button(screen_home, "CAPS", &style_button, &style_button_active);
 }

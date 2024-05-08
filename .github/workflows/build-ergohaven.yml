@@ -32,7 +32,6 @@ jobs:
         qmk compile -kb ergohaven/remnant -km v1
         qmk compile -kb ergohaven/planeta/rev1 -km v1
         qmk compile -kb ergohaven/planeta -km v2
-        qmk compile -kb ergohaven/planeta -km hid
         qmk compile -kb ergohaven/macropad -km v1
 
     - uses: actions/upload-artifact@v4
