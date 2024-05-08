@@ -9,5 +9,4 @@ RGBLIGHT_ENABLE = yes
 RAW_ENABLE = yes
 
 SRC += lvgl_helpers.c \
-	   display.c \
-	   hid_display.c
+	   display.c
