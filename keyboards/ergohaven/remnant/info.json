@@ -11,8 +11,8 @@
     "processor": "RP2040",
     "url": "https://ergohaven.xyz",
     "usb": {
-        "vid": "0x9339",
-        "pid": "0x3639",
+        "vid": "0xE126",
+        "pid": "0x0010",
         "device_version": "1.0.0"
     },
     "ws2812": { "pin": "GP22" },

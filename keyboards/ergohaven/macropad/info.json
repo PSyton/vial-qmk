@@ -4,8 +4,8 @@
     "url": "https://ergohaven.xyz",
     "maintainer": "Ergohaven",
     "usb": {
-        "vid": "0x3393",
-        "pid": "0x0138",
+        "vid": "0xE126",
+        "pid": "0x0040",
         "device_version": "1.0.0"
     },
     "encoder": {
@@ -47,4 +47,3 @@
         }
     }
 }
-

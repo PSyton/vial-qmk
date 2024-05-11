@@ -19,8 +19,8 @@
     "processor": "RP2040",
     "url": "https://ergohaven.xyz",
     "usb": {
-        "vid": "0xFEED",
-        "pid": "0x9918",
+        "vid": "0xE126",
+        "pid": "0x0020",
         "device_version": "1.0.0"
     },
     "layouts": {
