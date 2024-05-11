@@ -4,6 +4,8 @@ static uint8_t cur_lang = LANG_EN;
 
 static uint8_t tg_mode = TG_SFT_ALT;
 
+static uint32_t lang_sync_time = 0;
+
 void set_lang(uint8_t lang) {
     if (cur_lang == lang) return;
 
@@ -22,8 +24,8 @@ void set_lang(uint8_t lang) {
         default:
             break;
     }
-
-    cur_lang = lang;
+    lang_sync_time = timer_read32();
+    cur_lang       = lang;
 }
 
 void lang_toggle(void) {
@@ -40,11 +42,15 @@ void lang_sync(void) {
         cur_lang = LANG_EN;
 }
 
-void lang_sync_external(uint8_t lang) {
+bool lang_sync_external(uint8_t lang) {
+    if (timer_elapsed32(lang_sync_time) < 500) return false;
+    lang_sync_time = timer_read32();
+
     if (lang == LANG_EN)
         cur_lang = LANG_EN;
     else
         cur_lang = LANG_RU;
+    return true;
 }
 
 uint8_t get_cur_lang(void) {

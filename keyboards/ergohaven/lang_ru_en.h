@@ -46,6 +46,6 @@ enum { TG_MACRO30 = 0, TG_MACRO31, TG_SFT_ALT };
 
 bool process_record_lang(uint16_t keycode, keyrecord_t *record);
 
-void lang_sync_external(uint8_t lang);
+bool lang_sync_external(uint8_t lang);
 
 uint8_t get_cur_lang(void);

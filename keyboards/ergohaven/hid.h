@@ -6,12 +6,12 @@ struct hid_data_t {
     bool    time_changed;
     uint8_t volume;
     bool    volume_changed;
+    uint8_t layout;
+    bool layout_changed;
     char    media_artist[256];
     bool    media_artist_changed;
     char    media_title[256];
     bool    media_title_changed;
 };
 
-struct hid_data_t get_hid_data(void);
-
-void reset_hid_changed(void);
+struct hid_data_t* get_hid_data(void);

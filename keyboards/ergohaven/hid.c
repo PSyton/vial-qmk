@@ -1,10 +1,10 @@
 #include "hid.h"
-#include "lang_ru_en.h"
+#include <string.h>
 
 static struct hid_data_t hid_data;
 
-struct hid_data_t get_hid_data(void) {
-    return hid_data;
+struct hid_data_t *get_hid_data(void) {
+    return &hid_data;
 }
 
 typedef enum {
@@ -21,35 +21,23 @@ void read_string(uint8_t *data, char *string_data) {
     string_data[data_length] = '\0';
 }
 
-void reset_hid_changed(void) {
-    hid_data.time_changed   = false;
-    hid_data.volume_changed = false;
-    hid_data.media_title_changed  = false;
-    hid_data.media_artist_changed  = false;
-}
-
 void process_raw_hid_data(uint8_t *data, uint8_t length) {
-    reset_hid_changed();
-
     uint8_t data_type = data[0];
-    dprintf("process_raw_hid_data - received data_type %u \n", data_type);
     switch (data_type) {
         case _TIME:
-            dprintf("time %02d:%02d\n", data[1], data[2]);
             hid_data.hours        = data[1];
             hid_data.minutes      = data[2];
             hid_data.time_changed = true;
             break;
 
         case _VOLUME:
-            dprintf("volume %d\n", data[1]);
             hid_data.volume_changed = true;
             hid_data.volume         = data[1];
             break;
 
         case _LAYOUT:
-            dprintf("layout %d\n", data[1]);
-            lang_sync_external(data[1]);
+            hid_data.layout         = data[1];
+            hid_data.layout_changed = true;
             break;
 
         case _MEDIA_ARTIST:
@@ -75,8 +63,6 @@ void process_raw_hid_data(uint8_t *data, uint8_t length) {
 
 /* Raw HID processing*/
 void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
-    dprintf("raw_hid_receive - received %u bytes \n", length);
-
     // if (is_display_enabled()) {
     process_raw_hid_data(data, length);
     // } else if (is_keyboard_master() && !is_display_side()) {

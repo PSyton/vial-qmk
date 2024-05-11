@@ -159,7 +159,7 @@ bool display_init_kb(void) {
 
     dprint("display_init_kb - initialised\n");
 
-    lv_disp_t * lv_display = lv_disp_get_default();
+    lv_disp_t  *lv_display = lv_disp_get_default();
     lv_theme_t *lv_theme   = lv_theme_default_init(lv_display, lv_palette_main(LV_PALETTE_TEAL), lv_palette_main(LV_PALETTE_BLUE), true, LV_FONT_DEFAULT);
     lv_disp_set_theme(lv_display, lv_theme);
     init_styles();
@@ -189,27 +189,31 @@ void start_home_screen_timer(void) {
     home_screen_timer = timer_read();
 }
 
-void display_process_hid_data(struct hid_data_t hid_data) {
+void display_process_hid_data(struct hid_data_t *hid_data) {
     dprintf("display_process_hid_data");
-    if (hid_data.time_changed) {
-        lv_label_set_text_fmt(label_time, "%02d:%02d", hid_data.hours, hid_data.minutes);
+    if (hid_data->time_changed) {
+        lv_label_set_text_fmt(label_time, "%02d:%02d", hid_data->hours, hid_data->minutes);
+        hid_data->time_changed = false;
     }
-    if (hid_data.volume_changed) {
-        lv_label_set_text_fmt(label_volume_home, "Vol: %02d%%", hid_data.volume);
-        lv_label_set_text_fmt(label_volume_arc, "%02d", hid_data.volume);
-        lv_arc_set_value(arc_volume, hid_data.volume);
+    if (hid_data->volume_changed) {
+        lv_label_set_text_fmt(label_volume_home, "Vol: %02d%%", hid_data->volume);
+        lv_label_set_text_fmt(label_volume_arc, "%02d", hid_data->volume);
+        lv_arc_set_value(arc_volume, hid_data->volume);
         lv_scr_load(screen_volume);
         start_home_screen_timer();
+        hid_data->volume_changed = false;
     }
-    if (hid_data.media_artist_changed) {
-        lv_label_set_text(label_media_artist, hid_data.media_artist);
+    if (hid_data->media_artist_changed) {
+        lv_label_set_text(label_media_artist, hid_data->media_artist);
         lv_scr_load(screen_media);
         start_home_screen_timer();
+        hid_data->media_artist_changed = false;
     }
-    if (hid_data.media_title_changed) {
-        lv_label_set_text(label_media_title, hid_data.media_title);
+    if (hid_data->media_title_changed) {
+        lv_label_set_text(label_media_title, hid_data->media_title);
         lv_scr_load(screen_media);
         start_home_screen_timer();
+        hid_data->media_title_changed = false;
     }
 }
 
@@ -227,9 +231,13 @@ void display_housekeeping_task(void) {
     toggle_state(label_ctrl, LV_STATE_PRESSED, (get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL);
     toggle_state(label_alt, LV_STATE_PRESSED, (get_mods() | get_oneshot_mods()) & MOD_MASK_ALT);
     toggle_state(label_gui, LV_STATE_PRESSED, (get_mods() | get_oneshot_mods()) & MOD_MASK_GUI);
-    display_process_hid_data(get_hid_data());
+    struct hid_data_t *hid_data = get_hid_data();
+    display_process_hid_data(hid_data);
+    if (hid_data->layout_changed) {
+        bool synced              = lang_sync_external(hid_data->layout);
+        hid_data->layout_changed = !synced;
+    }
     set_layout_label(get_cur_lang());
-    reset_hid_changed();
 }
 
 void display_process_caps(bool active) {
