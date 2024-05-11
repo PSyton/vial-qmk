@@ -6,3 +6,5 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED_MASK 0U // Specify a optional status led which blinks when entering the bootloader
 
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
+#define OLED_FONT_H "ergohaven_font.c"

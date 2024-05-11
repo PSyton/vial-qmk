@@ -62,3 +62,5 @@ enum custom_keycodes {
 #define LAYER_CYCLE_END   15
 
 const char* layer_name(int layer);
+
+const char* layer_upper_name(int layer);

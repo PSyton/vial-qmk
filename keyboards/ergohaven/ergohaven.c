@@ -216,9 +216,35 @@ static const char* PROGMEM LAYER_NAME[] =   {
     "Fiftn",
 };
 
+static const char* PROGMEM LAYER_UPPER_NAME[] =   {
+    "BASE ",
+    "RAISE",
+    "LOWER",
+    "ADJST",
+    "FOUR ",
+    "FIVE ",
+    "SIX  ",
+    "SEVEN",
+    "EIGHT",
+    "NINE ",
+    "TEN  ",
+    "ELEVN",
+    "TWLVE",
+    "THRTN",
+    "FRTN ",
+    "FIFTN",
+};
+
 const char* layer_name(int layer) {
     if (layer >= 0 && layer <= 15)
         return LAYER_NAME[layer];
     else
         return "Undef";
+}
+
+const char* layer_upper_name(int layer) {
+    if (layer >= 0 && layer <= 15)
+        return LAYER_UPPER_NAME[layer];
+    else
+        return "UNDEF";
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#define SPLIT_TRANSACTION_IDS_USER RPC_SYNC_CONFIG
+#define SELECT_SOFT_SERIAL_SPEED 5
 #define BOOTMAGIC_LITE_ROW          0
 #define BOOTMAGIC_LITE_COLUMN       5
 #define BOOTMAGIC_LITE_ROW_RIGHT    5
@@ -22,6 +24,8 @@
 #define SPLIT_OLED_ENABLE
 #define SPLIT_MODS_ENABLE
 #define SPLIT_LED_STATE_ENABLE
+#define SPLIT_WPM_ENABLE
+#    define WPM_UNFILTERED
 #endif
 
 #define RGBLED_NUM 2
@@ -36,4 +40,3 @@
 #define RGBLIGHT_DEFAULT_SAT 0
 
 #define TAP_CODE_DELAY 1
-
