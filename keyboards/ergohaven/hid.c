@@ -16,7 +16,7 @@ typedef enum {
 } hid_data_type;
 
 void read_string(uint8_t *data, char *string_data) {
-    uint8_t data_length = data[1];
+    uint8_t data_length = MIN(31, data[1]);
     memcpy(string_data, data + 2, data_length);
     string_data[data_length] = '\0';
 }

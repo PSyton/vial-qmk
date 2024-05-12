@@ -33,8 +33,10 @@ typedef enum {
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         if (vial_config.oled_master == OLED_BONGOCAT) return is_keyboard_left() ? OLED_ROTATION_0 : OLED_ROTATION_180;
+        if (vial_config.oled_master == OLED_MEDIA) return is_keyboard_left() ? OLED_ROTATION_0 : OLED_ROTATION_180;
     } else {
         if (vial_config.oled_slave == OLED_BONGOCAT) return is_keyboard_left() ? OLED_ROTATION_0 : OLED_ROTATION_180;
+        if (vial_config.oled_slave == OLED_MEDIA) return is_keyboard_left() ? OLED_ROTATION_0 : OLED_ROTATION_180;
     }
     return OLED_ROTATION_270;
 }
@@ -103,7 +105,18 @@ void render_status2(void) {
         sprintf(buf, "%02d:%02d", hid_data->hours, hid_data->minutes);
         oled_set_cursor(0, 14);
         oled_write_ln(buf, false);
-        hid_data->time_changed = false;
+    }
+}
+
+void render_media(void) {
+    struct hid_data_t* hid_data = get_hid_data();
+    if (hid_data->media_artist_changed || hid_data->media_title_changed) {
+        oled_set_cursor(0, 1);
+        hid_data->media_title[21] = '\0';
+        oled_write_ln(hid_data->media_title, false);
+        oled_set_cursor(0, 3);
+        hid_data->media_artist[21] = '\0';
+        oled_write_ln(hid_data->media_artist, false);
     }
 }
 
@@ -139,8 +152,10 @@ bool oled_task_kb(void) {
             break;
 
         case OLED_STATUS:
-        case OLED_MEDIA:
             render_status2();
+            break;
+        case OLED_MEDIA:
+            render_media();
             break;
 
         case OLED_SPLASH:

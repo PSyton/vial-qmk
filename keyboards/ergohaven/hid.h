@@ -8,9 +8,9 @@ struct hid_data_t {
     bool    volume_changed;
     uint8_t layout;
     bool layout_changed;
-    char    media_artist[256];
+    char    media_artist[32];
     bool    media_artist_changed;
-    char    media_title[256];
+    char    media_title[32];
     bool    media_title_changed;
 };
 
