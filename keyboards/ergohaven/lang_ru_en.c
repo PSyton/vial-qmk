@@ -2,7 +2,7 @@
 
 static uint8_t cur_lang = LANG_EN;
 
-static uint8_t tg_mode = TG_SFT_ALT;
+static uint8_t tg_mode = TG_DEFAULT;
 
 static uint32_t lang_sync_time = 0;
 
@@ -10,17 +10,30 @@ void set_lang(uint8_t lang) {
     if (cur_lang == lang) return;
 
     switch (tg_mode) {
+        case TG_DEFAULT:
+            if (keymap_config.swap_lctl_lgui) {
+                register_code(KC_LCTL);
+                wait_ms(25);
+                register_code(KC_SPACE);
+                wait_ms(50);
+                unregister_code(KC_SPACE);
+                wait_ms(25);
+                unregister_code(KC_LCTL);
+            } else {
+                register_code(KC_LGUI);
+                wait_ms(25);
+                register_code(KC_SPACE);
+                wait_ms(50);
+                unregister_code(KC_SPACE);
+                wait_ms(25);
+                unregister_code(KC_LGUI);
+            }
         case TG_MACRO30:
             dynamic_keymap_macro_send(QK_MACRO_30 - QK_MACRO);
             break;
         case TG_MACRO31:
             dynamic_keymap_macro_send(QK_MACRO_31 - QK_MACRO);
             break;
-        case TG_SFT_ALT:
-            register_code(KC_LALT);
-            register_code(KC_LSFT);
-            unregister_code(KC_LSFT);
-            unregister_code(KC_LALT);
         default:
             break;
     }
@@ -117,7 +130,7 @@ bool process_record_lang(uint16_t keycode, keyrecord_t* record) {
             return false;
 
         case LG_SET_SFT_ALT:
-            tg_mode = TG_SFT_ALT;
+            tg_mode = TG_DEFAULT;
             return false;
     }
 

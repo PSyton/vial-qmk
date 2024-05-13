@@ -42,7 +42,7 @@ enum lang_ru_en_custom_keycodes {
 
 enum { LANG_EN = 0, LANG_RU };
 
-enum { TG_MACRO30 = 0, TG_MACRO31, TG_SFT_ALT };
+enum { TG_DEFAULT = 0, TG_MACRO30, TG_MACRO31 };
 
 bool process_record_lang(uint16_t keycode, keyrecord_t *record);
 
