@@ -108,6 +108,60 @@ void render_status2(void) {
     }
 }
 
+void render_status_minimal(void) {
+    int layer = get_highest_layer(layer_state);
+    if (layer == 0)
+        oled_write_ln("     ", false);
+    else
+        oled_write_ln(layer_upper_name(layer), false);
+
+    oled_set_cursor(0, 1);
+    if (keymap_config.swap_lctl_lgui)
+        oled_write_P(PSTR("   \01\02   \03\04"), false);
+    else
+        oled_write_P(PSTR("          "), false);
+
+    oled_set_cursor(0, 2);
+    oled_write(get_cur_lang() == LANG_EN ? "  " : "RU", false);
+
+    led_t led_usb_state = host_keyboard_led_state();
+    oled_set_cursor(0, 4);
+    oled_write_P(led_usb_state.caps_lock ? PSTR("CAPS") : PSTR("     "), false);
+    oled_set_cursor(0, 5);
+    oled_write_P(led_usb_state.num_lock ? PSTR("NUM") : PSTR("     "), false);
+
+    char buf[16];
+    buf[0] = ((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) ? 'S' : ' ';
+    buf[1] = ((get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL) ? 'C' : ' ';
+    buf[2] = ((get_mods() | get_oneshot_mods()) & MOD_MASK_ALT) ? 'A' : ' ';
+    buf[3] = ((get_mods() | get_oneshot_mods()) & MOD_MASK_GUI) ? 'G' : ' ';
+    buf[4] = '\0';
+
+    oled_set_cursor(0, 7);
+    oled_write(buf, false);
+
+    int wpm = get_current_wpm();
+    if (wpm > 0) {
+        if (wpm < 10)
+            sprintf(buf, "WPM %d", wpm);
+        else if (wpm < 100)
+            sprintf(buf, "W  %d", wpm);
+        else
+            sprintf(buf, "W %d", wpm);
+
+    } else
+        sprintf(buf, "     ");
+    oled_set_cursor(0, 9);
+    oled_write_ln(buf, false);
+
+    struct hid_data_t* hid_data = get_hid_data();
+    if (hid_data->time_changed) {
+        sprintf(buf, "%02d:%02d", hid_data->hours, hid_data->minutes);
+        oled_set_cursor(0, 11);
+        oled_write_ln(buf, false);
+    }
+}
+
 void render_media(void) {
     struct hid_data_t* hid_data = get_hid_data();
     if (hid_data->media_artist_changed || hid_data->media_title_changed) {
@@ -148,12 +202,13 @@ bool oled_task_kb(void) {
     uint8_t mode = is_keyboard_master() ? vial_config.oled_master : vial_config.oled_slave;
     switch (mode) {
         case OLED_STATUS_CLASSIC:
-            render_status();
+            render_status2();
             break;
 
         case OLED_STATUS:
-            render_status2();
+            render_status_minimal();
             break;
+
         case OLED_MEDIA:
             render_media();
             break;
