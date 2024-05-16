@@ -44,28 +44,31 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void render_status_classic(void) {
     // Print current mode
-    if (strlen(PRODUCT) <= 5)
-        oled_write_ln_P(PSTR(PRODUCT), false);
-    else // Imperial44 is too long name
-        oled_write_ln_P(PSTR("\n"), false);
+    oled_set_cursor(0, 0);
+    if (strlen(PRODUCT) <= 5) // Imperial44 is too long name
+        oled_write_P(PSTR(PRODUCT), false);
 
-    oled_write_ln_P(PSTR("v3.3\n"), false);
-    oled_write_P(PSTR("\n"), false);
-    oled_write_ln_P("MODE:", false);
+    oled_set_cursor(0, 2);
+    oled_write_P(PSTR("v3.3"), false);
+
+    oled_set_cursor(0, 5);
+    oled_write_P("MODE:", false);
+    oled_set_cursor(0, 7);
     if (keymap_config.swap_lctl_lgui) {
-        oled_write_ln_P(PSTR("Mac"), false);
+        oled_write_P(PSTR("Mac"), false);
     } else {
-        oled_write_ln_P(PSTR("Win"), false);
+        oled_write_P(PSTR("Win"), false);
     }
 
-    oled_write_P(PSTR("\n\n"), false);
     // Print current layer
-    oled_write_ln_P(PSTR("LAYER"), false);
-    oled_write_ln_P(PSTR(layer_name(get_highest_layer(layer_state))), false);
+    oled_set_cursor(0, 10);
+    oled_write_P(PSTR("LAYER"), false);
+    oled_set_cursor(0, 12);
+    oled_write_P(PSTR(layer_name(get_highest_layer(layer_state))), false);
 
-    oled_write_P(PSTR("\n"), false);
+    oled_set_cursor(0, 15);
     led_t led_usb_state = host_keyboard_led_state();
-    oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+    oled_write_P(PSTR("CPSLK"), led_usb_state.caps_lock);
 }
 
 void render_status_modern(void) {
