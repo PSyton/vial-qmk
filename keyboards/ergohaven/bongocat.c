@@ -311,9 +311,7 @@ static void render_bongocat(void) {
 		}
 	}
 
-	if (timer_elapsed32(tap_timer) > OLED_TIMEOUT) {
-        oled_off();
-    } else if (timer_elapsed(anim_timer) > FRAME_DURATION) {
+	if (timer_elapsed(anim_timer) > FRAME_DURATION) {
 		anim_timer = timer_read();
 		animate_cat();
 	}

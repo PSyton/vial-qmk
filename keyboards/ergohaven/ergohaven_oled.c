@@ -195,6 +195,11 @@ void via_set_layout_options_kb(uint32_t value) {
         }
     }
     vial_config = new_via_layouts;
+    if (vial_config.oled_master == OLED_DISABLED && //
+        vial_config.oled_slave == OLED_DISABLED)
+        oled_off();
+    else
+        oled_on();
 }
 
 bool oled_task_kb(void) {
@@ -202,12 +207,6 @@ bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
     }
-
-    if (vial_config.oled_master == OLED_DISABLED && //
-        vial_config.oled_slave == OLED_DISABLED)
-        oled_off();
-    else
-        oled_on();
 
     uint8_t mode = is_keyboard_master() ? vial_config.oled_master : vial_config.oled_slave;
     switch (mode) {
