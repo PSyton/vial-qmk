@@ -1,6 +1,7 @@
 #include "ergohaven.h"
 #include "lang_ru_en.h"
 #include "ergohaven_rgb.h"
+#include "hid.h"
 
 #ifdef AUDIO_ENABLE
 float base_sound[][2] = SONG(TERMINAL_SOUND);
@@ -202,6 +203,7 @@ void keyboard_post_init_kb(void) {
 #ifdef RGBLIGHT_ENABLE
     keyboard_post_init_rgb();
 #endif
+    keyboard_post_init_hid();
     keyboard_post_init_user();
 }
 

@@ -1,5 +1,6 @@
 #include "hid.h"
 #include <string.h>
+#include "transactions.h"
 
 static struct hid_data_t hid_data;
 
@@ -52,32 +53,21 @@ void process_raw_hid_data(uint8_t *data, uint8_t length) {
     }
 }
 
-/* Active Layer processing */
-// layer_state_t layer_state_set_keymap(layer_state_t state) {
-//     if (is_display_enabled()) {
-//         display_process_layer_state(get_highest_layer(state));
-//     }
-
-//     return state;
-// }
-
-/* Raw HID processing*/
 void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
-    // if (is_display_enabled()) {
     process_raw_hid_data(data, length);
-    // } else if (is_keyboard_master() && !is_display_side()) {
-    // dprint("RPC_ID_USER_HID_SYNC \n");
-    // transaction_rpc_send(RPC_ID_USER_HID_SYNC, length, data);
-    // }
+#ifdef OLED_ENABLE
+    if (is_keyboard_master()) transaction_rpc_send(RPC_SYNC_HID, length, data);
+#endif
 }
 
-// void hid_sync(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
-//     if (is_display_enabled()) {
-//         display_process_raw_hid_data((uint8_t *)initiator2target_buffer, initiator2target_buffer_size);
-//     }
-// }
+#ifdef OLED_ENABLE
+void hid_sync(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
+    process_raw_hid_data((uint8_t *)in_data, out_buflen);
+}
+#endif
 
-// void keyboard_post_init_user() {
-// sync received hid data
-// transaction_register_rpc(RPC_ID_USER_HID_SYNC, hid_sync);
-// }
+void keyboard_post_init_hid(void) {
+#ifdef OLED_ENABLE
+    transaction_register_rpc(RPC_SYNC_HID, hid_sync);
+#endif
+}
