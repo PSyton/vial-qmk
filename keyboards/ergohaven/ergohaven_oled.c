@@ -22,8 +22,9 @@ typedef union {
 vial_config_t vial_config;
 
 typedef enum {
-    OLED_STATUS = 0,
-    OLED_STATUS_CLASSIC,
+    OLED_STATUS_CLASSIC = 0,
+    OLED_STATUS_MODERN,
+    OLED_STATUS_MINIMALISTIC,
     OLED_MEDIA,
     OLED_SPLASH,
     OLED_BONGOCAT,
@@ -41,7 +42,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
-void render_status(void) {
+void render_status_classic(void) {
     // Print current mode
     if (strlen(PRODUCT) <= 5)
         oled_write_ln_P(PSTR(PRODUCT), false);
@@ -67,7 +68,7 @@ void render_status(void) {
     oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
 }
 
-void render_status2(void) {
+void render_status_modern(void) {
     oled_write_ln(layer_upper_name(get_highest_layer(layer_state)), false);
     oled_set_cursor(0, 1);
     if (keymap_config.swap_lctl_lgui)
@@ -108,7 +109,7 @@ void render_status2(void) {
     }
 }
 
-void render_status_minimal(void) {
+void render_status_minimalistic(void) {
     int layer = get_highest_layer(layer_state);
     if (layer == 0)
         oled_write_ln("     ", false);
@@ -199,14 +200,24 @@ bool oled_task_kb(void) {
         return false;
     }
 
+    if (vial_config.oled_master == OLED_DISABLED && //
+        vial_config.oled_slave == OLED_DISABLED)
+        oled_off();
+    else
+        oled_on();
+
     uint8_t mode = is_keyboard_master() ? vial_config.oled_master : vial_config.oled_slave;
     switch (mode) {
         case OLED_STATUS_CLASSIC:
-            render_status2();
+            render_status_classic();
             break;
 
-        case OLED_STATUS:
-            render_status_minimal();
+        case OLED_STATUS_MODERN:
+            render_status_modern();
+            break;
+
+        case OLED_STATUS_MINIMALISTIC:
+            render_status_minimalistic();
             break;
 
         case OLED_MEDIA:

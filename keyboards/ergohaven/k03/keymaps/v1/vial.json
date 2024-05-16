@@ -14,8 +14,9 @@
       "No right encoder",
       [
         "OLED Master",
-        "Status",
         "Status (classic)",
+        "Status (modern)",
+        "Status (minimalistic)",
         "Media info (hid-host)",
         "Splash screen",
         "Bongo cat",
@@ -23,8 +24,9 @@
       ],
       [
         "OLED Slave",
-        "Status",
         "Status (classic)",
+        "Status (modern)",
+        "Status (minimalistic)",
         "Media info (hid-host)",
         "Splash screen",
         "Bongo cat",
