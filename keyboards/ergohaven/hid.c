@@ -52,25 +52,28 @@ void process_raw_hid_data(uint8_t *data, uint8_t length) {
     }
 }
 
-#ifdef SPLIT_KEYBOARD
+#if defined(SPLIT_OLED_ENABLE)
 #    include "transactions.h"
-#endif
 
 void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
     process_raw_hid_data(data, length);
-#ifdef SPLIT_KEYBOARD
     if (is_keyboard_master()) transaction_rpc_send(RPC_SYNC_HID, length, data);
-#endif
 }
 
-#ifdef SPLIT_KEYBOARD
 void hid_sync(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
     process_raw_hid_data((uint8_t *)in_data, out_buflen);
 }
-#endif
 
 void keyboard_post_init_hid(void) {
-#ifdef SPLIT_KEYBOARD
     transaction_register_rpc(RPC_SYNC_HID, hid_sync);
-#endif
 }
+
+#else
+
+void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
+    process_raw_hid_data(data, length);
+}
+
+void keyboard_post_init_hid(void) {}
+
+#endif
