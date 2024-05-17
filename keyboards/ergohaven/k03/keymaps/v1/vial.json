@@ -17,7 +17,6 @@
         "Status (classic)",
         "Status (modern)",
         "Status (minimalistic)",
-        "Media info (hid-host)",
         "Splash screen",
         "Bongo cat",
         "Disabled"
@@ -27,16 +26,9 @@
         "Status (classic)",
         "Status (modern)",
         "Status (minimalistic)",
-        "Media info (hid-host)",
         "Splash screen",
         "Bongo cat",
         "Disabled"
-      ],
-      [
-        "RuEn Toggle",
-        "Shift+Alt",
-        "M30",
-        "M31"
       ]
     ],
     "keymap": [
