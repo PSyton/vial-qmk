@@ -24,6 +24,8 @@ DYNAMIC_MACRO_ENABLE = yes
 CAPS_WORD_ENABLE = yes
 REPEAT_KEY_ENABLE = yes
 AUTO_SHIFT_ENABLE = yes
+
+WPM_ENABLE = yes
 RAW_ENABLE = yes
 
 SRC += keyboards/ergohaven/ergohaven_rgb.c

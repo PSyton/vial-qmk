@@ -24,6 +24,12 @@
 #define SPLIT_LED_STATE_ENABLE
 #endif
 
+/* split protocol settings */
+#define SELECT_SOFT_SERIAL_SPEED 0
+#define SPLIT_WPM_ENABLE
+#define WPM_UNFILTERED
+#define SPLIT_TRANSACTION_IDS_USER RPC_SYNC_CONFIG, RPC_SYNC_HID
+
 #define RGBLED_NUM 2
 #define RGBLED_SPLIT {1, 1}
 #define RGBLIGHT_SLEEP
@@ -36,4 +42,3 @@
 #define RGBLIGHT_DEFAULT_SAT 0
 
 #define TAP_CODE_DELAY 1
-

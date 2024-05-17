@@ -6,6 +6,26 @@
         "rows": 10,
         "cols": 6
     },
+    "labels": [
+        [
+          "OLED Master",
+          "Status (classic)",
+          "Status (modern)",
+          "Status (minimalistic)",
+          "Splash screen",
+          "Bongo cat",
+          "Disabled"
+        ],
+        [
+          "OLED Slave",
+          "Status (classic)",
+          "Status (modern)",
+          "Status (minimalistic)",
+          "Splash screen",
+          "Bongo cat",
+          "Disabled"
+        ]
+      ],
 #include "keyboards/ergohaven/vial_custom_keycodes.json"
     "layouts": {
         "keymap":[

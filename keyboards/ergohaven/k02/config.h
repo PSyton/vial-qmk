@@ -26,3 +26,11 @@
 #define SPLIT_MODS_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 #endif
+
+/* split protocol settings */
+#define SELECT_SOFT_SERIAL_SPEED 0
+#define SPLIT_WPM_ENABLE
+#define WPM_UNFILTERED
+#define SPLIT_TRANSACTION_IDS_USER RPC_SYNC_CONFIG, RPC_SYNC_HID
+
+#define TAP_CODE_DELAY 1
