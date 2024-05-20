@@ -78,7 +78,7 @@ void init_screen_home(void) {
     use_flex_column(screen_home);
 
     label_volume_home = lv_label_create(screen_home);
-    lv_label_set_text(label_volume_home, "Ergohaven");
+    lv_label_set_text(label_volume_home, EH_VERSION_STR);
 
     label_time = lv_label_create(screen_home);
     lv_label_set_text(label_time, "Planeta");

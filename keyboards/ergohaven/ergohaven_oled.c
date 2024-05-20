@@ -63,7 +63,7 @@ void render_status_classic(void) {
         oled_write_P(PSTR(PRODUCT), false);
 
     oled_set_cursor(0, 2);
-    oled_write_P(PSTR("v3.3"), false);
+    oled_write_P(PSTR(EH_VERSION_STR), false);
 
     oled_set_cursor(0, 5);
     oled_write_P("MODE:", false);

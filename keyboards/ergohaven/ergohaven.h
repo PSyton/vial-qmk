@@ -1,6 +1,8 @@
 #pragma once
 #include "quantum.h"
 
+#define EH_VERSION_STR "v3.4"
+
 #define _BASE 0
 #define _LOWER 1
 #define _RAISE 2
