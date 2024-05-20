@@ -218,7 +218,7 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
 layer_state_t layer_state_set_kb(layer_state_t state) {
   state = layer_state_set_user(state);
 #ifdef RGBLIGHT_ENABLE
-    default_layer_state_set_rgb(state);
+    layer_state_set_rgb(state);
 #endif
     return state;
 }
