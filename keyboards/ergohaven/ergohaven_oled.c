@@ -22,16 +22,26 @@ vial_config_t vial_config;
 
 typedef enum {
     OLED_STATUS_CLASSIC = 0,
+    OLED_SPLASH,
     OLED_STATUS_MODERN,
     OLED_STATUS_MINIMALISTIC,
-    OLED_SPLASH,
     OLED_BONGOCAT,
     // OLED_MEDIA,
     OLED_DISABLED,
 } oled_mode_t;
 
+oled_mode_t get_oled_mode(void) {
+    if (is_keyboard_master()) return vial_config.oled_master;
+
+    // first two modes swapped for slave
+    if (vial_config.oled_slave == OLED_STATUS_CLASSIC) return OLED_SPLASH;
+    if (vial_config.oled_slave == OLED_SPLASH) return OLED_STATUS_CLASSIC;
+
+    return vial_config.oled_slave;
+}
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    int mode = is_keyboard_master() ? vial_config.oled_master : vial_config.oled_slave;
+    int mode = get_oled_mode();
     switch (mode) {
         case OLED_BONGOCAT:
             // case OLED_MEDIA:
@@ -212,7 +222,7 @@ bool oled_task_kb(void) {
         return false;
     }
 
-    uint8_t mode = is_keyboard_master() ? vial_config.oled_master : vial_config.oled_slave;
+    uint8_t mode = get_oled_mode();
     switch (mode) {
         case OLED_STATUS_CLASSIC:
             render_status_classic();
