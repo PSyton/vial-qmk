@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_RX_PIN GP1
 #define USB_VBUS_PIN        GP28
 #define SPLIT_HAND_PIN      GP24
-#define RGBLED_NUM 58
+#define RGBLIGHT_LED_COUNT 58
 #define WS2812_PIO_USE_PIO1
 
 #define BOOTMAGIC_LITE_ROW          0
@@ -104,4 +104,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
-
