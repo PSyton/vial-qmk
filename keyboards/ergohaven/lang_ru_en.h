@@ -8,7 +8,7 @@ enum lang_ru_en_custom_keycodes {
     LG_SET_RU,
     LG_SET_M30,
     LG_SET_M31,
-    LG_SET_SFT_ALT,
+    LG_SET_DFLT,
 
     // symbols exist in russian and english layout
     LG_RU_EN_START,

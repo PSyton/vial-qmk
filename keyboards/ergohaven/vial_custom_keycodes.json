@@ -57,9 +57,9 @@
         "title": "Set toggle language to Macro 31",
         "shortName": "RuEn\nM31"
         },
-        {"name": "LG_SET_SFT_ALT",
-        "title": "Set toggle language to Shift+Alt",
-        "shortName": "RuEn\nSftAlt"
+        {"name": "LG_SET_DFLT",
+        "title": "Set toggle language to default (Win+Space for PC and Ctrl+Space for Mac)",
+        "shortName": "RuEn\nDflt"
         },
 
         {"name": "LG_DOT",

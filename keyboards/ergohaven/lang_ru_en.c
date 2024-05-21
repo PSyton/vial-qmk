@@ -130,7 +130,7 @@ bool process_record_lang(uint16_t keycode, keyrecord_t* record) {
             tg_mode = TG_MACRO31;
             return false;
 
-        case LG_SET_SFT_ALT:
+        case LG_SET_DFLT:
             tg_mode = TG_DEFAULT;
             return false;
     }
