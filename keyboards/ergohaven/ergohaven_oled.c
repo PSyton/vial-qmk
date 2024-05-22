@@ -40,7 +40,7 @@ oled_mode_t get_oled_mode(void) {
     return vial_config.oled_slave;
 }
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+oled_rotation_t get_desired_oled_rotation(void) {
     int mode = get_oled_mode();
     switch (mode) {
         case OLED_BONGOCAT:
@@ -54,6 +54,13 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
         default:
             return OLED_ROTATION_270;
     }
+}
+
+static oled_rotation_t current_oled_rotation;
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    current_oled_rotation = get_desired_oled_rotation();
+    return current_oled_rotation;
 }
 
 void render_status_classic(void) {
@@ -197,21 +204,8 @@ void render_media(void) {
 
 __attribute__((weak)) void ergohaven_dark_draw(void) {}
 
-static uint32_t last_layout_options_time = 0;
-
 void via_set_layout_options_kb(uint32_t value) {
-    if (vial_config.raw == value) return;
-    last_layout_options_time = sync_timer_read32();
-    vial_config_t new_via_layouts;
-    new_via_layouts.raw = value;
-    bool reinit_oled    = false;
-    bool is_master      = is_keyboard_master();
-    if ((is_master && (vial_config.oled_master != new_via_layouts.oled_master)) || //
-        (!is_master && (vial_config.oled_slave != new_via_layouts.oled_slave)))
-        reinit_oled = true;
-
-    vial_config = new_via_layouts;
-    if (reinit_oled) oled_init(OLED_ROTATION_0);
+    vial_config.raw = value;
 }
 
 bool oled_task_kb(void) {
@@ -220,17 +214,7 @@ bool oled_task_kb(void) {
         return false;
     }
 
-    uint32_t activity_elapsed = MIN(last_input_activity_elapsed(), //
-                                    sync_timer_elapsed32(last_layout_options_time));
-
-    if (activity_elapsed > EH_TIMEOUT || get_oled_mode() == OLED_DISABLED) {
-        oled_off();
-        rgblight_suspend();
-        return false;
-    } else {
-        rgblight_wakeup();
-        oled_on();
-    }
+    if (get_desired_oled_rotation() != current_oled_rotation) oled_init(get_desired_oled_rotation());
 
     uint8_t mode = get_oled_mode();
     switch (mode) {
@@ -260,6 +244,7 @@ bool oled_task_kb(void) {
 
         case OLED_DISABLED:
         default:
+            oled_clear();
             break;
     }
 
