@@ -8,4 +8,5 @@
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
 #define OLED_FONT_H "ergohaven_font.c"
-#define OLED_TIMEOUT 60000
+#define OLED_TIMEOUT 0
+#define EH_TIMEOUT 10000
