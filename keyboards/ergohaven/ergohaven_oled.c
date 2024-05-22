@@ -222,9 +222,12 @@ bool oled_task_kb(void) {
 
     if (activity_elapsed > EH_TIMEOUT || get_oled_mode() == OLED_DISABLED) {
         oled_off();
+        rgblight_suspend();
         return false;
-    } else
+    } else {
+        rgblight_wakeup();
         oled_on();
+    }
 
     uint8_t mode = get_oled_mode();
     switch (mode) {
