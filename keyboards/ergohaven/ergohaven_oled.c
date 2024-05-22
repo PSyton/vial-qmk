@@ -58,7 +58,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void render_status_classic(void) {
     // Print current mode
-    oled_set_cursor(0, 0);
+    oled_clear();
     if (strlen(PRODUCT) <= 5) // Imperial44 is too long name
         oled_write_P(PSTR(PRODUCT), false);
 
@@ -86,6 +86,7 @@ void render_status_classic(void) {
 }
 
 void render_status_modern(void) {
+    oled_clear();
     oled_write_ln(layer_upper_name(get_highest_layer(layer_state)), false);
     oled_set_cursor(0, 1);
     if (keymap_config.swap_lctl_lgui)
@@ -127,6 +128,7 @@ void render_status_modern(void) {
 }
 
 void render_status_minimalistic(void) {
+    oled_clear();
     int layer = get_highest_layer(layer_state);
     if (layer == 0)
         oled_write_ln("     ", false);
@@ -181,6 +183,7 @@ void render_status_minimalistic(void) {
 }
 
 void render_media(void) {
+    oled_clear();
     struct hid_data_t* hid_data = get_hid_data();
     if (hid_data->media_artist_changed || hid_data->media_title_changed) {
         oled_set_cursor(0, 1);
