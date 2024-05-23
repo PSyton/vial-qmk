@@ -150,5 +150,9 @@
         {"name": "LG_QUOTE",
         "title": "Send '",
         "shortName": "RuEn\n'"
+        },
+        {"name": "LG_NUM",
+        "title": "Send №",
+        "shortName": "RuEn\n№"
         }
      ],

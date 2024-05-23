@@ -37,6 +37,11 @@ enum lang_ru_en_custom_keycodes {
     LG_AMPR,
     LG_PIPE,
     LG_QUOTE,
+
+    // symbols exist in russian only layout
+    LG_NUM,
+
+    // end of ru en symbols range
     LG_END,
 };
 

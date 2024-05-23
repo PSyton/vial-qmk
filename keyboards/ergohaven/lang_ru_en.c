@@ -140,12 +140,24 @@ bool process_record_lang(uint16_t keycode, keyrecord_t* record) {
         return false;
     }
 
-    if (LG_EN_START <= keycode && keycode < LG_END) {
+    if (LG_EN_START <= keycode && keycode < LG_NUM) {
         if (record->event.pressed) {
             if (record->event.pressed) {
                 uint8_t lang = cur_lang;
                 set_lang(LANG_EN);
                 tap_code16(en_table[keycode - LG_EN_START]);
+                set_lang(lang);
+            }
+        }
+        return false;
+    }
+
+    if (keycode == LG_NUM) {
+        if (record->event.pressed) {
+            if (record->event.pressed) {
+                uint8_t lang = cur_lang;
+                set_lang(LANG_RU);
+                tap_code16(LSFT(KC_3));
                 set_lang(lang);
             }
         }
