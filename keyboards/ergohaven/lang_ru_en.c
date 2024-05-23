@@ -19,13 +19,10 @@ void set_lang(uint8_t lang) {
                 wait_ms(50);
             } else {
                 register_code(KC_LGUI);
-                wait_ms(25);
-                register_code(KC_SPACE);
+                tap_code(KC_SPACE);
                 wait_ms(50);
-                unregister_code(KC_SPACE);
-                wait_ms(25);
                 unregister_code(KC_LGUI);
-                wait_ms(25);
+                wait_ms(50);
             }
         case TG_MACRO30:
             dynamic_keymap_macro_send(QK_MACRO_30 - QK_MACRO);
