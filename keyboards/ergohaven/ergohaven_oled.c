@@ -205,7 +205,9 @@ void render_media(void) {
 __attribute__((weak)) void ergohaven_dark_draw(void) {}
 
 void via_set_layout_options_kb(uint32_t value) {
-    vial_config.raw = value;
+    if (vial_config.raw == value) return;
+    vial_config.raw          = value;
+    last_layout_options_time = sync_timer_read32();
 }
 
 bool oled_task_kb(void) {
