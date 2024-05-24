@@ -204,6 +204,8 @@ void render_media(void) {
 
 __attribute__((weak)) void ergohaven_dark_draw(void) {}
 
+static uint32_t last_layout_options_time = 0;
+
 void via_set_layout_options_kb(uint32_t value) {
     if (vial_config.raw == value) return;
     vial_config.raw          = value;
@@ -214,6 +216,18 @@ bool oled_task_kb(void) {
     // Defer to the keymap if they want to override
     if (!oled_task_user()) {
         return false;
+    }
+
+    uint32_t activity_elapsed = MIN(last_input_activity_elapsed(), //
+                                    sync_timer_elapsed32(last_layout_options_time));
+
+    if (activity_elapsed > EH_TIMEOUT || get_oled_mode() == OLED_DISABLED) {
+        oled_off();
+        rgblight_suspend();
+        return false;
+    } else {
+        rgblight_wakeup();
+        oled_on();
     }
 
     if (get_desired_oled_rotation() != current_oled_rotation) oled_init(get_desired_oled_rotation());
