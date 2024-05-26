@@ -10,7 +10,7 @@ lv_obj_t *create_button(lv_obj_t *parent, const char *text, lv_style_t *style, l
 
 void use_flex_row(void *obj) {
     lv_obj_set_layout(obj, LV_LAYOUT_FLEX);
-    lv_obj_set_flex_flow(obj, LV_FLEX_FLOW_ROW);
+    lv_obj_set_flex_flow(obj, LV_FLEX_FLOW_ROW_WRAP);
     lv_obj_set_flex_align(obj, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
 }
 

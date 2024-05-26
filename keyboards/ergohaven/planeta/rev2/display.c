@@ -31,7 +31,9 @@ static lv_obj_t *label_alt;
 static lv_obj_t *label_gui;
 static lv_obj_t *label_layer;
 static lv_obj_t *label_caps;
+static lv_obj_t *label_num;
 static lv_obj_t *label_layout;
+static lv_obj_t *label_version;
 
 /* volume screen content */
 static lv_obj_t *arc_volume;
@@ -80,7 +82,7 @@ void init_screen_home(void) {
     use_flex_column(screen_home);
 
     label_volume_home = lv_label_create(screen_home);
-    lv_label_set_text(label_volume_home, EH_VERSION_STR);
+    lv_label_set_text(label_volume_home, "Ergohaven");
 
     label_time = lv_label_create(screen_home);
     lv_label_set_text(label_time, "Planeta");
@@ -95,8 +97,12 @@ void init_screen_home(void) {
     label_ctrl  = create_button(mods, "CTL", &style_button, &style_button_active);
     label_shift = create_button(mods, "SFT", &style_button, &style_button_active);
 
+    label_caps = create_button(mods, "CAPS", &style_button, &style_button_active);
+    label_num = create_button(mods, "NUM", &style_button, &style_button_active);
+
     lv_obj_t *bottom_row = lv_obj_create(screen_home);
     lv_obj_add_style(bottom_row, &style_container, 0);
+    use_flex_row(bottom_row);
 
     label_layer = lv_label_create(bottom_row);
     lv_label_set_text(label_layer, "");
@@ -107,7 +113,8 @@ void init_screen_home(void) {
     lv_label_set_text(label_layout, "");
     lv_obj_align(label_layout, LV_ALIGN_RIGHT_MID, -20, 0);
 
-    label_caps = create_button(screen_home, "CAPS", &style_button, &style_button_active);
+    label_version = lv_label_create(screen_home);
+    lv_label_set_text(label_version, EH_VERSION_STR);
 }
 
 void init_screen_volume(void) {
@@ -154,7 +161,7 @@ bool display_init_kb(void) {
     gpio_set_pin_output(GP18);
     gpio_write_pin_high(GP18);
 
-    display = qp_st7789_make_spi_device(240, 300, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 16, 3);
+    display = qp_st7789_make_spi_device(240, 280, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 16, 3);
     qp_set_viewport_offsets(display, 0, 20);
 
     if (!qp_init(display, QP_ROTATION_180) || !qp_power(display, true) || !qp_lvgl_attach(display)) return display_enabled;
@@ -220,7 +227,7 @@ void display_process_hid_data(struct hid_data_t *hid_data) {
 }
 
 void display_process_layer_state(uint8_t layer) {
-    lv_label_set_text(label_layer, layer_name(layer));
+    lv_label_set_text(label_layer, layer_upper_name(layer));
 }
 
 void display_housekeeping_task(void) {
@@ -253,6 +260,12 @@ void display_housekeeping_task(void) {
     set_layout_label(get_cur_lang());
 }
 
-void display_process_caps(bool active) {
-    toggle_state(label_caps, LV_STATE_PRESSED, active);
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if (res && is_display_enabled()) {
+        toggle_state(label_caps, LV_STATE_PRESSED, led_state.caps_lock);
+        toggle_state(label_num, LV_STATE_PRESSED, led_state.num_lock);
+    }
+
+    return res;
 }
