@@ -145,6 +145,8 @@ bool caps_word_press_user(uint16_t keycode) {
         case KC_LBRC:
         case KC_RBRC:
         case KC_GRAVE:
+        case KC_COMMA:
+        case KC_DOT:
             if (get_cur_lang() == LANG_RU) {
                 add_weak_mods(MOD_BIT(KC_LSFT));
                 return true;
