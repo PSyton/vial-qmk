@@ -227,8 +227,8 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
 static const char* PROGMEM LAYER_NAME[] =   {
     "Base ",
-    "Raise",
     "Lower",
+    "Raise",
     "Adjst",
     "Four ",
     "Five ",
@@ -246,8 +246,8 @@ static const char* PROGMEM LAYER_NAME[] =   {
 
 static const char* PROGMEM LAYER_UPPER_NAME[] =   {
     "BASE ",
-    "RAISE",
     "LOWER",
+    "RAISE",
     "ADJST",
     "FOUR ",
     "FIVE ",
