@@ -97,7 +97,7 @@ static void render_logo(void) {
 }
 
 void render_layer_state(void) {
-    oled_write_ln_P(PSTR(EH_VERSION_STR), false);
+    oled_write_ln_P(PSTR("fw:" EH_VERSION_STR), false);
 
     oled_set_cursor(0, 2);
     oled_write_ln_P(PSTR("lvl:"), false);
@@ -158,6 +158,12 @@ void render_layer_state(void) {
 }
 
 bool oled_task_user(void) {
+  if (last_input_activity_elapsed() > EH_TIMEOUT) {
+    oled_off();
+    return false;
+  } else {
+    oled_on();
+  }
   render_layer_state();
   render_logo();
   return true;
