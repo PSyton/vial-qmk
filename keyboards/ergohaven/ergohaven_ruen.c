@@ -101,8 +101,15 @@ bool pre_process_record_ruen(uint16_t keycode, keyrecord_t *record) {
             if (should_revert_ru) {
                 set_lang(LANG_RU);
                 should_revert_ru = false;
-                break;
             }
+            break;
+        case LG_SET_EN:
+        case LG_TOGGLE:
+            if (should_revert_ru) {
+                set_lang(LANG_EN);
+                should_revert_ru = false;
+            }
+            break;
     }
     return true;
 }
