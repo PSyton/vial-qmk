@@ -10,10 +10,9 @@ static uint32_t revert_ru_time = 0;
 static bool should_revert_ru = false;
 
 void set_lang(uint8_t lang) {
-    if (cur_lang == lang) return;
-
     switch (tg_mode) {
         case TG_DEFAULT:
+            if (cur_lang == lang) return;
             if (keymap_config.swap_lctl_lgui) {
                 register_code(KC_LCTL);
                 tap_code(KC_SPACE);
@@ -27,11 +26,15 @@ void set_lang(uint8_t lang) {
                 unregister_code(KC_LGUI);
                 wait_ms(50);
             }
-        case TG_MACRO30:
-            dynamic_keymap_macro_send(QK_MACRO_30 - QK_MACRO);
+        case TG_M0:
+            if (cur_lang == lang) return;
+            dynamic_keymap_macro_send(QK_MACRO_0 - QK_MACRO);
             break;
-        case TG_MACRO31:
-            dynamic_keymap_macro_send(QK_MACRO_31 - QK_MACRO);
+        case TG_M1M2:
+            if (lang == LANG_EN)
+                dynamic_keymap_macro_send(QK_MACRO_1 - QK_MACRO);
+            else
+                dynamic_keymap_macro_send(QK_MACRO_2 - QK_MACRO);
             break;
         default:
             break;
@@ -132,12 +135,12 @@ bool process_record_ruen(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) set_lang(LANG_RU);
             return false;
 
-        case LG_SET_M30:
-            tg_mode = TG_MACRO30;
+        case LG_SET_M0:
+            tg_mode = TG_M0;
             return false;
 
-        case LG_SET_M31:
-            tg_mode = TG_MACRO31;
+        case LG_SET_M1M2:
+            tg_mode = TG_M1M2;
             return false;
 
         case LG_SET_DFLT:

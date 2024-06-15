@@ -6,8 +6,8 @@ enum ruen_custom_keycodes {
     LG_SYNC,
     LG_SET_EN,
     LG_SET_RU,
-    LG_SET_M30,
-    LG_SET_M31,
+    LG_SET_M0,
+    LG_SET_M1M2,
     LG_SET_DFLT,
 
     // symbols exist in russian and english layout
@@ -47,7 +47,7 @@ enum ruen_custom_keycodes {
 
 enum { LANG_EN = 0, LANG_RU };
 
-enum { TG_DEFAULT = 0, TG_MACRO30, TG_MACRO31 };
+enum { TG_DEFAULT = 0, TG_M0, TG_M1M2 };
 
 bool pre_process_record_ruen(uint16_t keycode, keyrecord_t *record);
 
