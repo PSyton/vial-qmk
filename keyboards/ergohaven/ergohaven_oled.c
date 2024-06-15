@@ -277,7 +277,12 @@ void keyboard_post_init_user(void) {
     transaction_register_rpc(RPC_SYNC_CONFIG, sync_config);
 }
 
-void housekeeping_task_user(void) {
+void housekeeping_task_oled(void) {
+    struct hid_data_t* hid_data = get_hid_data();
+    if (hid_data->layout_changed) {
+        bool synced              = lang_sync_external(hid_data->layout);
+        hid_data->layout_changed = !synced;
+    }
     if (is_keyboard_master()) {
         // Interact with slave every 500ms
         static uint32_t last_sync = 0;
@@ -287,15 +292,6 @@ void housekeeping_task_user(void) {
             }
         }
     }
-}
-
-void housekeeping_task_kb(void) {
-    struct hid_data_t* hid_data = get_hid_data();
-    if (hid_data->layout_changed) {
-        bool synced              = lang_sync_external(hid_data->layout);
-        hid_data->layout_changed = !synced;
-    }
-    housekeeping_task_user();
 }
 
 #endif

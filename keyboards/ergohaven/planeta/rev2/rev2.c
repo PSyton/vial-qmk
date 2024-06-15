@@ -1,12 +1,10 @@
 #include "display.h"
 
 
-void housekeeping_task_kb(void) {
+void housekeeping_task_user(void) {
     if (is_display_enabled()) {
         display_housekeeping_task();
     }
-
-    housekeeping_task_user();
 }
 
 void keyboard_post_init_user(void) {

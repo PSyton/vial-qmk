@@ -1,6 +1,7 @@
 #include "ergohaven.h"
 #include "ergohaven_ruen.h"
 #include "ergohaven_rgb.h"
+#include "ergohaven_oled.h"
 #include "hid.h"
 
 #ifdef AUDIO_ENABLE
@@ -11,15 +12,7 @@ float caps_sound[][2] = SONG(CAPS_LOCK_ON_SOUND);
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 
-
-
-// Custom keycodes
-__attribute__ ((weak))
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   // #ifdef WPM_ENABLE
   //   if (record->event.pressed) {
   //       extern uint32_t tap_timer;
@@ -131,10 +124,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       layer_move(prev_layer);
       return false;
-    default:
+
+    case LG_TOGGLE...LG_END:
       return process_record_ruen(keycode, record);
   }
-   return process_record_keymap(keycode, record);
+
+  return process_record_user(keycode, record);
 }
 
 bool caps_word_press_user(uint16_t keycode) {
@@ -171,7 +166,7 @@ bool caps_word_press_user(uint16_t keycode) {
     }
 }
 
-void matrix_scan_user(void) { // The very important timer.
+void matrix_scan_kb(void) { // The very important timer.
   if (is_alt_tab_active) {
     if (timer_elapsed(alt_tab_timer) > 650) {
       unregister_code(KC_LALT);
@@ -179,26 +174,7 @@ void matrix_scan_user(void) { // The very important timer.
     }
   }
 
-
-// __attribute__ ((weak))
-// layer_state_t layer_state_set_keymap (layer_state_t state) {
-//   return state;
-// }
-
-// layer_state_t layer_state_set_user (layer_state_t state) {
-//       #if defined(AUDIO_ENABLE)
-//         static bool is_base_on = false;
-//     if (layer_state_cmp(state, _BASE) != is_base_on) {
-//             is_base_on = layer_state_cmp(state, _BASE);
-//             if (is_base_on) {
-//                 stop_all_notes();
-//             } else {
-//                 PLAY_SONG(base_sound);
-//             }
-//         }
-//     #endif
-//   return layer_state_set_keymap (state);
-//     }
+  matrix_scan_user();
 }
 
 void keyboard_post_init_kb(void) {
@@ -223,6 +199,13 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     layer_state_set_rgb(state);
 #endif
     return state;
+}
+
+void housekeeping_task_kb(void) {
+#ifdef SPLIT_OLED_ENABLE
+    housekeeping_task_oled();
+#endif
+    housekeeping_task_user();
 }
 
 static const char* PROGMEM LAYER_NAME[] =   {
