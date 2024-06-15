@@ -25,5 +25,5 @@ AUTO_SHIFT_ENABLE = yes
 
 SRC += keyboards/ergohaven/ergohaven_rgb.c
 SRC += keyboards/ergohaven/ergohaven.c
-SRC += keyboards/ergohaven/lang_ru_en.c
+SRC += keyboards/ergohaven/ergohaven_ruen.c
 SRC += keyboards/ergohaven/hid.c

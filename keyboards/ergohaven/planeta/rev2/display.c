@@ -1,7 +1,7 @@
 #include "display.h"
 #include "qp.h"
 #include "lvgl_helpers.h"
-#include "lang_ru_en.h"
+#include "ergohaven_ruen.h"
 #include "hid.h"
 #include "ergohaven.h"
 

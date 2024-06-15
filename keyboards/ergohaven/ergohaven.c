@@ -1,5 +1,5 @@
 #include "ergohaven.h"
-#include "lang_ru_en.h"
+#include "ergohaven_ruen.h"
 #include "ergohaven_rgb.h"
 #include "hid.h"
 
@@ -132,7 +132,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       layer_move(prev_layer);
       return false;
     default:
-      return process_record_lang(keycode, record);
+      return process_record_ruen(keycode, record);
   }
    return process_record_keymap(keycode, record);
 }

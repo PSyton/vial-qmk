@@ -1,6 +1,6 @@
 #include "ergohaven.h"
 #include "info_config.h"
-#include "lang_ru_en.h"
+#include "ergohaven_ruen.h"
 #include "hid.h"
 #include "transactions.h"
 

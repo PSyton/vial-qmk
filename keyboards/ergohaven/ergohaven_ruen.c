@@ -1,4 +1,4 @@
-#include "lang_ru_en.h"
+#include "ergohaven_ruen.h"
 
 static uint8_t cur_lang = LANG_EN;
 
@@ -99,7 +99,7 @@ uint16_t en_table[] = {
     KC_QUOT,  // LG_QUOTE
 };
 
-bool process_record_lang(uint16_t keycode, keyrecord_t* record) {
+bool process_record_ruen(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case LG_TOGGLE:
             if (record->event.pressed) lang_toggle();

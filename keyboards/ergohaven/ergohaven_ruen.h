@@ -1,7 +1,7 @@
 #pragma once
 #include "ergohaven.h"
 
-enum lang_ru_en_custom_keycodes {
+enum ruen_custom_keycodes {
     LG_TOGGLE = LAYER_PREV + 2,
     LG_SYNC,
     LG_SET_EN,
@@ -49,7 +49,7 @@ enum { LANG_EN = 0, LANG_RU };
 
 enum { TG_DEFAULT = 0, TG_MACRO30, TG_MACRO31 };
 
-bool process_record_lang(uint16_t keycode, keyrecord_t *record);
+bool process_record_ruen(uint16_t keycode, keyrecord_t *record);
 
 bool lang_sync_external(uint8_t lang);
 
