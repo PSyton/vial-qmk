@@ -1,10 +1,13 @@
 #include "ergohaven_ruen.h"
+#include "hid.h"
 
 static uint8_t cur_lang = LANG_EN;
 
 static uint8_t tg_mode = TG_DEFAULT;
 
-static uint32_t lang_sync_time = 0;
+static uint32_t revert_ru_time = 0;
+
+static bool should_revert_ru = false;
 
 void set_lang(uint8_t lang) {
     if (cur_lang == lang) return;
@@ -33,8 +36,7 @@ void set_lang(uint8_t lang) {
         default:
             break;
     }
-    lang_sync_time = timer_read32();
-    cur_lang       = lang;
+    cur_lang = lang;
 }
 
 void lang_toggle(void) {
@@ -49,17 +51,6 @@ void lang_sync(void) {
         cur_lang = LANG_RU;
     else
         cur_lang = LANG_EN;
-}
-
-bool lang_sync_external(uint8_t lang) {
-    if (timer_elapsed32(lang_sync_time) < 500) return false;
-    lang_sync_time = timer_read32();
-
-    if (lang == LANG_EN)
-        cur_lang = LANG_EN;
-    else
-        cur_lang = LANG_RU;
-    return true;
 }
 
 uint8_t get_cur_lang(void) {
@@ -99,7 +90,24 @@ uint16_t en_table[] = {
     KC_QUOT,  // LG_QUOTE
 };
 
-bool process_record_ruen(uint16_t keycode, keyrecord_t* record) {
+bool pre_process_record_ruen(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_A ... KC_Z:
+        case S(KC_A)... S(KC_Z):
+        case KC_LBRC ... KC_RBRC:
+        case S(KC_LBRC)... S(KC_RBRC):
+        case KC_SCLN ... KC_SLSH: // KC_QUOT KC_GRAVE KC_COMMA KC_DOT
+        case S(KC_SCLN)... S(KC_SLSH):
+            if (should_revert_ru) {
+                set_lang(LANG_RU);
+                should_revert_ru = false;
+                break;
+            }
+    }
+    return true;
+}
+
+bool process_record_ruen(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LG_TOGGLE:
             if (record->event.pressed) lang_toggle();
@@ -146,7 +154,8 @@ bool process_record_ruen(uint16_t keycode, keyrecord_t* record) {
                 uint8_t lang = cur_lang;
                 set_lang(LANG_EN);
                 tap_code16(en_table[keycode - LG_EN_START]);
-                set_lang(lang);
+                should_revert_ru = should_revert_ru || (cur_lang != lang);
+                revert_ru_time   = timer_read32();
             }
         }
         return false;
@@ -165,4 +174,20 @@ bool process_record_ruen(uint16_t keycode, keyrecord_t* record) {
     }
 
     return true;
+}
+
+void housekeeping_task_ruen(void) {
+    if (should_revert_ru && timer_elapsed32(revert_ru_time) > 500) {
+        set_lang(LANG_RU);
+        should_revert_ru = false;
+    } else {
+        struct hid_data_t *hid_data = get_hid_data();
+        if (hid_data->layout_changed) {
+            if (hid_data->layout == LANG_EN)
+                cur_lang = LANG_EN;
+            else
+                cur_lang = LANG_RU;
+            hid_data->layout_changed = false;
+        }
+    }
 }

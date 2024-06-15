@@ -49,8 +49,10 @@ enum { LANG_EN = 0, LANG_RU };
 
 enum { TG_DEFAULT = 0, TG_MACRO30, TG_MACRO31 };
 
+bool pre_process_record_ruen(uint16_t keycode, keyrecord_t *record);
+
 bool process_record_ruen(uint16_t keycode, keyrecord_t *record);
 
-bool lang_sync_external(uint8_t lang);
+void housekeeping_task_ruen(void);
 
 uint8_t get_cur_lang(void);

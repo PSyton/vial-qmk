@@ -12,6 +12,10 @@ float caps_sound[][2] = SONG(CAPS_LOCK_ON_SOUND);
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 
+bool pre_process_record_kb(uint16_t keycode, keyrecord_t* record) {
+    return pre_process_record_ruen(keycode, record) && pre_process_record_user(keycode, record);
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   // #ifdef WPM_ENABLE
   //   if (record->event.pressed) {
@@ -205,6 +209,7 @@ void housekeeping_task_kb(void) {
 #ifdef SPLIT_OLED_ENABLE
     housekeeping_task_oled();
 #endif
+    housekeeping_task_ruen();
     housekeeping_task_user();
 }
 
