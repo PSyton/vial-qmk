@@ -221,12 +221,20 @@ bool oled_task_kb(void) {
     uint32_t activity_elapsed = MIN(last_input_activity_elapsed(), //
                                     sync_timer_elapsed32(last_layout_options_time));
 
-    if (activity_elapsed > EH_TIMEOUT || get_oled_mode() == OLED_DISABLED) {
-        oled_off();
+#    ifdef RGBLIGHT_ENABLE
+    if (activity_elapsed > EH_TIMEOUT) {
         rgblight_suspend();
         return false;
     } else {
         rgblight_wakeup();
+        oled_on();
+    }
+#    endif
+
+    if (activity_elapsed > EH_TIMEOUT || get_oled_mode() == OLED_DISABLED) {
+        oled_off();
+        return false;
+    } else {
         oled_on();
     }
 
