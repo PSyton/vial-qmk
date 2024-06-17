@@ -9,6 +9,8 @@ static uint32_t revert_ru_time = 0;
 
 static bool should_revert_ru = false;
 
+static bool english_word = false;
+
 void set_lang(uint8_t lang) {
     switch (tg_mode) {
         case TG_DEFAULT:
@@ -94,6 +96,8 @@ uint16_t en_table[] = {
 };
 
 bool pre_process_record_ruen(uint16_t keycode, keyrecord_t *record) {
+    if (!record->event.pressed) return true;
+
     switch (keycode) {
         case KC_A ... KC_Z:
         case S(KC_A)... S(KC_Z):
@@ -114,6 +118,20 @@ bool pre_process_record_ruen(uint16_t keycode, keyrecord_t *record) {
             }
             break;
     }
+
+    if (english_word) {
+        switch (keycode & 0xFF) {
+            case KC_SPACE:
+            case KC_ENTER:
+            case KC_ESCAPE:
+            case KC_MINUS:
+                english_word = false;
+                set_lang(LANG_RU);
+            default:
+                break;
+        }
+    }
+
     return true;
 }
 
@@ -178,6 +196,16 @@ bool process_record_ruen(uint16_t keycode, keyrecord_t *record) {
                 set_lang(LANG_RU);
                 tap_code16(LSFT(KC_3));
                 set_lang(lang);
+            }
+        }
+        return false;
+    }
+
+    if (keycode == LG_WORD) {
+        if (record->event.pressed) {
+            if (cur_lang == LANG_RU) {
+                english_word = true;
+                set_lang(LANG_EN);
             }
         }
         return false;
