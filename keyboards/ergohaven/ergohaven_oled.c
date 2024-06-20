@@ -88,8 +88,8 @@ void render_status_classic(void) {
     oled_write_P(PSTR(layer_name(get_highest_layer(layer_state))), false);
 
     oled_set_cursor(0, 15);
-    led_t led_usb_state = host_keyboard_led_state();
-    oled_write_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+    bool caps = host_keyboard_led_state().caps_lock || is_caps_word_on();
+    oled_write_P(PSTR("CPSLK"), caps);
 }
 
 void render_status_modern(void) {
@@ -106,7 +106,8 @@ void render_status_modern(void) {
 
     oled_set_cursor(0, 4);
     led_t led_usb_state = host_keyboard_led_state();
-    oled_write_P(led_usb_state.caps_lock ? PSTR("CPS\07\10") : PSTR("CPS\05\06"), false);
+    bool  caps          = led_usb_state.caps_lock || is_caps_word_on();
+    oled_write_P(caps ? PSTR("CPS\07\10") : PSTR("CPS\05\06"), false);
     oled_write_P(led_usb_state.num_lock ? PSTR("NUM\07\10") : PSTR("NUM\05\06"), false);
 
     oled_set_cursor(0, 7);
@@ -153,7 +154,13 @@ void render_status_minimalistic(void) {
 
     led_t led_usb_state = host_keyboard_led_state();
     oled_set_cursor(0, 4);
-    oled_write_P(led_usb_state.caps_lock ? PSTR("CAPS") : PSTR("     "), false);
+    if (led_usb_state.caps_lock)
+        oled_write_P(PSTR("CAPS"), false);
+    else if (is_caps_word_on())
+        oled_write_P(PSTR("CAPSW"), false);
+    else
+        oled_write_P(PSTR("     "), false);
+
     oled_set_cursor(0, 5);
     oled_write_P(led_usb_state.num_lock ? PSTR("NUM") : PSTR("     "), false);
 
