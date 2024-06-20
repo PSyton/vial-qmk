@@ -126,6 +126,7 @@ bool pre_process_record_ruen(uint16_t keycode, keyrecord_t *record) {
             case KC_ESCAPE:
             case KC_MINUS:
                 english_word = false;
+                caps_word_off();
                 set_lang(LANG_RU);
             default:
                 break;
@@ -206,6 +207,8 @@ bool process_record_ruen(uint16_t keycode, keyrecord_t *record) {
             if (cur_lang == LANG_RU) {
                 english_word = true;
                 set_lang(LANG_EN);
+                bool shift = (get_mods() | get_oneshot_mods() | get_weak_mods()) & MOD_MASK_SHIFT;
+                if (shift) caps_word_on();
             }
         }
         return false;
