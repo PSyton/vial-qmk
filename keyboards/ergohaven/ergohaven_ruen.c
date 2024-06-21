@@ -28,6 +28,7 @@ void set_lang(uint8_t lang) {
                 unregister_code(KC_LGUI);
                 wait_ms(50);
             }
+            break;
         case TG_M0:
             if (cur_lang == lang) return;
             dynamic_keymap_macro_send(QK_MACRO_0 - QK_MACRO);
@@ -128,6 +129,7 @@ bool pre_process_record_ruen(uint16_t keycode, keyrecord_t *record) {
                 english_word = false;
                 caps_word_off();
                 set_lang(LANG_RU);
+                break;
             default:
                 break;
         }
