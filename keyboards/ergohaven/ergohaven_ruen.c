@@ -195,7 +195,7 @@ bool process_record_ruen(uint16_t keycode, keyrecord_t *record) {
         }
 
         case LG_WORD: {
-            if (cur_lang == LANG_RU) {
+            if (cur_lang == LANG_RU && !english_word) {
                 english_word = true;
                 bool shift   = (get_mods() | get_oneshot_mods() | get_weak_mods()) & MOD_MASK_SHIFT;
                 if (get_oneshot_mods() & MOD_MASK_SHIFT) clear_oneshot_mods();
