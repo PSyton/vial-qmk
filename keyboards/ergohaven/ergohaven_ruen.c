@@ -139,6 +139,11 @@ bool pre_process_record_ruen(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_ruen(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == LG_MOD) {
+        lang_toggle();
+        return true;
+    }
+
     if (!record->event.pressed) return true;
 
     switch (keycode) {

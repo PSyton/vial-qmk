@@ -43,6 +43,7 @@ enum ruen_custom_keycodes {
 
     //
     LG_WORD,
+    LG_MOD,
 
     // end of ru en symbols range
     LG_END,
