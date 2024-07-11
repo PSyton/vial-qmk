@@ -205,11 +205,8 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     return state;
 }
 
-// for macropad
-__attribute__((weak)) void housekeeping_task_oled(void) {}
-
 void housekeeping_task_kb(void) {
-#ifdef OLED_ENABLE
+#if defined(OLED_ENABLE) && defined(SPLIT_KEYBOARD)
     housekeeping_task_oled();
 #endif
     housekeeping_task_ruen();
