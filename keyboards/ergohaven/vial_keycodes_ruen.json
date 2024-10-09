@@ -136,4 +136,88 @@
         {"name": "LG_REVERT",
         "title": "Revert to stored layout (useful for macros)",
         "shortName": "RuEn\nRevert"
+        },
+        {"name": "U_EM_DASH",
+        "title": "Unicode long dash",
+        "shortName": "U\n—"
+        },
+        {"name": "U_FR_OPEN_QUOTES",
+        "title": "Unicode angle open quotes",
+        "shortName": "U\n «"
+        },
+        {"name": "U_FR_CLOSE_QUOTES",
+        "title": "Unicode angle close quotes",
+        "shortName": "U\n »"
+        },
+        {"name": "U_EN_OPEN_QUOTE",
+        "title": "Unicode open single qote",
+        "shortName": "U\n ‘"
+        },
+        {"name": "U_EN_CLOSE_QUOTE",
+        "title": "Unicode close single qoute",
+        "shortName": "U\n ’"
+        },
+        {"name": "U_EN_DOPEN_QUOTE",
+        "title": "Unicode open double quotes",
+        "shortName": "U\n “"
+        },
+        {"name": "U_EN_DCLOSE_QUOTE",
+        "title": "Unicode open double quotes",
+        "shortName": "U\n ”"
+        },
+        {"name": "U_DE_OPEN_QUOTE",
+        "title": "Unicode DE open double quotes",
+        "shortName": "U\n „"
+        },
+        {"name": "U_SIGN_MULTIPLY",
+        "title": "Math multyply symbol",
+        "shortName": "U\n ×"
+        },
+        {"name": "U_SIGN_COPYRIGHT",
+        "title": "Copyright symbol",
+        "shortName": "U\n ©"
+        },
+        {"name": "U_SIGN_RIGHTS",
+        "title": "Rights symbol",
+        "shortName": "U\n ®"
+        },
+        {"name": "U_SIGN_SHTRIC",
+        "title": "Shtric symbol",
+        "shortName": "U\n ´"
+        },
+        {"name": "U_SIGN_TM",
+        "title": "TM symbol",
+        "shortName": "U\n ™"
+        },
+        {"name": "U_SIGN_RUBLE",
+        "title": "Rubble symbol",
+        "shortName": "U\n ₽"
+        },
+        {"name": "U_SIGN_EURO",
+        "title": "Euro symbol",
+        "shortName": "U\n €"
+        },
+        {"name": "U_SIGN_DEGREE",
+        "title": "Degree symbol",
+        "shortName": "U\n °"
+        },
+        {"name": "U_SIGN_NEQUAL",
+        "title": "Not equal symbol",
+        "shortName": "U\n ≠"
+        },
+        {"name": "U_SIGN_PLUS_MINUS",
+        "title": "Plus-minus symbol",
+        "shortName": "U\n ±"
+        },
+        {"name": "U_SIGN_3_DOTS",
+        "title": "Three dots",
+        "shortName": "U\n …"
+        },
+        {"name": "U_NB_SPACE",
+        "title": "Non breaking space",
+        "shortName": "U\n NBS"
+        },
+        {"name": "CKC_STR_UP",
+        "title": "Up dir",
+        "shortName": "../"
         }

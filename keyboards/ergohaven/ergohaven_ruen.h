@@ -2,7 +2,7 @@
 #include "ergohaven.h"
 
 enum ruen_custom_keycodes {
-    LG_TOGGLE = LAYER_PREV + 2,
+    LG_TOGGLE = LAYER_PREV + 3,
     LG_SYNC,
     LG_SET_EN,
     LG_SET_RU,
@@ -48,7 +48,7 @@ enum ruen_custom_keycodes {
     LG_REVERT,
 
     // end of ru en symbols range
-    LG_END,
+    LG_END = LG_REVERT,
 };
 
 enum { LANG_EN = 0, LANG_RU };
@@ -62,5 +62,9 @@ bool process_record_ruen(uint16_t keycode, keyrecord_t *record);
 void housekeeping_task_ruen(void);
 
 uint8_t get_cur_lang(void);
+
+void set_cur_lang(uint8_t lang);
+
+void set_lang(uint8_t lang);
 
 void set_ruen_toggle_mode(uint8_t mode);

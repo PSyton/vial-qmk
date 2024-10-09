@@ -1,6 +1,6 @@
 #include "ergohaven.h"
-#include "info_config.h"
 #include "ergohaven_ruen.h"
+#include "info_config.h"
 #include "hid.h"
 #include "transactions.h"
 #include <string.h>
@@ -96,14 +96,18 @@ void render_status_classic(void) {
     if (get_oled_mac()) {
         oled_write_P(PSTR("Mac"), false);
     } else {
-        oled_write_P(PSTR("Win"), false);
+        oled_write_P(PSTR("PC"), false);
     }
+    oled_write_P(PSTR(get_os_user()), false);
 
     // Print current layer
     oled_set_cursor(0, 10);
     oled_write_P(PSTR("LAYER"), false);
     oled_set_cursor(0, 12);
-    oled_write_P(PSTR(layer_name(get_current_layer())), false);
+    oled_write_P(PSTR(layer_name_user(get_current_layer())), false);
+
+    oled_set_cursor(0, 14);
+    oled_write(get_oled_lang() == LANG_EN ? "EN" : "RU", false);
 
     oled_set_cursor(0, 15);
     bool caps = host_keyboard_led_state().caps_lock || get_oled_caps_word();
@@ -112,7 +116,7 @@ void render_status_classic(void) {
 
 void render_status_modern(void) {
     oled_clear();
-    oled_write_ln(layer_upper_name(get_current_layer()), false);
+    oled_write_ln(layer_upper_name_user(get_current_layer()), false);
     oled_set_cursor(0, 1);
     if (get_oled_mac())
         oled_write_P(PSTR("   \01\02   \03\04"), false);
@@ -403,7 +407,7 @@ void sync_config(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, voi
     via_set_layout_options_kb(value);
 }
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_oled(void) {
     transaction_register_rpc(RPC_SYNC_CONFIG, sync_config);
 }
 

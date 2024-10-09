@@ -70,3 +70,8 @@ const char* layer_name(int layer);
 const char* layer_upper_name(int layer);
 
 void kb_config_update_ruen_toggle_mode(uint8_t mode);
+
+// Can be overrided by uuser
+const char* layer_name_user(int layer);
+const char* layer_upper_name_user(int layer);
+const char* get_os_user(void);

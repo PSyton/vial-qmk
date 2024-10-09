@@ -46,7 +46,7 @@ void set_lang(uint8_t lang) {
         default:
             break;
     }
-    cur_lang = lang;
+    set_cur_lang(lang);
 }
 
 void set_ruen_toggle_mode(uint8_t mode) {
@@ -75,46 +75,51 @@ void lang_toggle(void) {
 
 void lang_sync(void) {
     if (cur_lang == LANG_EN)
-        cur_lang = LANG_RU;
+        set_cur_lang(LANG_RU);
     else
-        cur_lang = LANG_EN;
+        set_cur_lang(LANG_EN);
 }
 
 uint8_t get_cur_lang(void) {
     return cur_lang;
 }
 
+void set_cur_lang(uint8_t lang) {
+    if (cur_lang != lang) {
+        cur_lang = lang;
+    }
+}
+
 typedef struct {
-    uint16_t en;
-    uint16_t ru;
+    uint16_t keycode[2];
 } ru_en_symbol;
 
 ru_en_symbol ru_en_table[] = {
-    {KC_DOT, KC_SLASH},         // LG_DOT
-    {KC_COMMA, LSFT(KC_SLASH)}, // LG_COMMA
-    {KC_SCLN, LSFT(KC_4)},      // LG_SCLN
-    {KC_COLON, LSFT(KC_6)},     // LG_COLON
-    {KC_DQUO, LSFT(KC_2)},      // LG_DQUO
-    {KC_QUES, LSFT(KC_7)},      // LG_QUES
-    {KC_SLASH, LSFT(KC_BSLS)},  // LG_SLASH
+    {{KC_DOT, KC_SLASH}},         // LG_DOT
+    {{KC_COMMA, LSFT(KC_SLASH)}}, // LG_COMMA
+    {{KC_SCLN, LSFT(KC_4)}},      // LG_SCLN
+    {{KC_COLON, LSFT(KC_6)}},     // LG_COLON
+    {{KC_DQUO, LSFT(KC_2)}},      // LG_DQUO
+    {{KC_QUES, LSFT(KC_7)}},      // LG_QUES
+    {{KC_SLASH, LSFT(KC_BSLS)}},  // LG_SLASH
 };
 
 uint16_t en_table[] = {
-    KC_LBRC,  // LG_LBR
-    KC_RBRC,  // LG_RBR
-    KC_LCBR,  // LG_LCBR
-    KC_RCBR,  // LG_RCBR
-    KC_LT,    // LG_LT
-    KC_GT,    // LG_GT
-    KC_GRAVE, // LG_GRAVE
-    KC_TILD,  // LG_TILD
-    KC_AT,    // LG_AT
-    KC_HASH,  // LG_HASH
-    KC_DLR,   // LG_DLR
-    KC_CIRC,  // LG_CIRC
-    KC_AMPR,  // LG_AMPR
+    KC_LBRC,   // LG_LBR
+    KC_RBRC,   // LG_RBR
+    KC_LCBR,   // LG_LCBR
+    KC_RCBR,   // LG_RCBR
+    KC_LT,     // LG_LT
+    KC_GT,     // LG_GT
+    KC_GRAVE,  // LG_GRAVE
+    KC_TILD,   // LG_TILD
+    KC_AT,     // LG_AT
+    KC_HASH,   // LG_HASH
+    KC_DLR,    // LG_DLR
+    KC_CIRC,   // LG_CIRC
+    KC_AMPR,   // LG_AMPR
     KC_PIPE,  // LG_PIPE
-    KC_QUOT,  // LG_QUOTE
+    KC_QUOT   // LG_QUOTE
 };
 
 bool pre_process_record_ruen(uint16_t keycode, keyrecord_t *record) {
@@ -200,10 +205,7 @@ bool process_record_ruen(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         case LG_RU_EN_START ... LG_SLASH:
-            if (cur_lang == 0)
-                tap_code16(ru_en_table[keycode - LG_RU_EN_START].en);
-            else
-                tap_code16(ru_en_table[keycode - LG_RU_EN_START].ru);
+            tap_code16(ru_en_table[keycode - LG_RU_EN_START].keycode[cur_lang % 2]);
             return false;
 
         case LG_EN_START ... LG_QUOTE: {
@@ -262,10 +264,7 @@ void housekeeping_task_ruen(void) {
 
     struct hid_data_t *hid_data = get_hid_data();
     if (hid_data->layout_changed) {
-        if (hid_data->layout == LANG_EN)
-            cur_lang = LANG_EN;
-        else
-            cur_lang = LANG_RU;
+        set_cur_lang(hid_data->layout);
         hid_data->layout_changed = false;
     }
 }

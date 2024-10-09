@@ -158,6 +158,7 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_rgb();
 #endif
     keyboard_post_init_hid();
+    keyboard_post_init_oled();
     keyboard_post_init_user();
 }
 
@@ -182,7 +183,8 @@ void housekeeping_task_kb(void) {
     housekeeping_task_split_oled();
 #endif
     housekeeping_task_ruen();
-    housekeeping_task_user();
+    // Called by qmk after housekeeping_task_kb()
+    //housekeeping_task_user();
 }
 
 uint8_t get_current_layer(void) {
@@ -243,4 +245,16 @@ const char* layer_upper_name(int layer) {
         return LAYER_UPPER_NAME[layer];
     else
         return "UNDEF";
+}
+
+__attribute__((weak)) const char* layer_name_user(int layer) {
+    return layer_name(layer);
+}
+
+__attribute__((weak)) const char* layer_upper_name_user(int layer) {
+    return layer_upper_name(layer);
+}
+
+__attribute__((weak)) const char* get_os_user() {
+    return " ";
 }
