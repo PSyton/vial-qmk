@@ -60,7 +60,6 @@ enum custom_keycodes {
     WPREV,
     LAYER_NEXT,
     LAYER_PREV,
-    EH_RESERV1,
 };
 
 // 1st layer on the cycle
@@ -83,3 +82,8 @@ bool split_get_caps_word(void);
 void kb_config_update_ruen_toggle_mode(uint8_t mode);
 
 void kb_config_update_ruen_mac_layout(bool mac_layout);
+
+// Can be overrided by uuser
+const char* layer_name_user(int layer);
+const char* layer_upper_name_user(int layer);
+const char* get_os_user(void);

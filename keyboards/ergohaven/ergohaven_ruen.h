@@ -61,7 +61,7 @@ enum ruen_custom_keycodes {
     LG_RU_YO,
 
     // end of ru en symbols range
-    LG_END,
+    LG_END = LG_RU_YO,
 };
 
 enum { LANG_EN = 0, LANG_RU };
@@ -75,6 +75,10 @@ bool process_record_ruen(uint16_t keycode, keyrecord_t *record);
 void housekeeping_task_ruen(void);
 
 uint8_t get_cur_lang(void);
+
+void set_cur_lang(uint8_t lang);
+
+void set_lang(uint8_t lang);
 
 void set_ruen_toggle_mode(uint8_t mode);
 

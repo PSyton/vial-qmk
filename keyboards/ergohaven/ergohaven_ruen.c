@@ -51,7 +51,7 @@ void set_lang(uint8_t lang) {
         default:
             break;
     }
-    cur_lang = lang;
+    set_cur_lang(lang);
     if (mods != 0) add_mods(mods);
 }
 
@@ -93,13 +93,19 @@ void lang_toggle(void) {
 
 void lang_sync(void) {
     if (cur_lang == LANG_EN)
-        cur_lang = LANG_RU;
+        set_cur_lang(LANG_RU);
     else
-        cur_lang = LANG_EN;
+        set_cur_lang(LANG_EN);
 }
 
 uint8_t get_cur_lang(void) {
     return cur_lang;
+}
+
+void set_cur_lang(uint8_t lang) {
+    if (cur_lang != lang) {
+        cur_lang = lang;
+    }
 }
 
 uint16_t en_table[] = {
@@ -331,10 +337,7 @@ void housekeeping_task_ruen(void) {
 
     hid_data_t *hid_data = get_hid_data();
     if (hid_data->layout_changed) {
-        if (hid_data->layout == LANG_EN)
-            cur_lang = LANG_EN;
-        else
-            cur_lang = LANG_RU;
+        set_cur_lang(hid_data->layout);
         hid_data->layout_changed = false;
     }
 }
