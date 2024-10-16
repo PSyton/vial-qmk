@@ -61,7 +61,7 @@ static os_variant_t current_os = OS_UNSURE;
 #define CKC_OBRACE    LSFT(KC_9)     // '('
 #define CKC_CBRACE    LSFT(KC_0)     // ')'
 #define CKC_OFBRACE   LG_LCBR        // '{'
-#define CKC_CFBRACE   LG_LCBR        // '}'
+#define CKC_CFBRACE   LG_RCBR        // '}'
 #define CKC_PIPE      LG_PIPE        // '|'
 #define CKC_TILDA     LG_TILD        // '~'
 #define CKC_QUEST     LG_QUES        // '?'
@@ -311,10 +311,19 @@ void send_os_specific_keys(uint16_t keycode, bool pressed)
 // Helper for implementing tap vs. long-press keys. Given a tap-hold
 // key event, replaces the hold function with `long_press_keycode`.
 static bool process_tap_or_long_press_key(
-    keyrecord_t* record, uint16_t long_press_keycode) {
+    uint16_t keycode,
+    keyrecord_t* record, uint16_t long_press_keycode, bool only_ru) {
   if (record->tap.count == 0) {  // Key is being held.
+      bool long_press_allow = true;
+      if (only_ru) {
+          long_press_allow = (get_cur_lang() == LANG_RU);
+      }
     if (record->event.pressed) {
-      tap_code16(long_press_keycode);
+        if (long_press_allow) {
+            tap_code16(long_press_keycode);
+        } else {
+            tap_code16(QK_MODS_GET_BASIC_KEYCODE(keycode));
+        }
     }
     return false;  // Skip default handling.
   }
@@ -376,33 +385,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             send_os_specific_keys(keycode, record->event.pressed);
             return false;
         case TH_M:
-        	return process_tap_or_long_press_key(record, KC_RBRC);
+        	return process_tap_or_long_press_key(keycode, record, KC_RBRC, true);
         case TH_T:
-        	return process_tap_or_long_press_key(record, KC_GRV);
+        	return process_tap_or_long_press_key(keycode, record, KC_GRV, true);
         case TH_END:
-        	return process_tap_or_long_press_key(record, KC_END);
+        	return process_tap_or_long_press_key(keycode, record, KC_END, false);
         case TH_HOME:
-        	return process_tap_or_long_press_key(record, KC_HOME);
+        	return process_tap_or_long_press_key(keycode, record, KC_HOME, false);
         case TH_1:
-        	return process_tap_or_long_press_key(record, KC_F1);
+        	return process_tap_or_long_press_key(keycode, record, KC_F1, false);
         case TH_2:
-        	return process_tap_or_long_press_key(record, KC_F2);
+        	return process_tap_or_long_press_key(keycode, record, KC_F2, false);
         case TH_3:
-        	return process_tap_or_long_press_key(record, KC_F3);
+        	return process_tap_or_long_press_key(keycode, record, KC_F3, false);
         case TH_4:
-        	return process_tap_or_long_press_key(record, KC_F4);
+        	return process_tap_or_long_press_key(keycode, record, KC_F4, false);
         case TH_5:
-        	return process_tap_or_long_press_key(record, KC_F5);
+        	return process_tap_or_long_press_key(keycode, record, KC_F5, false);
         case TH_6:
-        	return process_tap_or_long_press_key(record, KC_F6);
+        	return process_tap_or_long_press_key(keycode, record, KC_F6, false);
         case TH_7:
-        	return process_tap_or_long_press_key(record, KC_F7);
+        	return process_tap_or_long_press_key(keycode, record, KC_F7, false);
         case TH_8:
-        	return process_tap_or_long_press_key(record, KC_F8);
+        	return process_tap_or_long_press_key(keycode, record, KC_F8, false);
         case TH_9:
-        	return process_tap_or_long_press_key(record, KC_F9);
+        	return process_tap_or_long_press_key(keycode, record, KC_F9, false);
         case TH_0:
-        	return process_tap_or_long_press_key(record, KC_F10);
+        	return process_tap_or_long_press_key(keycode, record, KC_F10, false);
         case TH_Q:
         	return process_tap_or_switch_os(record, OS_WINDOWS);
         case TH_W:
@@ -463,5 +472,23 @@ void matrix_scan_user(void) {
     	{
     		current_os = OS_LINUX;
     	}
+    }
+}
+
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case TH_S:
+        case TH_D:
+        case TH_F:
+        case TH_Z:
+        case TH_J:
+        case TH_K:
+        case TH_L:
+        case TH_SLASH:
+            // Immediately select the hold action when another key is tapped.
+            return true;
+        default:
+            // Do not select the hold action when another key is tapped.
+            return false;
     }
 }
