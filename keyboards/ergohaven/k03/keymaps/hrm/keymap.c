@@ -13,20 +13,20 @@ enum layer_number {
 static os_variant_t current_os = OS_UNSURE;
 
 // Left-hand home row mods
-#define TH_A LT(1, KC_A) // Sybmols layer mod-tap
-#define TH_S LALT_T(KC_S)
-#define TH_D LSFT_T(KC_D)
-#define TH_F LCTL_T(KC_F)
-#define TH_G LT(2, KC_G) // Nav layer mod tap
-#define TH_Z LGUI_T(KC_Z)
+//#define TH_A LT(1, KC_A) // Sybmols layer mod-tap
+//#define TH_S LALT_T(KC_S)
+//#define TH_D LSFT_T(KC_D)
+//#define TH_F LCTL_T(KC_F)
+//#define TH_G LT(2, KC_G) // Nav layer mod tap
+//#define TH_Z LGUI_T(KC_Z)
 
 // Right-hand home row mods
-#define TH_H LT(2, KC_H) // Nav layer mod tap
-#define TH_J RCTL_T(KC_J)
-#define TH_K RSFT_T(KC_K)
-#define TH_L LALT_T(KC_L)
-#define TH_SCLN LT(1,KC_SCLN) // symbols layer mod-tap
-#define TH_SLASH RGUI_T(KC_SLASH)
+//#define TH_H LT(2, KC_H) // Nav layer mod tap
+//#define TH_J RCTL_T(KC_J)
+//#define TH_K RSFT_T(KC_K)
+//#define TH_L LALT_T(KC_L)
+//#define TH_SCLN LT(1,KC_SCLN) // symbols layer mod-tap
+//#define TH_SLASH RGUI_T(KC_SLASH)
 
 #define TH_1 LT(0, KC_1)
 #define TH_2 LT(0, KC_2)
@@ -116,8 +116,24 @@ enum my_custom_keycodes {
     KC_OS_LOCK = RU_HARD + 1,
     KC_OS_UNX,
     KC_OS_WIN,
-    KC_OS_MAC
+    KC_OS_MAC,
+    SMTD_KEYCODES_BEGIN,
+    TH_A,
+    TH_S,
+    TH_D,
+    TH_F,
+    TH_G,
+    TH_Z,
+    TH_H,
+    TH_J,
+    TH_K,
+    TH_L,
+    TH_SCLN,
+    TH_SLASH,
+    SMTD_KEYCODES_END,
 };
+
+#include "sm_td.h"
 
 const char * uni_table[] = {
     "—", // U_EM_DASH
@@ -151,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           KC_ESC,              TH_1,    TH_2,    TH_3,    TH_4,   TH_5,                                                 TH_6,     TH_7,    TH_8,     TH_9,   TH_0,     KC_BACKSPACE, \
           KC_TAB,              KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,                                                 KC_Y,     KC_U,    KC_I,     KC_O,   KC_P,     KC_LEFT_BRACKET, \
           QK_CAPS_WORD_TOGGLE, TH_A,    TH_S,    TH_D,    TH_F,   KC_G,                                                 KC_H,     TH_J,    TH_K,     TH_L,   TH_SCLN,  KC_QUOT, \
-          LG_SET_EN,           TH_Z,    KC_X,    KC_C,    KC_V,   KC_B,                                                 KC_N,     KC`_M,    KC_COMM,  KC_DOT, TH_SLASH, LG_SET_RU, \
+          LG_SET_EN,           TH_Z,    KC_X,    KC_C,    KC_V,   KC_B,                                                 KC_N,     KC_M,    KC_COMM,  KC_DOT, TH_SLASH, LG_SET_RU, \
                                         KC_INS,  KC_PGUP, KC_UP,  KC_LEFT, KC_SPC, MO(_NAV),       MO(_ADJUST), KC_ENT, KC_RIGHT, KC_DOWN, KC_PGDN,  KC_DEL \
         ),
 
@@ -164,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
 
         [_NAV] = LAYOUT( \
-         KC_ESC,  _______, _______, _______, _______, _______,                                           KC_CUT,  KC_COPY, KC_PASTE, KC_UNDO, KC_REDO, _______,
+         KC_ESC,  _______, _______, _______, _______, _______,                                           KC_CUT,  KC_COPY, KC_PASTE, KC_OS_UNDO, KC_OS_REDO, _______,
          _______, _______, _______, _______, _______, _______,                                           KC_HOME, KC_UP,   KC_END,   _______, _______, _______,
          _______, _______, _______, _______, _______, _______,                                           KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______,
          _______, _______, _______, _______, _______, _______,                                           KC_PGUP, _______, KC_PGDN,  _______, _______, _______,
@@ -340,17 +356,6 @@ static bool process_tap_or_long_press_key(
   return true;  // Continue default handling.
 }
 
-static bool process_tap_or_switch_os (
-    keyrecord_t* record, os_variant_t os) {
-  if (record->tap.count == 0) {  // Key is being held.
-    if (record->event.pressed) {
-      current_os = os;
-    }
-    return false;  // Skip default handling.
-  }
-  return true;  // Continue default handling.
-}
-
 void handle_language_keys(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         uint8_t mod_state = get_mods();
@@ -370,9 +375,9 @@ void handle_language_keys(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    //if (!process_layer_lock(keycode, record, KC_LAYER_LOCK)) {
-    //    return false;
-    //}
+    if (!process_smtd(keycode, record)) {
+        return false;
+    }
     handle_language_keys(keycode, record);
     if (record->event.pressed) {
         switch (keycode) {
@@ -506,5 +511,22 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
         default:
             // Do not select the hold action when another key is tapped.
             return false;
+    }
+}
+
+void on_smtd_action(uint16_t keycode, smtd_action action, uint8_t tap_count) {
+    switch (keycode) {
+        SMTD_MT(TH_Z, KC_Z, KC_LEFT_GUI)
+        SMTD_LT(TH_A, KC_A, 1)
+        SMTD_MT(TH_S, KC_S, KC_LEFT_ALT)
+        SMTD_MT(TH_D, KC_D, KC_LSFT)
+        SMTD_MT(TH_F, KC_F, KC_LEFT_CTRL)
+        SMTD_LT(TH_G, KC_G, 2)
+        SMTD_LT(TH_H, KC_H, 2)
+        SMTD_MT(TH_J, KC_J, KC_RIGHT_CTRL)
+        SMTD_MT(TH_K, KC_K, KC_RSFT)
+        SMTD_MT(TH_L, KC_L, KC_LEFT_ALT)
+        SMTD_LT(TH_SCLN, KC_SCLN, 1)
+        SMTD_MT(TH_SLASH, TH_SLASH, KC_RIGHT_GUI)
     }
 }
