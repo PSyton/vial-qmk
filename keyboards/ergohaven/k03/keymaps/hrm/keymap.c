@@ -13,7 +13,7 @@ enum layer_number {
 static os_variant_t current_os = OS_UNSURE;
 
 // Left-hand home row mods
-#define TH_A LT(1,KC_A) // Sybmols layer mod-tap
+#define TH_A LT(1, KC_A) // Sybmols layer mod-tap
 #define TH_S LALT_T(KC_S)
 #define TH_D LSFT_T(KC_D)
 #define TH_F LCTL_T(KC_F)
@@ -28,10 +28,6 @@ static os_variant_t current_os = OS_UNSURE;
 #define TH_SCLN LT(1,KC_SCLN) // symbols layer mod-tap
 #define TH_SLASH RGUI_T(KC_SLASH)
 
-#define TH_M LT(0, KC_M) // tap - 'ь', hold - 'ъ'
-#define TH_T LT(0, KC_T) // tap - 'e', hold - 'ё'
-#define TH_END LT(0, KC_PGDN)
-#define TH_HOME LT(0, KC_PGUP)
 #define TH_1 LT(0, KC_1)
 #define TH_2 LT(0, KC_2)
 #define TH_3 LT(0, KC_3)
@@ -42,10 +38,6 @@ static os_variant_t current_os = OS_UNSURE;
 #define TH_8 LT(0, KC_8)
 #define TH_9 LT(0, KC_9)
 #define TH_0 LT(0, KC_0)
-
-#define TH_Q LT(0, KC_Q)
-#define TH_W LT(0, KC_W)
-#define TH_E LT(0, KC_E)
 
 // Symbols
 #define CKC_OABRACE   LG_LT          // '<'
@@ -105,20 +97,26 @@ enum my_custom_keycodes {
     U_SIGN_PLUS_MINUS,       // ±
     U_SIGN_3_DOTS,           // …
     U_NB_SPACE,              // 0x00A0 (non breaking space)
-    U_END = U_NB_SPACE,
-    CKC_STR_UP,              // '../'
-
     U_ARROW_UP,              // ↑
     U_ARROW_DOWN,            // ↓
     U_ARROW_LEFT,            // ←
     U_ARROW_RIGHT,           // →
+    U_END = U_ARROW_RIGHT,
+    KC_2_DOTS,               // '..'
+    KC_ARROW,                // '->'
+    KC_4_DOTS,               // '::'
+    RU_E_DOTS,               // 'ё'
+    RU_HARD,                 // 'ъ'
     // Universal keys
     KC_OS_CUT = EH_RESERV1,
     KC_OS_COPY = EH_RESERV2,
     KC_OS_PASTE = EH_RESERV3,
     KC_OS_UNDO = LAYER_PREV + 1,
     KC_OS_REDO = LAYER_PREV + 2,
-    KC_OS_LOCK = U_ARROW_RIGHT + 1,
+    KC_OS_LOCK = RU_HARD + 1,
+    KC_OS_UNX,
+    KC_OS_WIN,
+    KC_OS_MAC
 };
 
 const char * uni_table[] = {
@@ -142,7 +140,6 @@ const char * uni_table[] = {
     "±", // U_SIGN_PLUS_MINUS
     "…", // U_SIGN_3_DOTS
     " ", // U_NB_SPACE
-    "?", // unused
     "↑", // U_ARROW_UP
     "↓", // U_ARROW_DOWN
     "←", // U_ARROW_LEFT
@@ -151,34 +148,34 @@ const char * uni_table[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_QWERTY] = LAYOUT( \
-          KC_ESC,              TH_1,    TH_2,    TH_3,    TH_4,   TH_5,                                           TH_6,     TH_7,    TH_8,     TH_9,   TH_0,     KC_BACKSPACE, \
-          KC_TAB,              TH_Q,    TH_W,    TH_E,    KC_R,   TH_T,                                           KC_Y,     KC_U,    KC_I,     KC_O,   KC_P,     KC_LEFT_BRACKET, \
-          QK_CAPS_WORD_TOGGLE, TH_A,    TH_S,    TH_D,    TH_F,   TH_G,                                           TH_H,     TH_J,    TH_K,     TH_L,   TH_SCLN,  KC_QUOT, \
-          LG_SET_EN,           TH_Z,    KC_X,    KC_C,    KC_V,   KC_B,                                           KC_N,     TH_M,    KC_COMM,  KC_DOT, TH_SLASH, LG_SET_RU, \
-                                        KC_INS,  KC_PGUP, KC_UP,  KC_LEFT, KC_SPC, KC_HOME,       KC_END, KC_ENT, KC_RIGHT, KC_DOWN, KC_PGDN,  KC_DEL \
+          KC_ESC,              TH_1,    TH_2,    TH_3,    TH_4,   TH_5,                                                 TH_6,     TH_7,    TH_8,     TH_9,   TH_0,     KC_BACKSPACE, \
+          KC_TAB,              KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,                                                 KC_Y,     KC_U,    KC_I,     KC_O,   KC_P,     KC_LEFT_BRACKET, \
+          QK_CAPS_WORD_TOGGLE, TH_A,    TH_S,    TH_D,    TH_F,   KC_G,                                                 KC_H,     TH_J,    TH_K,     TH_L,   TH_SCLN,  KC_QUOT, \
+          LG_SET_EN,           TH_Z,    KC_X,    KC_C,    KC_V,   KC_B,                                                 KC_N,     KC`_M,    KC_COMM,  KC_DOT, TH_SLASH, LG_SET_RU, \
+                                        KC_INS,  KC_PGUP, KC_UP,  KC_LEFT, KC_SPC, MO(_NAV),       MO(_ADJUST), KC_ENT, KC_RIGHT, KC_DOWN, KC_PGDN,  KC_DEL \
         ),
 
         [_SYMBOLS] = LAYOUT( \
-         KC_ESC,           KC_1,         KC_2,      KC_3,         KC_4,      KC_5,                                                   KC_6,      KC_7,       KC_8,        KC_9,        KC_0,          KC_BACKSPACE,
-         LG_GRAVE,         KC_BACKSLASH, LG_LT,     LG_GT,        CKC_AT,    CKC_DOT,                                                CKC_AMPER, CKC_UNDER,  CKC_OSBRACE, CKC_CSBRACE, U_SIGN_3_DOTS, U_SIGN_COPYRIGHT,
-         U_FR_OPEN_QUOTES, CKC_EXCL,     CKC_MINUS, CKC_PLUS,     CKC_EQUAL, CKC_HASH,                                               CKC_PIPE,  U_EM_DASH,  CKC_OBRACE,  CKC_CBRACE,  CKC_PERCENT,   U_FR_CLOSE_QUOTES,
-         U_EN_OPEN_QUOTE,  CKC_QUEST,    CKC_SLASH, CKC_ASTERISK, LG_CIRC,   CKC_COLON,                                              CKC_TILDA, CKC_DOLLAR, CKC_OFBRACE, CKC_CFBRACE, CKC_STR_UP,    U_EN_DCLOSE_QUOTE,
-                                         _______,   _______,      _______,   _______,   _______, U_NB_SPACE,       LG_CIRC, _______, _______,   _______,    _______,     _______\
+         KC_ESC,           U_SIGN_RIGHTS,      LG_NUM,    U_SIGN_3_DOTS, LG_COLON,  LG_SCLN,                                                    LG_GRAVE,  U_SIGN_SHTRIC, CKC_OBRACE,  CKC_CBRACE,  U_EN_OPEN_QUOTE,  U_EN_CLOSE_QUOTE,
+         U_EN_DOPEN_QUOTE, U_EN_DCLOSE_QUOTE,  LG_LT,     LG_GT,         CKC_AT,    CKC_TILDA,                                                  CKC_AMPER, CKC_UNDER,     CKC_OSBRACE, CKC_CSBRACE, U_FR_OPEN_QUOTES, U_FR_CLOSE_QUOTES,
+         U_GE_DOPEN_QUOTE, CKC_EXCL,           CKC_MINUS, CKC_PLUS,      CKC_EQUAL, CKC_HASH,                                                   LG_DLR,    U_EM_DASH,     LG_LCBR,     LG_RCBR,     U_SIGN_DEGREE,    U_SIGN_RUBLE,
+         U_SIGN_COPYRIGHT, CKC_QUEST,          CKC_SLASH, CKC_ASTERISK,  LG_CIRC,   CKC_PERCENT,                                                KC_ARROW,  KC_4_DOTS,     LG_COMMA,    LG_DOT,      LG_PIPE,          U_SIGN_EURO,
+                                               _______,   _______,       _______,   _______,     _______, U_NB_SPACE,       KC_2_DOTS, _______, _______,   _______,       _______,     _______\
         ),
 
         [_NAV] = LAYOUT( \
-         _______, _______, KC_AT,   KC_DLR,  KC_HASH, _______,                                           _______, _______, KC_CIRC, _______, _______,  _______,
-         _______, _______, KC_LT,   KC_EQL,  KC_GT,   KC_GRV,                                            _______, KC_LBRC, KC_UNDS, KC_RBRC, _______,  _______,
-         _______, KC_BSLS, KC_LPRN, KC_MINS, KC_RPRN, KC_PLUS,                                           KC_PERC, KC_LCBR, KC_SCLN, KC_RCBR, KC_EXLM,  _______,
-         _______, _______, KC_ASTR, KC_COLN, KC_SLSH, _______,                                           _______, KC_PIPE, KC_TILD, KC_AMPR, _______,  _______,
-                           _______, _______, _______, ADJUST, _______, _______,        _______, _______, _______, _______, _______, _______ \
+         KC_ESC,  _______, _______, _______, _______, _______,                                           KC_CUT,  KC_COPY, KC_PASTE, KC_UNDO, KC_REDO, _______,
+         _______, _______, _______, _______, _______, _______,                                           KC_HOME, KC_UP,   KC_END,   _______, _______, _______,
+         _______, _______, _______, _______, _______, _______,                                           KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______,
+         _______, _______, _______, _______, _______, _______,                                           KC_PGUP, _______, KC_PGDN,  _______, _______, _______,
+                           _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______ \
         ),
 
       [_ADJUST] = LAYOUT(
         QK_BOOT, _______, _______, _______, _______, _______,                                            _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______,                                            _______, _______, _______, _______, DM_PLY1, DM_REC1,
-        _______, _______, _______, _______, _______, _______,                                            _______, KC_VOLD, KC_MUTE, KC_VOLU, DM_PLY2, DM_REC2,
-        _______, _______, _______, _______, _______, CG_TOGG,                                            _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, DM_RSTP,
+        _______, _______, _______, _______, _______, RU_E_DOTS,                                          _______, _______, _______, _______, DM_PLY1, DM_REC1,
+        _______, _______, _______, _______, _______, RU_HARD,                                            _______, KC_VOLD, KC_MUTE, KC_VOLU, DM_PLY2, DM_REC2,
+        _______, _______, _______, _______, _______, _______,                                            _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, DM_RSTP,
                           _______, _______, _______, _______, _______, _______,        _______, _______, _______,  _______, _______, _______
 
        ),
@@ -231,6 +228,19 @@ void send_string_in_en(const char *string) {
     }
     SEND_STRING(string);
     if (prev_lang != LANG_EN)
+    {
+        set_lang(prev_lang);
+    }
+}
+
+void send_in_ru(uint16_t keycode) {
+    uint8_t prev_lang = get_cur_lang();
+    if (prev_lang != LANG_RU)
+    {
+        set_lang(LANG_RU);
+    }
+    tap_code16(keycode);
+    if (prev_lang != LANG_RU)
     {
         set_lang(prev_lang);
     }
@@ -367,10 +377,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
         case U_START ... U_END:
-        case U_ARROW_UP ... U_ARROW_RIGHT:
             return send_unicode_value(uni_table[keycode-U_START]);
-        case CKC_STR_UP:
-            send_string_in_en("../");
+        case KC_2_DOTS:
+            send_string_in_en("..");
+            return false;
+        case KC_ARROW:                // '->'
+            send_string_in_en("->");
+            return false;
+        case KC_4_DOTS:               // '::'
+            send_string_in_en("::");
+            return false;
+        case RU_E_DOTS:               // 'ё'
+            send_in_ru(KC_GRV);
+            return false;
+        case RU_HARD:                 // 'ъ'
+            send_in_ru(KC_RBRC);
             return false;
         };
     }
@@ -384,14 +405,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_OS_LOCK:
             send_os_specific_keys(keycode, record->event.pressed);
             return false;
-        case TH_M:
-        	return process_tap_or_long_press_key(keycode, record, KC_RBRC, true);
-        case TH_T:
-        	return process_tap_or_long_press_key(keycode, record, KC_GRV, true);
-        case TH_END:
-        	return process_tap_or_long_press_key(keycode, record, KC_END, false);
-        case TH_HOME:
-        	return process_tap_or_long_press_key(keycode, record, KC_HOME, false);
         case TH_1:
         	return process_tap_or_long_press_key(keycode, record, KC_F1, false);
         case TH_2:
@@ -412,12 +425,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         	return process_tap_or_long_press_key(keycode, record, KC_F9, false);
         case TH_0:
         	return process_tap_or_long_press_key(keycode, record, KC_F10, false);
-        case TH_Q:
-        	return process_tap_or_switch_os(record, OS_WINDOWS);
-        case TH_W:
-        	return process_tap_or_switch_os(record, OS_LINUX);
-        case TH_E:
-        	return process_tap_or_switch_os(record, OS_MACOS);
+        case KC_OS_WIN:
+        	current_os = OS_WINDOWS;
+            return false;
+        case KC_OS_UNX:
+        	current_os = OS_LINUX;
+            return false;
+        case KC_OS_MAC:
+        	current_os = OS_MACOS;
+            return false;
     }
 
     return true;
