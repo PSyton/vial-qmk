@@ -12,32 +12,16 @@ enum layer_number {
 
 static os_variant_t current_os = OS_UNSURE;
 
-// Left-hand home row mods
-//#define TH_A LT(1, KC_A) // Sybmols layer mod-tap
-//#define TH_S LALT_T(KC_S)
-//#define TH_D LSFT_T(KC_D)
-//#define TH_F LCTL_T(KC_F)
-//#define TH_G LT(2, KC_G) // Nav layer mod tap
-//#define TH_Z LGUI_T(KC_Z)
-
-// Right-hand home row mods
-//#define TH_H LT(2, KC_H) // Nav layer mod tap
-//#define TH_J RCTL_T(KC_J)
-//#define TH_K RSFT_T(KC_K)
-//#define TH_L LALT_T(KC_L)
-//#define TH_SCLN LT(1,KC_SCLN) // symbols layer mod-tap
-//#define TH_SLASH RGUI_T(KC_SLASH)
-
-#define TH_1 LT(0, KC_1)
-#define TH_2 LT(0, KC_2)
-#define TH_3 LT(0, KC_3)
-#define TH_4 LT(0, KC_4)
-#define TH_5 LT(0, KC_5)
-#define TH_6 LT(0, KC_6)
-#define TH_7 LT(0, KC_7)
-#define TH_8 LT(0, KC_8)
-#define TH_9 LT(0, KC_9)
-#define TH_0 LT(0, KC_0)
+#define HR_1 LT(0, KC_1)
+#define HR_2 LT(0, KC_2)
+#define HR_3 LT(0, KC_3)
+#define HR_4 LT(0, KC_4)
+#define HR_5 LT(0, KC_5)
+#define HR_6 LT(0, KC_6)
+#define HR_7 LT(0, KC_7)
+#define HR_8 LT(0, KC_8)
+#define HR_9 LT(0, KC_9)
+#define HR_0 LT(0, KC_0)
 
 // Symbols
 #define CKC_OABRACE   LG_LT          // '<'
@@ -105,31 +89,28 @@ enum my_custom_keycodes {
     KC_2_DOTS,               // '..'
     KC_ARROW,                // '->'
     KC_4_DOTS,               // '::'
-    RU_E_DOTS,               // 'ё'
-    RU_HARD,                 // 'ъ'
     // Universal keys
-    KC_OS_CUT = EH_RESERV1,
-    KC_OS_COPY = EH_RESERV2,
-    KC_OS_PASTE = EH_RESERV3,
-    KC_OS_UNDO = LAYER_PREV + 1,
-    KC_OS_REDO = LAYER_PREV + 2,
-    KC_OS_LOCK = RU_HARD + 1,
+    KC_OS_CUT,
+    KC_OS_COPY,
+    KC_OS_PASTE,
+    KC_OS_UNDO,
+    KC_OS_REDO,
+    KC_OS_LOCK,
+    // force set os key
     KC_OS_UNX,
     KC_OS_WIN,
     KC_OS_MAC,
     SMTD_KEYCODES_BEGIN,
-    TH_A,
-    TH_S,
-    TH_D,
-    TH_F,
-    TH_G,
-    TH_Z,
-    TH_H,
-    TH_J,
-    TH_K,
-    TH_L,
-    TH_SCLN,
-    TH_SLASH,
+    HR_A,
+    HR_S,
+    HR_D,
+    HR_F,
+    HR_G,
+    HR_H,
+    HR_J,
+    HR_K,
+    HR_L,
+    HR_SCLN,
     SMTD_KEYCODES_END,
 };
 
@@ -162,13 +143,46 @@ const char * uni_table[] = {
     "→", // U_ARROW_RIGHT
 };
 
+const uint16_t mac_keycodes[] = {
+    G(KC_X),    // KC_OS_CUT
+    G(KC_C),    // KC_OS_COPY
+    G(KC_V),    // KC_OS_PASTE
+    G(KC_Z),    // KC_OS_UNDO
+    G(KC_Y),    // KC_OS_REDO
+    G(C(KC_Q)), // KC_OS_LOCK
+    G(KC_LEFT), // KC_HOME
+    G(KC_RGHT), // KC_END
+};
+
+const uint16_t win_keycodes[] = {
+    C(KC_X),    // KC_OS_CUT
+    C(KC_C),    // KC_OS_COPY
+    C(KC_V),    // KC_OS_PASTE
+    C(KC_Z),    // KC_OS_UNDO
+    C(KC_Y),    // KC_OS_REDO
+    G(KC_L),    // KC_OS_LOCK
+    KC_HOME,    // KC_HOME
+    KC_END,     // KC_END
+};
+
+const uint16_t lin_keycodes[] = {
+    C(KC_X),    // KC_OS_CUT
+    C(KC_C),    // KC_OS_COPY
+    C(KC_V),    // KC_OS_PASTE
+    C(KC_Z),    // KC_OS_UNDO
+    C(KC_Y),    // KC_OS_REDO
+    KC_PWR,     // KC_OS_LOCK
+    KC_HOME,    // KC_HOME
+    KC_END,     // KC_END
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_QWERTY] = LAYOUT( \
-          KC_ESC,              TH_1,    TH_2,    TH_3,    TH_4,   TH_5,                                                 TH_6,     TH_7,    TH_8,     TH_9,   TH_0,     KC_BACKSPACE, \
-          KC_TAB,              KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,                                                 KC_Y,     KC_U,    KC_I,     KC_O,   KC_P,     KC_LEFT_BRACKET, \
-          QK_CAPS_WORD_TOGGLE, TH_A,    TH_S,    TH_D,    TH_F,   KC_G,                                                 KC_H,     TH_J,    TH_K,     TH_L,   TH_SCLN,  KC_QUOT, \
-          LG_SET_EN,           TH_Z,    KC_X,    KC_C,    KC_V,   KC_B,                                                 KC_N,     KC_M,    KC_COMM,  KC_DOT, TH_SLASH, LG_SET_RU, \
-                                        KC_INS,  KC_PGUP, KC_UP,  KC_LEFT, KC_SPC, MO(_NAV),       MO(_ADJUST), KC_ENT, KC_RIGHT, KC_DOWN, KC_PGDN,  KC_DEL \
+          KC_ESC,              HR_1,    HR_2,    HR_3,    HR_4,   HR_5,                                              HR_6,     HR_7,    HR_8,     HR_9,   HR_0,     KC_BACKSPACE, \
+          KC_TAB,              KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,                                              KC_Y,     KC_U,    KC_I,     KC_O,   KC_P,     KC_LEFT_BRACKET, \
+          QK_CAPS_WORD_TOGGLE, HR_A,    HR_S,    HR_D,    HR_F,   HR_G,                                              HR_H,     HR_J,    HR_K,     HR_L,   HR_SCLN,  KC_QUOT, \
+          LG_SET_EN,           KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,                                              KC_N,     KC_M,    KC_COMM,  KC_DOT, KC_SLASH, LG_SET_RU, \
+                                        KC_INS,  KC_PGUP, KC_UP,  KC_LEFT, KC_SPC, TG(_NAV),       MO(_NAV), KC_ENT, KC_RIGHT, KC_DOWN, KC_PGDN,  KC_DEL \
         ),
 
         [_SYMBOLS] = LAYOUT( \
@@ -176,21 +190,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          U_EN_DOPEN_QUOTE, U_EN_DCLOSE_QUOTE,  LG_LT,     LG_GT,         CKC_AT,    CKC_TILDA,                                                  CKC_AMPER, CKC_UNDER,     CKC_OSBRACE, CKC_CSBRACE, U_FR_OPEN_QUOTES, U_FR_CLOSE_QUOTES,
          U_GE_DOPEN_QUOTE, CKC_EXCL,           CKC_MINUS, CKC_PLUS,      CKC_EQUAL, CKC_HASH,                                                   LG_DLR,    U_EM_DASH,     LG_LCBR,     LG_RCBR,     U_SIGN_DEGREE,    U_SIGN_RUBLE,
          U_SIGN_COPYRIGHT, CKC_QUEST,          CKC_SLASH, CKC_ASTERISK,  LG_CIRC,   CKC_PERCENT,                                                KC_ARROW,  KC_4_DOTS,     LG_COMMA,    LG_DOT,      LG_PIPE,          U_SIGN_EURO,
-                                               _______,   _______,       _______,   _______,     _______, U_NB_SPACE,       KC_2_DOTS, _______, _______,   _______,       _______,     _______\
+                                               KC_GRAVE,  KC_RCBR,       XXXXXXX,   XXXXXXX,     XXXXXXX, U_NB_SPACE,       KC_2_DOTS, XXXXXXX, XXXXXXX,   XXXXXXX,       XXXXXXX,     XXXXXXX\
         ),
 
         [_NAV] = LAYOUT( \
-         KC_ESC,  _______, _______, _______, _______, _______,                                           KC_CUT,  KC_COPY, KC_PASTE, KC_OS_UNDO, KC_OS_REDO, _______,
-         _______, _______, _______, _______, _______, _______,                                           KC_HOME, KC_UP,   KC_END,   _______, _______, _______,
-         _______, _______, _______, _______, _______, _______,                                           KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______,
-         _______, _______, _______, _______, _______, _______,                                           KC_PGUP, _______, KC_PGDN,  _______, _______, _______,
-                           _______, _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______, _______ \
+         KC_ESC,     KC_F1,      KC_F2,     KC_F3,      KC_F4,       KC_F5,                                                 KC_F6,   KC_F7,   KC_F8,   KC_F9,     KC_F10,  KC_BACKSPACE,
+         XXXXXXX,    KC_MPRV,    KC_VOLD,   KC_VOLU,    KC_MPLY,     KC_MNXT,                                               KC_TAB,  KC_HOME, KC_UP,   KC_END,    KC_F11,  XXXXXXX,
+         XXXXXXX,    XXXXXXX,    KC_LALT,   KC_LSFT,    KC_LCTL,     KC_LEFT_GUI,                                           KC_DEL,  KC_LEFT, KC_DOWN, KC_RIGHT,  KC_F12,  XXXXXXX,
+         KC_OS_LOCK, KC_OS_REDO, KC_OS_CUT, KC_OS_COPY, KC_OS_PASTE, KC_OS_REDO,                                            KC_INS,  KC_PGUP, XXXXXXX, KC_PGDN,   XXXXXXX, KC_PRINT_SCREEN,
+                                 XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     KC_SPC, TG(_NAV),        XXXXXXX, KC_ENT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
         ),
 
       [_ADJUST] = LAYOUT(
         QK_BOOT, _______, _______, _______, _______, _______,                                            _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, RU_E_DOTS,                                          _______, _______, _______, _______, DM_PLY1, DM_REC1,
-        _______, _______, _______, _______, _______, RU_HARD,                                            _______, KC_VOLD, KC_MUTE, KC_VOLU, DM_PLY2, DM_REC2,
+        _______, _______, _______, _______, _______, _______,                                          _______, _______, _______, _______, DM_PLY1, DM_REC1,
+        _______, _______, _______, _______, _______, _______,                                            _______, KC_VOLD, KC_MUTE, KC_VOLU, DM_PLY2, DM_REC2,
         _______, _______, _______, _______, _______, _______,                                            _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, DM_RSTP,
                           _______, _______, _______, _______, _______, _______,        _______, _______, _______,  _______, _______, _______
 
@@ -249,107 +263,60 @@ void send_string_in_en(const char *string) {
     }
 }
 
-void send_in_ru(uint16_t keycode) {
-    uint8_t prev_lang = get_cur_lang();
-    if (prev_lang != LANG_RU)
-    {
-        set_lang(LANG_RU);
-    }
-    tap_code16(keycode);
-    if (prev_lang != LANG_RU)
-    {
-        set_lang(prev_lang);
-    }
-}
-
-// todo switch language before call
-void send_os_specific_keys(uint16_t keycode, bool pressed)
+// TODO Switch language?
+bool send_os_specific_keys(uint16_t keycode, bool pressed)
 {
-    switch (keycode) {
-    case KC_OS_CUT:
-        switch (current_os) {
-            case OS_MACOS:
-                if (pressed) send_string_in_en(SS_LGUI("x"));
-                break;
-            default:
-                if (pressed) send_string_in_en(SS_LCTL("x"));
-                break;
-        };
-        break;
-    case KC_OS_COPY:
-        switch (current_os) {
-            case OS_MACOS:
-                if (pressed) send_string_in_en(SS_LGUI("c"));
-                break;
-            default:
-                if (pressed) send_string_in_en(SS_LCTL("c"));
-                break;
-        };
-        break;
-    case KC_OS_PASTE:
-        switch (current_os) {
-            case OS_MACOS:
-                if (pressed) send_string_in_en(SS_LGUI("v"));
-                break;
-            default:
-                if (pressed) send_string_in_en(SS_LCTL("v"));
-                break;
-        };
-        break;
-    case KC_OS_UNDO:
-        switch (current_os) {
-            case OS_MACOS:
-                if (pressed) send_string_in_en(SS_LGUI("y"));
-                break;
-            default:
-                if (pressed) send_string_in_en(SS_LCTL("y"));
-                break;
-        };
-        break;
-    case KC_OS_REDO:
-        switch (current_os) {
-            case OS_MACOS:
-                if (pressed) send_string_in_en(SS_LGUI(SS_LSFT("z")));
-                break;
-            default:
-                if (pressed) send_string_in_en(SS_LCTL(SS_LSFT("z")));
-                break;
-        };
-        break;
-    case KC_OS_LOCK:
-        switch (current_os) {
-            case OS_LINUX:
-                pressed ? register_code(KC_PWR) : unregister_code(KC_PWR);
-                break;
-            case OS_MACOS:
-                if (pressed) send_string_in_en(SS_LGUI(SS_LCTL("q")));
-                break;
-            default:
-                if (pressed) send_string_in_en(SS_LGUI("l"));
-                break;
-        };
-        break;
-    default:
-        break;
+    uint16_t target_keycode = keycode;
+    switch (current_os) {
+        case OS_LINUX:
+            if (keycode == KC_HOME) {
+                target_keycode = lin_keycodes[6];
+            } else if (keycode == KC_END) {
+                target_keycode = lin_keycodes[7];
+            } else {
+                target_keycode = lin_keycodes[keycode-KC_OS_CUT];
+            }
+            break;
+        case OS_MACOS:
+            if (keycode == KC_HOME) {
+                target_keycode = mac_keycodes[6];
+            } else if (keycode == KC_END) {
+                target_keycode = mac_keycodes[7];
+            } else {
+                target_keycode = mac_keycodes[keycode-KC_OS_CUT];
+            }
+            break;
+        case OS_WINDOWS:
+            if (keycode == KC_HOME) {
+                target_keycode = win_keycodes[6];
+            } else if (keycode == KC_END) {
+                target_keycode = win_keycodes[7];
+            } else {
+                target_keycode = win_keycodes[keycode-KC_OS_CUT];
+            }
+            break;
+        default:
+            break;
     };
+    if (target_keycode == keycode) {
+        return true;
+    }
+    if (pressed) {
+        register_code16(target_keycode);
+    } else {
+        unregister_code16(target_keycode);
+    }
+    return false;
 }
 
 // Helper for implementing tap vs. long-press keys. Given a tap-hold
 // key event, replaces the hold function with `long_press_keycode`.
 static bool process_tap_or_long_press_key(
     uint16_t keycode,
-    keyrecord_t* record, uint16_t long_press_keycode, bool only_ru) {
+    keyrecord_t* record, uint16_t long_press_keycode) {
   if (record->tap.count == 0) {  // Key is being held.
-      bool long_press_allow = true;
-      if (only_ru) {
-          long_press_allow = (get_cur_lang() == LANG_RU);
-      }
     if (record->event.pressed) {
-        if (long_press_allow) {
-            tap_code16(long_press_keycode);
-        } else {
-            tap_code16(QK_MODS_GET_BASIC_KEYCODE(keycode));
-        }
+        tap_code16(long_press_keycode);
     }
     return false;  // Skip default handling.
   }
@@ -392,44 +359,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_4_DOTS:               // '::'
             send_string_in_en("::");
             return false;
-        case RU_E_DOTS:               // 'ё'
-            send_in_ru(KC_GRV);
-            return false;
-        case RU_HARD:                 // 'ъ'
-            send_in_ru(KC_RBRC);
-            return false;
         };
     }
 
     switch (keycode) {
-        case KC_OS_CUT:
-        case KC_OS_COPY:
-        case KC_OS_PASTE:
-        case KC_OS_UNDO:
-        case KC_OS_REDO:
-        case KC_OS_LOCK:
-            send_os_specific_keys(keycode, record->event.pressed);
-            return false;
-        case TH_1:
-        	return process_tap_or_long_press_key(keycode, record, KC_F1, false);
-        case TH_2:
-        	return process_tap_or_long_press_key(keycode, record, KC_F2, false);
-        case TH_3:
-        	return process_tap_or_long_press_key(keycode, record, KC_F3, false);
-        case TH_4:
-        	return process_tap_or_long_press_key(keycode, record, KC_F4, false);
-        case TH_5:
-        	return process_tap_or_long_press_key(keycode, record, KC_F5, false);
-        case TH_6:
-        	return process_tap_or_long_press_key(keycode, record, KC_F6, false);
-        case TH_7:
-        	return process_tap_or_long_press_key(keycode, record, KC_F7, false);
-        case TH_8:
-        	return process_tap_or_long_press_key(keycode, record, KC_F8, false);
-        case TH_9:
-        	return process_tap_or_long_press_key(keycode, record, KC_F9, false);
-        case TH_0:
-        	return process_tap_or_long_press_key(keycode, record, KC_F10, false);
+        case KC_OS_CUT ... KC_OS_LOCK:
+        case KC_HOME:
+        case KC_END:
+            return send_os_specific_keys(keycode, record->event.pressed);
+        case HR_1:
+        	return process_tap_or_long_press_key(keycode, record, KC_F1);
+        case HR_2:
+        	return process_tap_or_long_press_key(keycode, record, KC_F2);
+        case HR_3:
+        	return process_tap_or_long_press_key(keycode, record, KC_F3);
+        case HR_4:
+        	return process_tap_or_long_press_key(keycode, record, KC_F4);
+        case HR_5:
+        	return process_tap_or_long_press_key(keycode, record, KC_F5);
+        case HR_6:
+        	return process_tap_or_long_press_key(keycode, record, KC_F6);
+        case HR_7:
+        	return process_tap_or_long_press_key(keycode, record, KC_F7);
+        case HR_8:
+        	return process_tap_or_long_press_key(keycode, record, KC_F8);
+        case HR_9:
+        	return process_tap_or_long_press_key(keycode, record, KC_F9);
+        case HR_0:
+        	return process_tap_or_long_press_key(keycode, record, KC_F10);
         case KC_OS_WIN:
         	current_os = OS_WINDOWS;
             return false;
@@ -439,6 +396,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_OS_MAC:
         	current_os = OS_MACOS;
             return false;
+        case KC_SLASH:
+            {
+                static bool bs_registered = false;
+                if (record->event.pressed) {
+                    uint8_t mod_state = get_mods();
+                    if (mod_state & MOD_MASK_SHIFT) {
+                        del_mods(MOD_MASK_SHIFT);
+                        register_code(KC_BSLS);
+                        bs_registered = true;
+                        set_mods(mod_state);
+                        return false;
+                    }
+                } else { // on release KC_SLASH
+                    if (bs_registered) {
+                        unregister_code(KC_BSLS);
+                        bs_registered = false;
+                        return false;;
+                    }
+                }
+            }
     }
 
     return true;
@@ -496,37 +473,17 @@ void matrix_scan_user(void) {
     }
 }
 
-bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case TH_S:
-        case TH_D:
-        case TH_F:
-        case TH_Z:
-        case TH_J:
-        case TH_K:
-        case TH_L:
-        case TH_SLASH:
-            // Immediately select the hold action when another key is tapped.
-            return true;
-        default:
-            // Do not select the hold action when another key is tapped.
-            return false;
-    }
-}
-
 void on_smtd_action(uint16_t keycode, smtd_action action, uint8_t tap_count) {
     switch (keycode) {
-        SMTD_MT(TH_Z, KC_Z, KC_LEFT_GUI)
-        SMTD_LT(TH_A, KC_A, 1)
-        SMTD_MT(TH_S, KC_S, KC_LEFT_ALT)
-        SMTD_MT(TH_D, KC_D, KC_LSFT)
-        SMTD_MT(TH_F, KC_F, KC_LEFT_CTRL)
-        SMTD_LT(TH_G, KC_G, 2)
-        SMTD_LT(TH_H, KC_H, 2)
-        SMTD_MT(TH_J, KC_J, KC_RIGHT_CTRL)
-        SMTD_MT(TH_K, KC_K, KC_RSFT)
-        SMTD_MT(TH_L, KC_L, KC_LEFT_ALT)
-        SMTD_LT(TH_SCLN, KC_SCLN, 1)
-        SMTD_MT(TH_SLASH, TH_SLASH, KC_RIGHT_GUI)
+        SMTD_LT(HR_A, KC_A, 1)
+        SMTD_MT(HR_S, KC_S, KC_LEFT_ALT)
+        SMTD_MT(HR_D, KC_D, KC_LSFT)
+        SMTD_MT(HR_F, KC_F, KC_LEFT_CTRL)
+        SMTD_MT(HR_G, KC_G, KC_LEFT_GUI)
+        SMTD_MT(HR_H, KC_H, KC_RIGHT_GUI)
+        SMTD_MT(HR_J, KC_J, KC_RIGHT_CTRL)
+        SMTD_MT(HR_K, KC_K, KC_RSFT)
+        SMTD_MT(HR_L, KC_L, KC_LEFT_ALT)
+        SMTD_LT(HR_SCLN, KC_SCLN, 1)
     }
 }
