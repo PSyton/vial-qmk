@@ -3,6 +3,8 @@
 #include "ergohaven_ruen.h"
 #include "process_unicode_common.h"
 #include "os_detection.h"
+#include "features/achordion.h"
+#include "features/layer_lock.h"
 
 enum layer_number {
     _QWERTY = 0,
@@ -22,6 +24,18 @@ static os_variant_t current_os = OS_UNSURE;
 #define HR_8 LT(0, KC_8)
 #define HR_9 LT(0, KC_9)
 #define HR_0 LT(0, KC_0)
+
+// home row mods
+#define HR_A LT(1, KC_A)
+#define HR_S ALT_T(KC_S)
+#define HR_D SFT_T(KC_D)
+#define HR_F CTL_T(KC_F)
+#define HR_G CMD_T(KC_G)
+#define HR_H CMD_T(KC_H)
+#define HR_J CTL_T(KC_J)
+#define HR_K SFT_T(KC_K)
+#define HR_L ALT_T(KC_L)
+#define HR_SCLN LT(1, KC_SCLN)
 
 // Symbols
 #define CKC_OABRACE   LG_LT          // '<'
@@ -100,21 +114,8 @@ enum my_custom_keycodes {
     KC_OS_UNX,
     KC_OS_WIN,
     KC_OS_MAC,
-    SMTD_KEYCODES_BEGIN,
-    HR_A,
-    HR_S,
-    HR_D,
-    HR_F,
-    HR_G,
-    HR_H,
-    HR_J,
-    HR_K,
-    HR_L,
-    HR_SCLN,
-    SMTD_KEYCODES_END,
+    KC_LLOCK,
 };
-
-#include "sm_td.h"
 
 const char * uni_table[] = {
     "—", // U_EM_DASH
@@ -182,28 +183,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           KC_TAB,              KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,                                              KC_Y,     KC_U,    KC_I,     KC_O,   KC_P,     KC_LEFT_BRACKET, \
           QK_CAPS_WORD_TOGGLE, HR_A,    HR_S,    HR_D,    HR_F,   HR_G,                                              HR_H,     HR_J,    HR_K,     HR_L,   HR_SCLN,  KC_QUOT, \
           LG_SET_EN,           KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,                                              KC_N,     KC_M,    KC_COMM,  KC_DOT, KC_SLASH, LG_SET_RU, \
-                                        KC_INS,  KC_PGUP, KC_UP,  KC_LEFT, KC_SPC, TG(_NAV),       MO(_NAV), KC_ENT, KC_RIGHT, KC_DOWN, KC_PGDN,  KC_DEL \
+                                        KC_INS,  KC_PGUP, KC_UP,  KC_LEFT, KC_SPC, MO(_NAV),       MO(_NAV), KC_ENT, KC_RIGHT, KC_DOWN, KC_PGDN,  KC_DEL \
         ),
 
         [_SYMBOLS] = LAYOUT( \
-         KC_ESC,           U_SIGN_RIGHTS,      LG_NUM,    U_SIGN_3_DOTS, LG_COLON,  LG_SCLN,                                                    LG_GRAVE,  U_SIGN_SHTRIC, CKC_OBRACE,  CKC_CBRACE,  U_EN_OPEN_QUOTE,  U_EN_CLOSE_QUOTE,
-         U_EN_DOPEN_QUOTE, U_EN_DCLOSE_QUOTE,  LG_LT,     LG_GT,         CKC_AT,    CKC_TILDA,                                                  CKC_AMPER, CKC_UNDER,     CKC_OSBRACE, CKC_CSBRACE, U_FR_OPEN_QUOTES, U_FR_CLOSE_QUOTES,
-         U_GE_DOPEN_QUOTE, CKC_EXCL,           CKC_MINUS, CKC_PLUS,      CKC_EQUAL, CKC_HASH,                                                   LG_DLR,    U_EM_DASH,     LG_LCBR,     LG_RCBR,     U_SIGN_DEGREE,    U_SIGN_RUBLE,
-         U_SIGN_COPYRIGHT, CKC_QUEST,          CKC_SLASH, CKC_ASTERISK,  LG_CIRC,   CKC_PERCENT,                                                KC_ARROW,  KC_4_DOTS,     LG_COMMA,    LG_DOT,      LG_PIPE,          U_SIGN_EURO,
-                                               KC_GRAVE,  KC_RCBR,       XXXXXXX,   XXXXXXX,     XXXXXXX, U_NB_SPACE,       KC_2_DOTS, XXXXXXX, XXXXXXX,   XXXXXXX,       XXXXXXX,     XXXXXXX\
+         KC_ESC,           U_SIGN_RIGHTS,      LG_NUM,    U_SIGN_3_DOTS, LG_COLON,  LG_SCLN,                                                    LG_GRAVE,   U_SIGN_SHTRIC, U_SIGN_DEGREE,  KC_2_DOTS,   U_EN_OPEN_QUOTE,  U_EN_CLOSE_QUOTE,
+         U_EN_DOPEN_QUOTE, U_EN_DCLOSE_QUOTE,  LG_LT,     LG_GT,         CKC_AT,    CKC_TILDA,                                                  CKC_AMPER,  CKC_UNDER,     CKC_OSBRACE,    CKC_CSBRACE, U_FR_OPEN_QUOTES, U_FR_CLOSE_QUOTES,
+         U_GE_DOPEN_QUOTE, CKC_EXCL,           CKC_MINUS, CKC_PLUS,      CKC_EQUAL, CKC_HASH,                                                   CKC_OBRACE, CKC_CBRACE,    LG_LCBR,        LG_RCBR,     LG_DLR,           U_SIGN_RUBLE,
+         U_SIGN_COPYRIGHT, CKC_QUEST,          CKC_SLASH, CKC_ASTERISK,  LG_CIRC,   CKC_PERCENT,                                                KC_4_DOTS,  U_EM_DASH,     LG_COMMA,       LG_DOT,      LG_PIPE,          U_SIGN_EURO,
+                                               KC_RCBR,  XXXXXXX,       XXXXXXX,    XXXXXXX,     U_NB_SPACE, XXXXXXX,        KC_ARROW, XXXXXXX,  XXXXXXX,    XXXXXXX,       XXXXXXX,        KC_GRAVE \
         ),
 
         [_NAV] = LAYOUT( \
-         KC_ESC,     KC_F1,      KC_F2,     KC_F3,      KC_F4,       KC_F5,                                                 KC_F6,   KC_F7,   KC_F8,   KC_F9,     KC_F10,  KC_BACKSPACE,
-         XXXXXXX,    KC_MPRV,    KC_VOLD,   KC_VOLU,    KC_MPLY,     KC_MNXT,                                               KC_TAB,  KC_HOME, KC_UP,   KC_END,    KC_F11,  XXXXXXX,
-         XXXXXXX,    XXXXXXX,    KC_LALT,   KC_LSFT,    KC_LCTL,     KC_LEFT_GUI,                                           KC_DEL,  KC_LEFT, KC_DOWN, KC_RIGHT,  KC_F12,  XXXXXXX,
-         KC_OS_LOCK, KC_OS_REDO, KC_OS_CUT, KC_OS_COPY, KC_OS_PASTE, KC_OS_REDO,                                            KC_INS,  KC_PGUP, XXXXXXX, KC_PGDN,   XXXXXXX, KC_PRINT_SCREEN,
-                                 XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX,     KC_SPC, TG(_NAV),        XXXXXXX, KC_ENT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+         KC_F1,      KC_F2,      KC_F3,     KC_F4,      KC_F5,       KC_F6,                                                KC_F7,   KC_F8,   KC_F9,   KC_F10,    KC_F11,  KC_F12,
+         XXXXXXX,    KC_MPRV,    KC_VOLD,   KC_VOLU,    KC_MPLY,     KC_MNXT,                                              XXXXXXX, KC_HOME, KC_UP,   KC_END,    KC_PGUP,  XXXXXXX,
+         XXXXXXX,    XXXXXXX,    KC_LALT,   KC_LSFT,    KC_LCTL,     KC_LEFT_GUI,                                          XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT,  KC_PGDN,  XXXXXXX,
+         KC_OS_LOCK, KC_OS_REDO, KC_OS_CUT, KC_OS_COPY, KC_OS_PASTE, KC_OS_REDO,                                           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, KC_PRINT_SCREEN,
+                                 XXXXXXX,   XXXXXXX,    XXXXXXX,     KC_TAB,     KC_SPC, KC_LLOCK,       KC_LLOCK, KC_ENT, KC_BACKSPACE, KC_DEL, XXXXXXX, XXXXXXX \
         ),
 
       [_ADJUST] = LAYOUT(
         QK_BOOT, _______, _______, _______, _______, _______,                                            _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______,                                          _______, _______, _______, _______, DM_PLY1, DM_REC1,
+        _______, _______, _______, _______, _______, _______,                                            _______, _______, _______, _______, DM_PLY1, DM_REC1,
         _______, _______, _______, _______, _______, _______,                                            _______, KC_VOLD, KC_MUTE, KC_VOLU, DM_PLY2, DM_REC2,
         _______, _______, _______, _______, _______, _______,                                            _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, DM_RSTP,
                           _______, _______, _______, _______, _______, _______,        _______, _______, _______,  _______, _______, _______
@@ -342,9 +343,9 @@ void handle_language_keys(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_smtd(keycode, record)) {
-        return false;
-    }
+    if (!process_achordion(keycode, record)) { return false; }
+    if (!process_layer_lock(keycode, record, KC_LLOCK)) { return false; }
+
     handle_language_keys(keycode, record);
     if (record->event.pressed) {
         switch (keycode) {
@@ -463,6 +464,7 @@ const char* get_os_user() {
 }
 
 void matrix_scan_user(void) {
+    achordion_task();
     if (current_os == OS_UNSURE)
     {
     	current_os = detected_host_os();
@@ -473,17 +475,10 @@ void matrix_scan_user(void) {
     }
 }
 
-void on_smtd_action(uint16_t keycode, smtd_action action, uint8_t tap_count) {
-    switch (keycode) {
-        SMTD_LT(HR_A, KC_A, 1)
-        SMTD_MT(HR_S, KC_S, KC_LEFT_ALT)
-        SMTD_MT(HR_D, KC_D, KC_LSFT)
-        SMTD_MT(HR_F, KC_F, KC_LEFT_CTRL)
-        SMTD_MT(HR_G, KC_G, KC_LEFT_GUI)
-        SMTD_MT(HR_H, KC_H, KC_RIGHT_GUI)
-        SMTD_MT(HR_J, KC_J, KC_RIGHT_CTRL)
-        SMTD_MT(HR_K, KC_K, KC_RSFT)
-        SMTD_MT(HR_L, KC_L, KC_LEFT_ALT)
-        SMTD_LT(HR_SCLN, KC_SCLN, 1)
-    }
+bool achordion_chord(uint16_t tap_hold_keycode,
+                     keyrecord_t* tap_hold_record,
+                     uint16_t other_keycode,
+                     keyrecord_t* other_record) {
+  // todo
+  return achordion_opposite_hands(tap_hold_record, other_record);
 }
