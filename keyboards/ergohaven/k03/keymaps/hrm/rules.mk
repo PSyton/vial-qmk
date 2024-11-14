@@ -7,3 +7,6 @@ UNICODE_COMMON = yes
 BILATERAL_COMBINATIONS = yes
 DEFERRED_EXEC_ENABLE = yes
 #CONSOLE_ENABLE = yes
+
+SRC += features/achordion.c
+SRC += features/layer_lock.c

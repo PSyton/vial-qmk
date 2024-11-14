@@ -108,7 +108,7 @@ void render_status_classic(void) {
     oled_write_P(PSTR(layer_name_user(get_current_layer())), false);
 
     oled_set_cursor(0, 14);
-    oled_write(get_oled_lang() == LANG_EN ? "EN" : "RU", false);
+    oled_write(split_get_lang() == LANG_EN ? "EN" : "RU", false);
 
     oled_set_cursor(0, 15);
     bool caps = host_keyboard_led_state().caps_lock || split_get_caps_word();
