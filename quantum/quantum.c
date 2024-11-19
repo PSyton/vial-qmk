@@ -61,7 +61,7 @@
 #    include "process_rgb_matrix.h"
 #endif
 
-#if defined(RGBLIGHT_ENABLE)
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #    include "process_underglow.h"
 #endif
 
@@ -392,7 +392,7 @@ bool process_record_quantum_helper(uint16_t keycode, keyrecord_t *record) {
 #ifdef GRAVE_ESC_ENABLE
             process_grave_esc(keycode, record) &&
 #endif
-#if defined(RGBLIGHT_ENABLE)
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             process_underglow(keycode, record) &&
 #endif
 #if defined(RGB_MATRIX_ENABLE)
