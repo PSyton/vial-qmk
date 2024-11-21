@@ -79,7 +79,7 @@
 
 #ifdef LAYER_LOCK_ENABLE
 #    include "process_layer_lock.h"
-#endif // LAYER_LOCK_ENABLE
+#endif
 
 #ifdef VIAL_ENABLE
 #    include "vial.h"
