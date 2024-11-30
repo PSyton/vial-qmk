@@ -15,6 +15,8 @@ static bool should_revert_ru = false;
 
 static bool english_word = false;
 
+static bool mac_layout = false;
+
 void set_lang(uint8_t lang) {
     switch (tg_mode) {
         case TG_DEFAULT:
@@ -64,6 +66,18 @@ void set_ruen_toggle_mode(uint8_t mode) {
             tg_mode = TG_M0;
             break;
     }
+}
+
+uint8_t get_ruen_toggle_mode(void) {
+    return tg_mode;
+}
+
+void set_ruen_mac_layout(bool layout) {
+    mac_layout = layout;
+}
+
+bool get_ruen_mac_layout(void) {
+    return mac_layout;
 }
 
 void lang_toggle(void) {
@@ -128,7 +142,7 @@ bool pre_process_record_ruen(uint16_t keycode, keyrecord_t *record) {
             uint8_t lang = cur_lang;
             set_lang(LANG_EN);
             should_revert_ru = should_revert_ru || (cur_lang != lang);
-            revert_time   = timer_read32();
+            revert_time      = timer_read32();
             break;
         }
     }
@@ -152,12 +166,14 @@ bool pre_process_record_ruen(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_ruen(uint16_t keycode, keyrecord_t *record) {
+    if (!(LG_START <= keycode && keycode < LG_END)) return true;
+
     if (keycode == LG_MOD) {
         lang_toggle();
-        return true;
+        return false;
     }
 
-    if (!record->event.pressed) return true;
+    if (!record->event.pressed) return false;
 
     switch (keycode) {
         case LG_TOGGLE:
@@ -191,11 +207,41 @@ bool process_record_ruen(uint16_t keycode, keyrecord_t *record) {
             kb_config_update_ruen_toggle_mode(tg_mode);
             return false;
 
-        case LG_RU_EN_START ... LG_SLASH:
-            if (cur_lang == 0)
-                tap_code16(ru_en_table[keycode - LG_RU_EN_START].en);
-            else
-                tap_code16(ru_en_table[keycode - LG_RU_EN_START].ru);
+        case LG_DOT: // .
+            tap_code16(cur_lang == LANG_EN ? KC_DOT : mac_layout ? S(KC_7) : KC_SLASH);
+            return false;
+
+        case LG_COMMA: // ,
+            tap_code16(cur_lang == LANG_EN ? KC_COMMA : mac_layout ? S(KC_6) : S(KC_SLASH));
+            return false;
+
+        case LG_SCLN: // ;
+            tap_code16(cur_lang == LANG_EN ? KC_SCLN : mac_layout ? S(KC_8) : S(KC_4));
+            return false;
+
+        case LG_COLON: // :
+            tap_code16(cur_lang == LANG_EN ? KC_COLON : mac_layout ? S(KC_5) : S(KC_6));
+            return false;
+
+        case LG_DQUO: // "
+            tap_code16(cur_lang == LANG_EN ? KC_DQUO : S(KC_2));
+            return false;
+
+        case LG_QUES: // ?
+            tap_code16(cur_lang == LANG_EN || mac_layout ? KC_QUES : S(KC_7));
+            return false;
+
+        case LG_SLASH: // /
+            tap_code16(cur_lang == LANG_EN || mac_layout ? KC_SLASH : LSFT(KC_BSLS));
+            return false;
+
+        case LG_PERC: // %
+            tap_code16(cur_lang == LANG_RU && mac_layout ? LSFT(KC_4) : LSFT(KC_5));
+            return false;
+
+        case LG_TG_MAC:
+            mac_layout = !mac_layout;
+            kb_config_update_ruen_mac_layout(mac_layout);
             return false;
 
         case LG_EN_START ... LG_QUOTE: {
