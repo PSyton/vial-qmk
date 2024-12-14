@@ -206,19 +206,19 @@ const uint16_t long_tap_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_QWERTY] = LAYOUT( \
-          KC_ESC,       KC_1,     KC_2,    KC_3,    KC_4,   KC_5,                                            KC_6,   KC_7,     KC_8,     KC_9,   KC_0,     QK_CAPS_WORD_TOGGLE,\
-          KC_TAB,       KC_Q,     KC_W,    KC_E,    KC_R,   KC_T,                                            KC_Y,   KC_U,     KC_I,     KC_O,   KC_P,     KC_LEFT_BRACKET, \
-          LSFT(KC_TAB), HR_A,     HR_S,    HR_D,    HR_F,   HR_G,                                            HR_H,   HR_J,     HR_K,     HR_L,   HR_SCLN,  KC_QUOT, \
-          LG_SET_EN,    KC_Z,     KC_X,    KC_C,    KC_V,   KC_B,                                            KC_N,   KC_M,     KC_COMM,  KC_DOT, KC_SLASH, LG_SET_RU, \
-                        LG_RU_YO, KC_UP,  KC_LEFT,  KC_BACKSPACE, KC_SPC, MO(_NAV),        MO(_NAV), KC_ENT, KC_DEL, KC_RIGHT, KC_DOWN, LG_RU_HRD_SGN \
+          KC_ESC,       KC_1,     KC_2,     KC_3,     KC_4,   KC_5,                                                     KC_6,   KC_7,     KC_8,      KC_9,     KC_0,     QK_CAPS_WORD_TOGGLE,\
+          KC_TAB,       KC_Q,     KC_W,     KC_E,     KC_R,   KC_T,                                                     KC_Y,   KC_U,     KC_I,      KC_O,     KC_P,     KC_LBRC, \
+          LSFT(KC_TAB), HR_A,     HR_S,     HR_D,     HR_F,   HR_G,                                                     HR_H,   HR_J,     HR_K,      HR_L,     HR_SCLN,  KC_QUOT, \
+          LG_SET_EN,    KC_Z,     KC_X,     KC_C,     KC_V,    KC_B,                                                    KC_N,   KC_M,     KC_COMM,   KC_DOT,   KC_SLASH, LG_SET_RU, \
+                                  KC_GRAVE, XXXXXXX,  XXXXXXX, KC_BACKSPACE, KC_SPC, MO(_NAV),        MO(_NAV), KC_ENT, KC_DEL, XXXXXXX,  XXXXXXX,   KC_RBRC \
         ),
 
         [_SYMBOLS] = LAYOUT( \
-         KC_ESC,           U_SIGN_RIGHTS,      LG_NUM,    U_SIGN_3_DOTS, LG_COLON,  LG_SCLN,                                                                     LG_GRAVE,   U_SIGN_SHTRIC, U_SIGN_DEGREE,  KC_2_DOTS,   U_EN_OPEN_QUOTE,  U_EN_CLOSE_QUOTE,
-         U_EN_DOPEN_QUOTE, U_EN_DCLOSE_QUOTE,  LG_LT,     LG_GT,         CKC_AT,    CKC_TILDA,                                                                   CKC_AMPER,  CKC_UNDER,     CKC_OSBRACE,    CKC_CSBRACE, KC_ARROW,         XXXXXXX,
-         U_GE_DOPEN_QUOTE, CKC_EXCL,           CKC_MINUS, CKC_PLUS,      CKC_EQUAL, CKC_HASH,                                                                    CKC_OBRACE, CKC_CBRACE,    LG_LCBR,        LG_RCBR,     LG_DLR,           U_SIGN_RUBLE,
-         U_SIGN_COPYRIGHT, CKC_QUEST,          CKC_SLASH, CKC_ASTERISK,  LG_CIRC,   CKC_PERCENT,                                                                 KC_4_DOTS,  U_EM_DASH,     LG_COMMA,       LG_DOT,      LG_PIPE,          U_SIGN_EURO,
-                                               XXXXXXX,   XXXXXXX,       XXXXXXX,   XXXXXXX,     U_NB_SPACE, U_FR_OPEN_QUOTES,       U_FR_CLOSE_QUOTES, XXXXXXX, XXXXXXX,    XXXXXXX,       XXXXXXX,        XXXXXXX \
+         LG_GRAVE,         U_SIGN_RIGHTS,      LG_NUM,    U_SIGN_3_DOTS, LG_COLON,  LG_SCLN,                                                                     LG_QUOTE,   LG_DQUO,    KC_4_DOTS,   KC_2_DOTS,   U_EN_OPEN_QUOTE,  U_EN_CLOSE_QUOTE,
+         U_EN_DOPEN_QUOTE, U_EN_DCLOSE_QUOTE,  LG_LT,     LG_GT,         CKC_AT,    CKC_TILDA,                                                                   CKC_AMPER,  CKC_UNDER,  CKC_OSBRACE, CKC_CSBRACE, U_SIGN_DEGREE,    U_SIGN_SHTRIC,
+         U_GE_DOPEN_QUOTE, CKC_EXCL,           CKC_MINUS, CKC_PLUS,      CKC_EQUAL, CKC_HASH,                                                                    CKC_OBRACE, CKC_CBRACE, LG_LCBR,     LG_RCBR,     KC_ARROW,         U_SIGN_RUBLE,
+         U_SIGN_COPYRIGHT, CKC_QUEST,          CKC_SLASH, CKC_ASTERISK,  LG_CIRC,   CKC_PERCENT,                                                                 LG_DLR,     U_EM_DASH,  LG_COMMA,    LG_DOT,      LG_PIPE,          U_SIGN_EURO,
+                                               XXXXXXX,   XXXXXXX,       XXXXXXX,   XXXXXXX,     U_NB_SPACE, U_FR_OPEN_QUOTES,       U_FR_CLOSE_QUOTES, XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX,     XXXXXXX \
         ),
 
         [_NAV] = LAYOUT( \
@@ -352,7 +352,7 @@ void handle_language_keys(uint16_t keycode, keyrecord_t *record) {
                 set_cur_lang(LANG_EN);
             }
             break;
-        case KC_2: // ru
+        case KC_0: // ru
             if (mod_state & MOD_MASK_CS) {
                 set_cur_lang(LANG_RU);
             }
@@ -398,25 +398,54 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_OS_MAC:
         	current_os = OS_MACOS;
             return false;
+        case KC_LBRC:
+        case KC_RBRC:
+        case KC_COMMA:
+        case KC_DOT:
+        case KC_QUOT:
+        case KC_GRAVE:
+            {
+                uint8_t cur_layer = get_current_layer();
+                if (cur_layer == 0) {
+                    if (record->event.pressed) {
+                        if (get_cur_lang() == LANG_EN) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            break;
         case KC_SLASH:
             {
-                static bool bs_registered = false;
+                static uint16_t registered_bs_keycode = 0;
                 if (record->event.pressed) {
                     uint8_t mod_state = get_mods();
                     if (mod_state & MOD_MASK_SHIFT) {
                         del_mods(MOD_MASK_SHIFT);
-                        register_code(KC_BSLS);
-                        bs_registered = true;
+                        registered_bs_keycode = KC_BSLS;
+                        register_code(registered_bs_keycode);
                         set_mods(mod_state);
                         return false;
                     }
+                    if (get_cur_lang() == LANG_RU) {
+                        registered_bs_keycode = S(KC_BSLS);
+                        register_code16(registered_bs_keycode);
+                        return false;
+                    }
                 } else { // on release KC_SLASH
-                    if (bs_registered) {
-                        unregister_code(KC_BSLS);
-                        bs_registered = false;
+                    if (registered_bs_keycode > 0) {
+                        unregister_code16(registered_bs_keycode);
+                        registered_bs_keycode = 0;
                         return false;;
                     }
                 }
+            }
+            break;
+        case KC_BSLS:
+            if (!record->event.pressed && registered_bs_keycode == S(KC_BSLS)) {
+                unregister_code16(registered_bs_keycode);
+                registered_bs_keycode = 0;
+                return false;;
             }
     }
 
@@ -480,7 +509,6 @@ bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
-  // todo
   return achordion_opposite_hands(tap_hold_record, other_record);
 }
 
