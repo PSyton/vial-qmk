@@ -26,11 +26,7 @@
         "title": "Switch to the previous layer",
         "shortName": "Prev\nLayer"
         },
-        {"name": "KC_OS_UNDO",
-        "title": "Undo",
-        "shortName": "Undo"
-        },
-        {"name": "KC_OS_REDO",
-        "title": "Redo",
-        "shortName": "Redo"
+        {"name": "",
+        "title": "Reserved",
+        "shortName": ""
         }

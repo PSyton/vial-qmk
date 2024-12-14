@@ -285,10 +285,8 @@ bool process_record_ruen(uint16_t keycode, keyrecord_t *record) {
             return process_russian_letter(KC_RBRC);
         case LG_RU_KHA:
             return process_russian_letter(KC_LBRC);
-            return false;
         case LG_RU_YO:
             return process_russian_letter(KC_GRAVE);
-            return false;
 
         case LG_NUM: {
             uint8_t lang = cur_lang;

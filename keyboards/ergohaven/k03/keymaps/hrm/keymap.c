@@ -206,27 +206,27 @@ const uint16_t long_tap_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_QWERTY] = LAYOUT( \
-          KC_ESC,       KC_1,    KC_2,    KC_3,    KC_4,   KC_5,                                              KC_6,   KC_7,   KC_8,     KC_9,   KC_0,     QK_CAPS_WORD_TOGGLE,\
-          KC_TAB,       KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,                                              KC_Y,   KC_U,   KC_I,     KC_O,   KC_P,     KC_LEFT_BRACKET, \
-          LSFT(KC_TAB), HR_A,    HR_S,    HR_D,    HR_F,   HR_G,                                              HR_H,   HR_J,   HR_K,     HR_L,   HR_SCLN,  KC_QUOT, \
-          LG_SET_EN,    KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,                                              KC_N,   KC_M,   KC_COMM,  KC_DOT, KC_SLASH, LG_SET_RU, \
-                        XXXXXXX, KC_UP,  KC_LEFT,  KC_BACKSPACE, KC_SPC, MO(_NAV),        MO(_NAV), TH_ENTER, KC_DEL, KC_RIGHT, KC_DOWN, XXXXXXX \
+          KC_ESC,       KC_1,     KC_2,    KC_3,    KC_4,   KC_5,                                            KC_6,   KC_7,     KC_8,     KC_9,   KC_0,     QK_CAPS_WORD_TOGGLE,\
+          KC_TAB,       KC_Q,     KC_W,    KC_E,    KC_R,   KC_T,                                            KC_Y,   KC_U,     KC_I,     KC_O,   KC_P,     KC_LEFT_BRACKET, \
+          LSFT(KC_TAB), HR_A,     HR_S,    HR_D,    HR_F,   HR_G,                                            HR_H,   HR_J,     HR_K,     HR_L,   HR_SCLN,  KC_QUOT, \
+          LG_SET_EN,    KC_Z,     KC_X,    KC_C,    KC_V,   KC_B,                                            KC_N,   KC_M,     KC_COMM,  KC_DOT, KC_SLASH, LG_SET_RU, \
+                        LG_RU_YO, KC_UP,  KC_LEFT,  KC_BACKSPACE, KC_SPC, MO(_NAV),        MO(_NAV), KC_ENT, KC_DEL, KC_RIGHT, KC_DOWN, LG_RU_HRD_SGN \
         ),
 
         [_SYMBOLS] = LAYOUT( \
-         KC_BRACKET,       U_SIGN_RIGHTS,      LG_NUM,    U_SIGN_3_DOTS, LG_COLON,  LG_SCLN,                                                    LG_GRAVE,   U_SIGN_SHTRIC, U_SIGN_DEGREE,  KC_2_DOTS,   U_EN_OPEN_QUOTE,  U_EN_CLOSE_QUOTE,
-         U_EN_DOPEN_QUOTE, U_EN_DCLOSE_QUOTE,  LG_LT,     LG_GT,         CKC_AT,    CKC_TILDA,                                                  CKC_AMPER,  CKC_UNDER,     CKC_OSBRACE,    CKC_CSBRACE, U_FR_OPEN_QUOTES, U_FR_CLOSE_QUOTES,
-         U_GE_DOPEN_QUOTE, CKC_EXCL,           CKC_MINUS, CKC_PLUS,      CKC_EQUAL, CKC_HASH,                                                   CKC_OBRACE, CKC_CBRACE,    LG_LCBR,        LG_RCBR,     LG_DLR,           U_SIGN_RUBLE,
-         U_SIGN_COPYRIGHT, CKC_QUEST,          CKC_SLASH, CKC_ASTERISK,  LG_CIRC,   CKC_PERCENT,                                                KC_4_DOTS,  U_EM_DASH,     LG_COMMA,       LG_DOT,      LG_PIPE,          U_SIGN_EURO,
-                                               XXXXXXX,   XXXXXXX,       XXXXXXX,    XXXXXXX,     U_NB_SPACE, KC_GRAVE,      KC_ARROW, XXXXXXX, XXXXXXX,    XXXXXXX,       XXXXXXX,        XXXXXXX \
+         KC_ESC,           U_SIGN_RIGHTS,      LG_NUM,    U_SIGN_3_DOTS, LG_COLON,  LG_SCLN,                                                                     LG_GRAVE,   U_SIGN_SHTRIC, U_SIGN_DEGREE,  KC_2_DOTS,   U_EN_OPEN_QUOTE,  U_EN_CLOSE_QUOTE,
+         U_EN_DOPEN_QUOTE, U_EN_DCLOSE_QUOTE,  LG_LT,     LG_GT,         CKC_AT,    CKC_TILDA,                                                                   CKC_AMPER,  CKC_UNDER,     CKC_OSBRACE,    CKC_CSBRACE, KC_ARROW,         XXXXXXX,
+         U_GE_DOPEN_QUOTE, CKC_EXCL,           CKC_MINUS, CKC_PLUS,      CKC_EQUAL, CKC_HASH,                                                                    CKC_OBRACE, CKC_CBRACE,    LG_LCBR,        LG_RCBR,     LG_DLR,           U_SIGN_RUBLE,
+         U_SIGN_COPYRIGHT, CKC_QUEST,          CKC_SLASH, CKC_ASTERISK,  LG_CIRC,   CKC_PERCENT,                                                                 KC_4_DOTS,  U_EM_DASH,     LG_COMMA,       LG_DOT,      LG_PIPE,          U_SIGN_EURO,
+                                               XXXXXXX,   XXXXXXX,       XXXXXXX,   XXXXXXX,     U_NB_SPACE, U_FR_OPEN_QUOTES,       U_FR_CLOSE_QUOTES, XXXXXXX, XXXXXXX,    XXXXXXX,       XXXXXXX,        XXXXXXX \
         ),
 
         [_NAV] = LAYOUT( \
-         KC_F1,      KC_F2,      KC_F3,     KC_F4,      KC_F5,       KC_F6,                                                KC_F7,           KC_F8,       KC_F9,   KC_F10,    KC_F11,   KC_F12,
-         KC_TAB,     KC_MPRV,    KC_VOLD,   KC_VOLU,    KC_MPLY,     KC_MNXT,                                              KC_PGUP,         KC_HOME,     KC_UP,   KC_END,    KC_PGUP,  XXXXXXX,
-         XXXXXXX,    XXXXXXX,    KC_LALT,   KC_LSFT,    KC_LCTL,     KC_LEFT_GUI,                                          KC_PGDN,         KC_LEFT,     KC_DOWN, KC_RIGHT,  KC_PGDN,  XXXXXXX,
-         KC_OS_LOCK, KC_OS_REDO, KC_OS_CUT, KC_OS_COPY, KC_OS_PASTE, KC_OS_REDO,                                           KC_PRINT_SCREEN, KC_W_BEGIN,  XXXXXXX, KC_W_END,  XXXXXXX,  OSL(3),
-                                 XXXXXXX,   XXXXXXX,    XXXXXXX,     KC_BACKSPACE, KC_SPC, KC_LLOCK,     KC_LLOCK, KC_ENT, KC_DEL,          XXXXXXX,     XXXXXXX, XXXXXXX \
+         KC_F1,        KC_F2,      KC_F3,      KC_F4,      KC_F5,       KC_F6,                                                KC_F7,           KC_F8,       KC_F9,   KC_F10,    KC_F11,   KC_F12,
+         KC_TAB,       KC_MPRV,    KC_VOLD,    KC_VOLU,    KC_MPLY,     KC_MNXT,                                              KC_PGUP,         KC_HOME,     KC_UP,   KC_END,    KC_PGUP,  XXXXXXX,
+         LSFT(KC_TAB), XXXXXXX,    KC_LALT,    KC_LSFT,    KC_LCTL,     KC_LEFT_GUI,                                          KC_PGDN,         KC_LEFT,     KC_DOWN, KC_RIGHT,  KC_PGDN,  XXXXXXX,
+         XXXXXXX,      KC_OS_REDO, KC_OS_CUT,  KC_OS_COPY, KC_OS_PASTE, KC_OS_REDO,                                           KC_PRINT_SCREEN, KC_W_BEGIN,  XXXXXXX, KC_W_END,  XXXXXXX,  OSL(3),
+                                   KC_OS_LOCK, XXXXXXX,    XXXXXXX,     KC_BACKSPACE, KC_SPC, KC_LLOCK,     KC_LLOCK, KC_ENT, KC_DEL,          XXXXXXX,     XXXXXXX, XXXXXXX \
         ),
 
       [_ADJUST] = LAYOUT(
