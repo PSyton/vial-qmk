@@ -112,7 +112,7 @@
 
 // Dynamic macro
 #ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
-#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (VIAL_KEY_OVERRIDE_EEPROM_ADDR + VIAL_KEY_OVERRIDE_SIZE)
+#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDRDYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (VIAL_KEY_OVERRIDE_EEPROM_ADDR + VIAL_KEY_OVERRIDE_SIZE)
 #endif
 
 // Sanity check that dynamic keymaps fit in available EEPROM
@@ -441,6 +441,17 @@ void dynamic_keymap_macro_set_buffer(uint16_t offset, uint16_t size, uint8_t *da
     }
 }
 
+typedef struct send_string_eeprom_state_t {
+    const uint8_t *ptr;
+} send_string_eeprom_state_t;
+
+char send_string_get_next_eeprom(void *arg) {
+    send_string_eeprom_state_t *state = (send_string_eeprom_state_t *)arg;
+    char                        ret   = eeprom_read_byte(state->ptr);
+    state->ptr++;
+    return ret;
+}
+
 void dynamic_keymap_macro_reset(void) {
     void *p   = (void *)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR);
     void *end = (void *)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE);
@@ -488,64 +499,6 @@ void dynamic_keymap_macro_send(uint8_t id) {
         ++p;
     }
 
-    // Send the macro string one or three chars at a time
-    // by making temporary 1 or 3 char strings
-    char data[4] = {0, 0, 0, 0};
-    // We already checked there was a null at the end of
-    // the buffer, so this cannot go past the end
-    while (1) {
-        memset(data, 0, sizeof(data));
-        data[0] = eeprom_read_byte(p++);
-        // Stop at the null terminator of this macro string
-        if (data[0] == 0) {
-            break;
-        }
-        if (data[0] == SS_QMK_PREFIX) {
-            // If the char is magic, process it as indicated by the next character
-            // (tap, down, up, delay)
-            data[1] = eeprom_read_byte(p++);
-            if (data[1] == 0)
-                break;
-            if (data[1] == SS_TAP_CODE || data[1] == SS_DOWN_CODE || data[1] == SS_UP_CODE) {
-                // For tap, down, up, just stuff it into the array and send_string it
-                data[2] = eeprom_read_byte(p++);
-                if (data[2] != 0)
-                    send_string(data);
-            } else if (data[1] == VIAL_MACRO_EXT_TAP || data[1] == VIAL_MACRO_EXT_DOWN || data[1] == VIAL_MACRO_EXT_UP) {
-                data[2] = eeprom_read_byte(p++);
-                if (data[2] != 0) {
-                    data[3] = eeprom_read_byte(p++);
-                    if (data[3] != 0) {
-                        uint16_t kc;
-                        memcpy(&kc, &data[2], sizeof(kc));
-                        kc = decode_keycode(kc);
-                        switch (data[1]) {
-                        case VIAL_MACRO_EXT_TAP:
-                            vial_keycode_tap(kc);
-                            break;
-                        case VIAL_MACRO_EXT_DOWN:
-                            vial_keycode_down(kc);
-                            break;
-                        case VIAL_MACRO_EXT_UP:
-                            vial_keycode_up(kc);
-                            break;
-                        }
-                    }
-                    data[3] = 0;
-                }
-            } else if (data[1] == SS_DELAY_CODE) {
-                // For delay, decode the delay and wait_ms for that amount
-                uint8_t d0 = eeprom_read_byte(p++);
-                uint8_t d1 = eeprom_read_byte(p++);
-                if (d0 == 0 || d1 == 0)
-                    break;
-                // we cannot use 0 for these, need to subtract 1 and use 255 instead of 256 for delay calculation
-                int ms = (d0 - 1) + (d1 - 1) * 255;
-                while (ms--) wait_ms(1);
-            }
-        } else {
-            // If the char wasn't magic, just send it
-            send_string_with_delay(data, DYNAMIC_KEYMAP_MACRO_DELAY);
-        }
-    }
+    send_string_eeprom_state_t state = {p};
+    send_string_with_delay_impl(send_string_get_next_eeprom, &state, DYNAMIC_KEYMAP_MACRO_DELAY);
 }

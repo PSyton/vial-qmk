@@ -639,6 +639,10 @@ ifeq ($(strip $(VIAL_ENABLE)), yes)
     include $(BUILDDEFS_PATH)/build_vial.mk
 endif
 
+ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
+    SEND_STRING_ENABLE := yes
++\endif
+
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
 
 CUSTOM_MATRIX ?= no
