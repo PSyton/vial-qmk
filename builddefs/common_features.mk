@@ -641,7 +641,7 @@ endif
 
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
     SEND_STRING_ENABLE := yes
-+\endif
+endif
 
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
 

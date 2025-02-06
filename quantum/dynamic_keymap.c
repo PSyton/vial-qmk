@@ -112,7 +112,7 @@
 
 // Dynamic macro
 #ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
-#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDRDYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (VIAL_KEY_OVERRIDE_EEPROM_ADDR + VIAL_KEY_OVERRIDE_SIZE)
+#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (VIAL_KEY_OVERRIDE_EEPROM_ADDR + VIAL_KEY_OVERRIDE_SIZE)
 #endif
 
 // Sanity check that dynamic keymaps fit in available EEPROM
@@ -459,13 +459,6 @@ void dynamic_keymap_macro_reset(void) {
         eeprom_update_byte(p, 0);
         ++p;
     }
-}
-
-static uint16_t decode_keycode(uint16_t kc) {
-    /* map 0xFF01 => 0x0100; 0xFF02 => 0x0200, etc */
-    if (kc > 0xFF00)
-        return (kc & 0xFF) << 8;
-    return kc;
 }
 
 void dynamic_keymap_macro_send(uint8_t id) {
