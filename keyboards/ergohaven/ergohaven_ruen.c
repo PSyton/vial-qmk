@@ -60,7 +60,7 @@ void set_lang(uint8_t lang) {
         default:
             break;
     }
-    cur_lang = lang;
+    set_cur_lang(lang);
 }
 
 void set_ruen_toggle_mode(uint8_t mode) {
@@ -101,13 +101,20 @@ void lang_toggle(void) {
 
 void lang_sync(void) {
     if (cur_lang == LANG_EN)
-        cur_lang = LANG_RU;
+        set_cur_lang(LANG_RU);
     else
-        cur_lang = LANG_EN;
+        set_cur_lang(LANG_EN);
 }
 
 uint8_t get_cur_lang(void) {
     return cur_lang;
+}
+
+void set_cur_lang(uint8_t lang) {
+    if (cur_lang != lang) {
+        cur_lang = lang;
+        on_change_lang(lang);
+    }
 }
 
 uint16_t en_table[] = {
@@ -293,10 +300,8 @@ bool process_record_ruen(uint16_t keycode, keyrecord_t *record) {
             return process_russian_letter(KC_RBRC);
         case LG_RU_KHA:
             return process_russian_letter(KC_LBRC);
-            return false;
         case LG_RU_YO:
             return process_russian_letter(KC_GRAVE);
-            return false;
 
         case LG_NUM: {
             uint8_t lang = cur_lang;
@@ -345,10 +350,10 @@ void housekeeping_task_ruen(void) {
 
     hid_data_t *hid_data = get_hid_data();
     if (hid_data->layout_changed) {
-        if (hid_data->layout == LANG_EN)
-            cur_lang = LANG_EN;
-        else
-            cur_lang = LANG_RU;
+        set_cur_lang(hid_data->layout);
         hid_data->layout_changed = false;
     }
+}
+
+__attribute__((weak)) void on_change_lang(uint8_t lang) {
 }

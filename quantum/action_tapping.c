@@ -30,22 +30,34 @@ uint16_t g_tapping_term = TAPPING_TERM;
 #    ifdef TAPPING_TERM_PER_KEY
 __attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #        ifdef DYNAMIC_TAPPING_TERM_ENABLE
-    return g_tapping_term;
+    return get_tapping_term_user(keycode, record, g_tapping_term);
 #        else
-    return TAPPING_TERM;
+    return get_tapping_term_user(keycode, record, TAPPING_TERM);
 #        endif
+}
+
+__attribute__((weak)) uint16_t get_tapping_term_user(uint16_t keycode, keyrecord_t *record, uint16_t def) {
+    return def;
 }
 #    endif
 
 #    ifdef QUICK_TAP_TERM_PER_KEY
 __attribute__((weak)) uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
-    return QUICK_TAP_TERM;
+    return get_quick_tap_term_user(keycode, record, QUICK_TAP_TERM);
+}
+
+__attribute__((weak)) uint16_t get_quick_tap_term_user(uint16_t keycode, keyrecord_t *record, uint16_t def) {
+    return def;
 }
 #    endif
 
 #    ifdef PERMISSIVE_HOLD_PER_KEY
 __attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
-    return false;
+    return get_permissive_hold_user(keycode, record, false);
+}
+
+__attribute__((weak)) bool get_permissive_hold_user(uint16_t keycode, keyrecord_t *record, bool def) {
+    return def;
 }
 #    endif
 
@@ -90,7 +102,11 @@ static bool is_mt_or_lt(uint16_t keycode) {
 
 #    ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
-    return false;
+    return get_hold_on_other_key_press_user(keycode, record, false);
+}
+
+__attribute__((weak)) bool get_hold_on_other_key_press_user(uint16_t keycode, keyrecord_t *record, bool def) {
+    return def;
 }
 #    endif
 

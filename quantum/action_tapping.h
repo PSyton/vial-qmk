@@ -46,6 +46,11 @@ bool     get_permissive_hold(uint16_t keycode, keyrecord_t *record);
 bool     get_retro_tapping(uint16_t keycode, keyrecord_t *record);
 bool     get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record);
 
+uint16_t get_tapping_term_user(uint16_t keycode, keyrecord_t *record, uint16_t def);
+uint16_t get_quick_tap_term_user(uint16_t keycode, keyrecord_t *record, uint16_t def);
+bool     get_permissive_hold_user(uint16_t keycode, keyrecord_t *record, bool def);
+bool     get_hold_on_other_key_press_user(uint16_t keycode, keyrecord_t *record, bool def);
+
 #ifdef CHORDAL_HOLD
 /**
  * Callback to say when a key chord before the tapping term may be held.

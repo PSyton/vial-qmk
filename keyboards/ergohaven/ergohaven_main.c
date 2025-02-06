@@ -255,6 +255,7 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_rgb();
 #endif
     keyboard_post_init_hid();
+    keyboard_post_init_oled();
     keyboard_post_init_user();
 }
 
@@ -404,6 +405,18 @@ __attribute__((weak)) const char* layer_upper_name(uint8_t layer) {
         return LAYER_UPPER_NAME[layer];
     else
         return "UNDEF";
+}
+
+__attribute__((weak)) const char* layer_name_user(int layer) {
+    return layer_name(layer);
+}
+
+__attribute__((weak)) const char* layer_upper_name_user(int layer) {
+    return layer_upper_name(layer);
+}
+
+__attribute__((weak)) const char* get_os_user() {
+    return " ";
 }
 
 __attribute__((weak)) uint8_t split_get_lang(void) {
